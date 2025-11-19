@@ -3,18 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vishnu B Raj | AI Researcher & CTO</title>
+    <title>Vishnu B Raj | AI Research & Engineering</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <style>
         :root {
             --bg-color: #0F172A;
             --text-color: #E2E8F0;
             --accent-color: #00F0FF; /* Cyber Blue */
             --secondary-accent: #39FF14; /* Neon Green */
-            --glass-bg: rgba(30, 41, 59, 0.7);
+            --glass-bg: rgba(30, 41, 59, 0.4);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -25,10 +24,11 @@
             font-family: 'Space Mono', monospace;
             line-height: 1.6;
             overflow-x: hidden;
+            padding-bottom: 50px;
         }
 
-        /* Glitch Effect for Name */
-        .glitch-wrapper { font-size: 2.5rem; font-weight: bold; position: relative; display: inline-block; }
+        /* Glitch Effect */
+        .glitch-wrapper { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: bold; position: relative; display: inline-block; margin-bottom: 10px;}
         .glitch::before, .glitch::after {
             content: attr(data-text);
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
@@ -48,109 +48,137 @@
         }
 
         /* Layout */
-        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
-        header { min-height: 90vh; display: flex; flex-direction: column; justify-content: center; }
+        .container { max-width: 850px; margin: 0 auto; padding: 2rem; }
+        header { min-height: 85vh; display: flex; flex-direction: column; justify-content: center; }
         
-        .tag { color: var(--secondary-accent); font-size: 0.9rem; margin-bottom: 1rem; display: block; }
+        .tag { color: var(--secondary-accent); font-size: 0.9rem; margin-bottom: 1rem; display: block; letter-spacing: 1px;}
         
         /* Typewriter Cursor */
-        #bio { border-right: 2px solid var(--accent-color); white-space: pre-wrap; animation: blink 0.75s step-end infinite; }
+        #bio { 
+            border-right: 2px solid var(--accent-color); 
+            white-space: pre-wrap; 
+            animation: blink 0.75s step-end infinite;
+            min-height: 80px;
+            font-size: 1.1rem;
+            color: #CBD5E1;
+        }
         @keyframes blink { 50% { border-color: transparent; } }
 
         /* Cards */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
         .card {
             background: var(--glass-bg);
             border: 1px solid #334155;
             padding: 1.5rem;
-            border-radius: 8px;
-            transition: transform 0.2s, border-color 0.2s;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            display: block;
         }
-        .card:hover { transform: translateY(-5px); border-color: var(--accent-color); }
-        .card h3 { color: var(--accent-color); margin-bottom: 0.5rem; }
+        .card * { text-decoration: none; }
+        .card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 2px; height: 0; background: var(--accent-color); transition: height 0.3s;
+        }
+        .card:hover { transform: translateY(-3px); border-color: var(--accent-color); box-shadow: 0 10px 30px -10px rgba(0, 240, 255, 0.1); }
+        .card:hover::before { height: 100%; }
+        
+        .card h3 { color: var(--accent-color); margin-bottom: 0.5rem; font-size: 1.1rem;}
+        .card p { font-size: 0.95rem; opacity: 0.9; color: var(--text-color); }
 
         /* Buttons */
+        .btn-group { margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;}
         .btn {
             display: inline-block;
-            margin-top: 1.5rem;
             padding: 0.8rem 1.5rem;
             border: 1px solid var(--accent-color);
             color: var(--accent-color);
             text-decoration: none;
             font-weight: bold;
             transition: all 0.3s;
+            font-size: 0.9rem;
+            background: rgba(0, 240, 255, 0.05);
         }
-        .btn:hover { background: var(--accent-color); color: var(--bg-color); }
+        .btn:hover { background: var(--accent-color); color: var(--bg-color); box-shadow: 0 0 15px var(--accent-color); }
+        .btn-secondary { border-color: #94A3B8; color: #94A3B8; background: transparent;}
+        .btn-secondary:hover { border-color: var(--text-color); color: var(--text-color); background: rgba(255,255,255,0.05); box-shadow: none;}
 
-        footer { text-align: center; padding: 4rem 0; font-size: 0.8rem; opacity: 0.6; }
+        footer { text-align: center; padding: 4rem 0; font-size: 0.8rem; opacity: 0.5; border-top: 1px solid #1E293B; margin-top: 4rem;}
+        
+        /* Mobile Tweaks */
+        @media (max-width: 600px) {
+            .glitch-wrapper { font-size: 2rem; }
+            header { min-height: 70vh; }
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
     <header>
-        <span class="tag">&lt;Hello_World&gt;</span>
+        <span class="tag">&lt;Hello_World /&gt;</span>
         <div class="glitch-wrapper">
             <h1 class="glitch" data-text="Vishnu B Raj">Vishnu B Raj</h1>
         </div>
-        <h2 style="color: #94A3B8; font-size: 1.2rem; margin-top: 10px;">AI Researcher | CTO @ Deepflow | IIT Palakkad</h2>
+        <h2 style="color: #94A3B8; font-size: 1.1rem; margin-top: 5px; font-weight: normal;">
+            AI PhD Scholar (IIT Palakkad) | CTO @ Deepflow
+        </h2>
         <br>
-        <p id="bio" style="min-height: 60px;"></p>
+        <p id="bio"></p>
         
-        <div>
-            <a href="mailto:your-email@example.com" class="btn">Initiate_Contact()</a>
-            <a href="https://github.com" class="btn" style="border-color: var(--secondary-accent); color: var(--secondary-accent);">GitHub</a>
+        <div class="btn-group">
+            <a href="mailto:vishnu@deepflow.in" class="btn">Initiate_Contact()</a>
+            <a href="https://github.com/vishnuexe" target="_blank" class="btn btn-secondary">GitHub Profile</a>
         </div>
     </header>
 
-    <hr style="border: 0; border-top: 1px solid #334155; margin: 2rem 0;">
-
     <section>
-        <span class="tag">&lt;Current_Status&gt;</span>
-        <h2>Research & Work</h2>
+        <span class="tag">&lt;System_Status: Online /&gt;</span>
+        <h2 style="margin-bottom: 1.5rem;">Active Research & Projects</h2>
         <div class="grid">
-            <div class="card">
+            <a href="https://deepflow.in" target="_blank" class="card">
                 <h3>01 // Deepflow.in</h3>
                 <p>Co-founder & CTO. Building the next generation of explainable AI tools for industrial applications.</p>
-            </div>
-            <div class="card">
-                <h3>02 // IIT Palakkad</h3>
-                <p>Research Scholar. Investigating advanced Computer Vision architectures and Signal Processing.</p>
-            </div>
-            <div class="card">
-                <h3>03 // The "Puzzle"</h3>
-                <p>Finding simple solutions to complex technical challenges others miss.</p>
-            </div>
+            </a>
+            <a href="https://github.com/vishnuexe/Social-Distancing-AI" target="_blank" class="card">
+                <h3>02 // Social Distancing AI</h3>
+                <p>Computer vision tool to analyze video surveillance for protocol adherence.</p>
+            </a>
+            <a href="https://github.com/vishnuexe/Covid-detection-from-xrays-using-pytorch" target="_blank" class="card">
+                <h3>03 // Medical Imaging AI</h3>
+                <p>ResNet-18 model implementation for detecting anomalies in X-Ray scans.</p>
+            </a>
         </div>
     </section>
 
-    <section style="margin-top: 4rem;">
-        <span class="tag">&lt;System_Logs&gt;</span>
-        <h2>Interests</h2>
+    <section style="margin-top: 5rem;">
+        <span class="tag">&lt;Modules_Loaded /&gt;</span>
+        <h2 style="margin-bottom: 1.5rem;">Core Interests</h2>
         <div class="grid">
             <div class="card">
                 <h3>Computer Vision</h3>
-                <p>Processing the visual world.</p>
+                <p>Deep Learning, Explainable AI (XAI), Unsupervised Learning.</p>
             </div>
             <div class="card">
-                <h3>Gaming 🎮</h3>
-                <p>Stress testing reflexes.</p>
+                <h3>Exploration</h3>
+                <p>Driving 🚗 & Swimming 🏊</p>
             </div>
             <div class="card">
-                <h3>Driving 🚗</h3>
-                <p>Analog exploration.</p>
+                <h3>Simulation</h3>
+                <p>Gaming 🎮 & Music 🎧</p>
             </div>
         </div>
     </section>
 
     <footer>
-        <p>System.exit(0) // Designed by Vishnu B Raj</p>
+        <p>System.exit(0) // Designed by Vishnu B Raj (@vishnuexe)</p>
     </footer>
 </div>
 
 <script>
-    const text = "I solve puzzles. \nWhether it's signal processing or building a startup, I look for the patterns others miss.";
-    const speed = 50; 
+    const text = "I solve puzzles. \n\nWhether it's research at IIT Palakkad or building products at Deepflow, I look for simple solutions to complex problems.";
+    const speed = 40; 
     let i = 0;
     
     function typeWriter() {
@@ -161,6 +189,7 @@
         }
     }
     
+    console.log("%c Hello, Developer. Looking for something? ", "background: #222; color: #bada55; font-size: 20px");
     window.onload = typeWriter;
 </script>
 
