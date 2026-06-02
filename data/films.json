@@ -3,10 +3,40 @@
   "source": "letterboxd",
   "user": "vishnuexe",
   "items": [
-    { "title": "Project Hail Mary", "year": "2026", "rating": 4.0, "poster": "https://a.ltrbxd.com/resized/film-poster/6/1/1/2/8/8/611288-project-hail-mary-0-600-0-900-crop.jpg", "url": "https://letterboxd.com/film/project-hail-mary/" },
-    { "title": "Swapped", "year": "2026", "rating": 2.0, "poster": "https://a.ltrbxd.com/resized/film-poster/9/0/7/8/6/8/907868-swapped-2026-0-600-0-900-crop.jpg", "url": "https://letterboxd.com/film/swapped-2026/" },
-    { "title": "Sambhavam Adhyayam Onnu", "year": "2026", "rating": 3.0, "poster": "https://a.ltrbxd.com/resized/film-poster/1/3/4/6/6/9/3/1346693-sambhavam-adhyayam-onnu-0-600-0-900-crop.jpg", "url": "https://letterboxd.com/film/sambhavam-adhyayam-onnu/" },
-    { "title": "Masthishka Maranam", "year": "2026", "rating": 4.0, "poster": "https://a.ltrbxd.com/resized/film-poster/1/3/2/1/4/3/2/1321432-masthishka-maranam-0-600-0-900-crop.jpg", "url": "https://letterboxd.com/film/masthishka-maranam/" },
-    { "title": "2010: The Year We Make Contact", "year": "1984", "rating": 4.0, "poster": "https://a.ltrbxd.com/resized/film-poster/4/9/3/3/8/49338-2010-1984-0-600-0-900-crop.jpg", "url": "https://letterboxd.com/film/2010-1984/" }
+    {
+      "title": "Project Hail Mary",
+      "year": "2026",
+      "rating": 4.0,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/6/1/1/2/8/8/611288-project-hail-mary-0-600-0-900-crop.jpg?v=ac31b6ec03",
+      "url": "https://letterboxd.com/vishnuexe/film/project-hail-mary/"
+    },
+    {
+      "title": "Swapped",
+      "year": "2026",
+      "rating": 2.0,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/9/0/7/8/6/8/907868-swapped-2026-0-600-0-900-crop.jpg?v=c7bb59e165",
+      "url": "https://letterboxd.com/vishnuexe/film/swapped-2026/"
+    },
+    {
+      "title": "Sambhavam Adhyayam Onnu",
+      "year": "2026",
+      "rating": 3.0,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/1/3/4/6/6/9/3/1346693-sambhavam-adhyayam-onnu-0-600-0-900-crop.jpg?v=d241691aa8",
+      "url": "https://letterboxd.com/vishnuexe/film/sambhavam-adhyayam-onnu/"
+    },
+    {
+      "title": "Masthishka Maranam",
+      "year": "2026",
+      "rating": 4.0,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/1/3/2/1/4/3/2/1321432-masthishka-maranam-0-600-0-900-crop.jpg?v=f9c4fe3eaa",
+      "url": "https://letterboxd.com/vishnuexe/film/masthishka-maranam/"
+    },
+    {
+      "title": "2010: The Year We Make Contact",
+      "year": "1984",
+      "rating": 4.0,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/4/9/3/3/8/49338-2010-1984-0-600-0-900-crop.jpg?v=8057824269",
+      "url": "https://letterboxd.com/vishnuexe/film/2010-1984/"
+    }
   ]
 }
