@@ -46,7 +46,7 @@ a:hover{text-decoration:underline;}
 /* hero */
 .hero{position:relative; overflow:hidden; min-height:46vh; display:flex; flex-direction:column; justify-content:center; padding:3.5rem 0; border-radius:24px;}
 .hero > *{position:relative; z-index:1;}
-.dotgrid{position:absolute; inset:0; z-index:0; display:grid; grid-template-columns:repeat(var(--cols,26),1fr); grid-auto-rows:1fr; place-items:center; pointer-events:none;}
+.dotgrid{position:absolute; inset:-10% 0; z-index:0; display:grid; grid-template-columns:repeat(var(--cols,26),1fr); grid-auto-rows:1fr; place-items:center; pointer-events:none; will-change:transform;}
 .dotgrid .d{width:5px; height:5px; border-radius:50%; background:rgba(139,123,255,.4); transform:scale(.5);}
 .status{display:inline-flex; align-items:center; gap:.55rem; font-size:.82rem; color:var(--muted); border:1px solid var(--glass-bd); background:var(--glass); padding:.4rem .9rem; border-radius:999px; margin-bottom:1.4rem; backdrop-filter:blur(8px);}
 .status .dot{width:8px;height:8px;border-radius:50%;background:var(--accent-2); box-shadow:0 0 0 0 var(--accent-2); animation:pulse 2.2s infinite;}
@@ -137,17 +137,29 @@ footer{margin-top:4.5rem; padding-top:1.4rem; border-top:1px solid var(--border)
 .page-curl:hover{width:56px; height:56px; filter:drop-shadow(-3px 4px 6px rgba(0,0,0,.55));}
 .page-curl:hover .sky i:nth-child(n+7){display:block;}
 
+/* scroll progress bar */
+.progress{position:fixed; top:0; left:0; height:3px; width:0; z-index:70; background:var(--grad); box-shadow:0 0 12px rgba(139,123,255,.7);}
+
 /* scroll reveal */
-.reveal{opacity:0; transform:translateY(28px); transition:opacity .7s ease, transform .7s ease;}
+.reveal{opacity:0; transform:translateY(34px); transition:opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1);}
 .reveal.in{opacity:1; transform:none;}
+
+/* word-by-word heading reveal (masked) */
+.rw .words{display:inline-block;}
+.rw .word{display:inline-block; overflow:hidden; vertical-align:top; padding-bottom:.1em; margin-bottom:-.1em;}
+.rw .word > span{display:inline-block; transform:translateY(120%); transition:transform .7s cubic-bezier(.22,1,.36,1); transition-delay:var(--d,0s);}
+.rw.in .word > span{transform:translateY(0);}
+
 @media (prefers-reduced-motion: reduce){
   body::before, .hero h1 .wave, .status .dot{animation:none;}
   .reveal{opacity:1; transform:none; transition:none;}
+  .rw .word > span{transform:none; transition:none;}
   html{scroll-behavior:auto;}
 }
 </style>
 </head>
 <body>
+<div class="progress" id="progress"></div>
 
 <nav class="topnav">
   <div class="topnav-inner">
@@ -207,6 +219,7 @@ footer{margin-top:4.5rem; padding-top:1.4rem; border-top:1px solid var(--border)
   <footer>© <span id="year"></span> Vishnu B Raj · the fun page · <a href="index.html">research &amp; work →</a></footer>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -237,22 +250,93 @@ footer{margin-top:4.5rem; padding-top:1.4rem; border-top:1px solid var(--border)
     return true;
   }
 
+  // ---------- scroll-driven motion (wodniack-style) ----------
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+
+  document.querySelectorAll('header.hero, section').forEach(el => { el.classList.add('reveal'); io.observe(el); });
+
+  function revealStagger(gridId) {
+    const grid = document.getElementById(gridId);
+    if (!grid) return;
+    grid.querySelectorAll(':scope > *').forEach((el, i) => {
+      el.classList.add('reveal');
+      el.style.transitionDelay = (i * 75) + 'ms';
+      io.observe(el);
+    });
+  }
+
+  // word-by-word heading reveal
+  function splitWords(el) {
+    el.classList.add('rw');
+    Array.from(el.childNodes).forEach(node => {
+      if (node.nodeType === 3 && node.textContent.trim()) {
+        const holder = document.createElement('span');
+        holder.className = 'words';
+        node.textContent.trim().split(/\s+/).forEach(tok => {
+          const wrap = document.createElement('span'); wrap.className = 'word';
+          const inner = document.createElement('span'); inner.textContent = tok;
+          wrap.appendChild(inner); holder.appendChild(wrap);
+          holder.appendChild(document.createTextNode(' '));
+        });
+        el.replaceChild(holder, node);
+      }
+    });
+    el.querySelectorAll('.word > span').forEach((s, i) => s.style.setProperty('--d', (i * 60) + 'ms'));
+  }
+  if (!reduceMotion) {
+    document.querySelectorAll('section h2').forEach(h => { splitWords(h); io.observe(h); });
+  }
+
+  // films + games (then reveal their cards)
   fetch('data/films.json', { cache: 'no-store' })
     .then(r => r.json())
-    .then(d => render('film-grid', (d.items || []).slice(0, 5), { poster: true }))
+    .then(d => { render('film-grid', (d.items || []).slice(0, 5), { poster: true }); revealStagger('film-grid'); })
     .catch(() => {});
 
   fetch('data/games.json', { cache: 'no-store' })
     .then(r => r.json())
-    .then(d => render('game-grid', (d.items || d.top || []).slice(0, 5)))
+    .then(d => { render('game-grid', (d.items || d.top || []).slice(0, 5)); revealStagger('game-grid'); })
     .catch(() => {});
 
-  // scroll reveal
-  document.querySelectorAll('header.hero, section').forEach(el => el.classList.add('reveal'));
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  // scroll progress bar
+  const bar = document.getElementById('progress');
+  const setProgress = (y) => {
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    if (bar) bar.style.width = (h > 0 ? (y / h) * 100 : 0) + '%';
+  };
+
+  // parallax
+  const grid = document.getElementById('dotgrid');
+  const applyParallax = (y) => { if (grid) grid.style.transform = `translateY(${y * 0.12}px)`; };
+
+  // Lenis smooth scroll (graceful native fallback)
+  let lenis = null;
+  if (!reduceMotion && window.Lenis) {
+    lenis = new Lenis({ lerp: 0.1, smoothWheel: true });
+    lenis.on('scroll', ({ scroll }) => { setProgress(scroll); applyParallax(scroll); });
+    const raf = (t) => { lenis.raf(t); requestAnimationFrame(raf); };
+    requestAnimationFrame(raf);
+  } else {
+    window.addEventListener('scroll', () => { setProgress(window.scrollY); applyParallax(window.scrollY); }, { passive: true });
+  }
+  setProgress(window.scrollY || 0);
+
+  // smooth in-page anchor links (offset for sticky nav)
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const id = a.getAttribute('href');
+      if (id.length < 2) return;
+      const t = document.querySelector(id);
+      if (!t) return;
+      e.preventDefault();
+      if (lenis) lenis.scrollTo(t, { offset: -76 });
+      else t.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
 
   // anime.js staggered dot-matrix hero
   (function () {
