@@ -61,12 +61,24 @@ a:hover { text-decoration: underline; }
   filter: drop-shadow(-2px 3px 3px rgba(0,0,0,.22));
   transition: width .25s ease, height .25s ease, filter .25s ease;
 }
-/* rainbow underside — upper-right triangle */
-.page-curl::before {
-  content: ""; position: absolute; inset: 0;
+/* night-sky underside — upper-right triangle */
+.page-curl .sky {
+  position: absolute; inset: 0; overflow: hidden;
   clip-path: polygon(0 0, 100% 0, 100% 100%);
-  background: linear-gradient(210deg, #ff4d6d, #ff9a3d 20%, #ffe14d 38%, #46d98a 56%, #3aa0ff 76%, #a86bd6 94%);
+  background: radial-gradient(130% 130% at 100% 0, #1b2336, #05070d);
 }
+.page-curl .sky i {
+  position: absolute; width: 2px; height: 2px; border-radius: 50%;
+  background: #fff; box-shadow: 0 0 3px #cfe3ff;
+  animation: twinkle 1.8s ease-in-out infinite;
+}
+.page-curl .sky i:nth-child(1){ top: 14%; left: 70%; animation-delay: 0s; }
+.page-curl .sky i:nth-child(2){ top: 24%; left: 86%; animation-delay: .5s; }
+.page-curl .sky i:nth-child(3){ top: 42%; left: 82%; animation-delay: 1s; }
+.page-curl .sky i:nth-child(4){ top: 9%;  left: 52%; animation-delay: .3s; width: 1.5px; height: 1.5px; }
+.page-curl .sky i:nth-child(5){ top: 56%; left: 92%; animation-delay: 1.3s; }
+.page-curl .sky i:nth-child(6){ top: 32%; left: 63%; animation-delay: .8s; width: 1.5px; height: 1.5px; }
+@keyframes twinkle { 0%, 100% { opacity: .2; transform: scale(.6); } 50% { opacity: 1; transform: scale(1); } }
 /* folded white flap — lower-left triangle, slightly shaded near the crease */
 .page-curl::after {
   content: ""; position: absolute; inset: 0;
@@ -74,7 +86,7 @@ a:hover { text-decoration: underline; }
   background: linear-gradient(135deg, #e9e9ec, #ffffff 40%);
 }
 .page-curl:hover { width: 52px; height: 52px; filter: drop-shadow(-3px 4px 5px rgba(0,0,0,.3)); }
-@media (prefers-reduced-motion: reduce){ .page-curl { transition: none; } }
+@media (prefers-reduced-motion: reduce){ .page-curl { transition: none; } .page-curl .sky i { animation: none; opacity: .85; } }
 
 .layout {
   max-width: var(--max);
@@ -185,7 +197,7 @@ footer { color: var(--faint); font-size: .85rem; font-family: 'Inter', sans-seri
     </div>
   </div>
 </nav>
-<a class="page-curl" href="casual.html" title="Beyond research → films, games &amp; more" aria-label="Personal / casual page"></a>
+<a class="page-curl" href="casual.html" title="Beyond research → films, games &amp; more" aria-label="Personal / casual page"><span class="sky"><i></i><i></i><i></i><i></i><i></i><i></i></span></a>
 
 <div class="layout">
 
