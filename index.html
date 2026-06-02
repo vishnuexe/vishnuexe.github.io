@@ -44,14 +44,13 @@ a { color: var(--link); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
 /* ---------- TOP NAV ---------- */
-.topnav { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
+.topnav { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--bg) 60%, transparent); -webkit-backdrop-filter: blur(14px) saturate(160%); backdrop-filter: blur(14px) saturate(160%); border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent); box-shadow: 0 4px 24px -14px rgba(0,0,0,.28); }
 .topnav-inner { max-width: var(--max); margin: 0 auto; padding: 0 1.5rem; height: 54px; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
 .navbrand { font-weight: 700; font-size: .95rem; white-space: nowrap; color: var(--text); }
 .navlinks { display: flex; gap: 1.4rem; overflow-x: auto; font-family: 'Inter', sans-serif; font-size: .88rem; scrollbar-width: none; }
 .navlinks::-webkit-scrollbar { display: none; }
 .navlinks a { color: var(--muted); white-space: nowrap; }
 .navlinks a:hover { color: var(--accent); text-decoration: none; }
-.navlinks a.active { color: var(--accent); font-weight: 600; }
 @media (max-width: 700px){ .navbrand { display: none; } .topnav-inner { justify-content: flex-start; } }
 
 .layout {
@@ -295,34 +294,6 @@ footer { color: var(--faint); font-size: .85rem; font-family: 'Inter', sans-seri
   </main>
 </div>
 
-<script>
-  document.getElementById('year').textContent = new Date().getFullYear();
-
-  // Scroll-spy: highlight the nav link for the section currently in view
-  (function () {
-    const links = Array.from(document.querySelectorAll('.navlinks a'));
-    const byId = {};
-    links.forEach(a => { byId[a.getAttribute('href').slice(1)] = a; });
-    const sections = Array.from(document.querySelectorAll('main section[id]'));
-
-    const setActive = (id) => {
-      const link = byId[id];
-      if (!link || link.classList.contains('active')) return;
-      links.forEach(a => a.classList.remove('active'));
-      link.classList.add('active');
-      link.scrollIntoView({ block: 'nearest', inline: 'center' });
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      // Pick the entry nearest the top of the viewport that is intersecting
-      const visible = entries
-        .filter(e => e.isIntersecting)
-        .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-      if (visible.length) setActive(visible[0].target.id);
-    }, { rootMargin: '-72px 0px -65% 0px', threshold: 0 });
-
-    sections.forEach(s => observer.observe(s));
-  })();
-</script>
+<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
 </html>
