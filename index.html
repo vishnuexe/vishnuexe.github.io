@@ -1,196 +1,357 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vishnu B Raj | AI Research & Engineering</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-color: #0F172A;
-            --text-color: #E2E8F0;
-            --accent-color: #00F0FF; /* Cyber Blue */
-            --secondary-accent: #39FF14; /* Neon Green */
-            --glass-bg: rgba(30, 41, 59, 0.4);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vishnu B Raj — AI Researcher & Entrepreneur</title>
+<meta name="description" content="Vishnu B Raj — AI PhD Scholar at IIT Palakkad and Co-founder & CTO of Deepflow. Research in deepfake detection, explainable AI, and computer vision.">
+<meta name="author" content="Vishnu B Raj">
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-family: 'Space Mono', monospace;
-            line-height: 1.6;
-            overflow-x: hidden;
-            padding-bottom: 50px;
-        }
+<!-- Open Graph / social -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Vishnu B Raj — AI Researcher & Entrepreneur">
+<meta property="og:description" content="AI PhD Scholar at IIT Palakkad · Co-founder & CTO at Deepflow. Deepfake detection, explainable AI, computer vision.">
+<meta property="og:url" content="https://vishnuexe.github.io">
 
-        /* Glitch Effect */
-        .glitch-wrapper { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: bold; position: relative; display: inline-block; margin-bottom: 10px;}
-        .glitch::before, .glitch::after {
-            content: attr(data-text);
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-        }
-        .glitch::before { left: 2px; text-shadow: -1px 0 #ff00c1; clip: rect(44px, 450px, 56px, 0); animation: glitch-anim 5s infinite linear alternate-reverse; }
-        .glitch::after { left: -2px; text-shadow: -1px 0 #00fff9; clip: rect(44px, 450px, 56px, 0); animation: glitch-anim2 5s infinite linear alternate-reverse; }
-        
-        @keyframes glitch-anim {
-            0% { clip: rect(10px, 9999px, 30px, 0); }
-            20% { clip: rect(80px, 9999px, 100px, 0); }
-            100% { clip: rect(40px, 9999px, 60px, 0); }
-        }
-        @keyframes glitch-anim2 {
-            0% { clip: rect(60px, 9999px, 80px, 0); }
-            20% { clip: rect(10px, 9999px, 20px, 0); }
-            100% { clip: rect(50px, 9999px, 80px, 0); }
-        }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Newsreader:ital,opsz@0,6..72;1,6..72&display=swap" rel="stylesheet">
 
-        /* Layout */
-        .container { max-width: 850px; margin: 0 auto; padding: 2rem; }
-        header { min-height: 85vh; display: flex; flex-direction: column; justify-content: center; }
-        
-        .tag { color: var(--secondary-accent); font-size: 0.9rem; margin-bottom: 1rem; display: block; letter-spacing: 1px;}
-        
-        /* Typewriter Cursor */
-        #bio { 
-            border-right: 2px solid var(--accent-color); 
-            white-space: pre-wrap; 
-            animation: blink 0.75s step-end infinite;
-            min-height: 80px;
-            font-size: 1.1rem;
-            color: #CBD5E1;
-        }
-        @keyframes blink { 50% { border-color: transparent; } }
+<style>
+:root {
+  --bg: #0b1120;
+  --bg-soft: #111a2e;
+  --surface: #131d33;
+  --border: #243150;
+  --text: #e6ecf7;
+  --muted: #9fb0cc;
+  --faint: #6b7c9c;
+  --accent: #5b8cff;
+  --accent-2: #36d6c3;
+  --max: 1080px;
+  --radius: 14px;
+}
+:root[data-theme="light"] {
+  --bg: #f7f9fc;
+  --bg-soft: #eef2f8;
+  --surface: #ffffff;
+  --border: #e1e7f0;
+  --text: #15203a;
+  --muted: #4d5d79;
+  --faint: #8694ac;
+  --accent: #2f6bff;
+  --accent-2: #0fae9a;
+}
 
-        /* Cards */
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
-        .card {
-            background: var(--glass-bg);
-            border: 1px solid #334155;
-            padding: 1.5rem;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            text-decoration: none;
-            display: block;
-        }
-        .card * { text-decoration: none; }
-        .card::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 2px; height: 0; background: var(--accent-color); transition: height 0.3s;
-        }
-        .card:hover { transform: translateY(-3px); border-color: var(--accent-color); box-shadow: 0 10px 30px -10px rgba(0, 240, 255, 0.1); }
-        .card:hover::before { height: 100%; }
-        
-        .card h3 { color: var(--accent-color); margin-bottom: 0.5rem; font-size: 1.1rem;}
-        .card p { font-size: 0.95rem; opacity: 0.9; color: var(--text-color); }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  transition: background .3s ease, color .3s ease;
+}
+a { color: inherit; text-decoration: none; }
+.wrap { max-width: var(--max); margin: 0 auto; padding: 0 1.5rem; }
+section { padding: 5.5rem 0; border-top: 1px solid var(--border); }
+.eyebrow {
+  display: inline-block; font-size: .8rem; font-weight: 600; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--accent-2); margin-bottom: 1rem;
+}
+h2.section-title { font-size: clamp(1.6rem, 3.5vw, 2.2rem); font-weight: 800; letter-spacing: -.02em; margin-bottom: 2.5rem; }
 
-        /* Buttons */
-        .btn-group { margin-top: 2rem; display: flex; gap: 1rem; flex-wrap: wrap;}
-        .btn {
-            display: inline-block;
-            padding: 0.8rem 1.5rem;
-            border: 1px solid var(--accent-color);
-            color: var(--accent-color);
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s;
-            font-size: 0.9rem;
-            background: rgba(0, 240, 255, 0.05);
-        }
-        .btn:hover { background: var(--accent-color); color: var(--bg-color); box-shadow: 0 0 15px var(--accent-color); }
-        .btn-secondary { border-color: #94A3B8; color: #94A3B8; background: transparent;}
-        .btn-secondary:hover { border-color: var(--text-color); color: var(--text-color); background: rgba(255,255,255,0.05); box-shadow: none;}
+/* ---------- NAV ---------- */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  backdrop-filter: blur(12px);
+  background: color-mix(in srgb, var(--bg) 78%, transparent);
+  border-bottom: 1px solid var(--border);
+}
+.nav-inner { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+.brand { font-weight: 800; letter-spacing: -.02em; font-size: 1.05rem; }
+.brand span { color: var(--accent); }
+.nav-links { display: flex; gap: 1.8rem; align-items: center; }
+.nav-links a { color: var(--muted); font-size: .92rem; font-weight: 500; transition: color .2s; }
+.nav-links a:hover { color: var(--text); }
+.theme-toggle {
+  background: var(--surface); border: 1px solid var(--border); color: var(--text);
+  width: 38px; height: 38px; border-radius: 10px; cursor: pointer; font-size: 1rem;
+  display: grid; place-items: center; transition: border-color .2s, transform .2s;
+}
+.theme-toggle:hover { border-color: var(--accent); transform: translateY(-1px); }
+@media (max-width: 680px){ .nav-links a:not(.theme-toggle){ display:none; } }
 
-        footer { text-align: center; padding: 4rem 0; font-size: 0.8rem; opacity: 0.5; border-top: 1px solid #1E293B; margin-top: 4rem;}
-        
-        /* Mobile Tweaks */
-        @media (max-width: 600px) {
-            .glitch-wrapper { font-size: 2rem; }
-            header { min-height: 70vh; }
-        }
-    </style>
+/* ---------- HERO ---------- */
+.hero { padding: 6rem 0 5rem; position: relative; overflow: hidden; }
+.hero::before {
+  content: ""; position: absolute; top: -30%; right: -10%; width: 620px; height: 620px;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent) 26%, transparent), transparent 62%);
+  filter: blur(40px); z-index: 0; pointer-events: none;
+}
+.hero-inner { position: relative; z-index: 1; max-width: 760px; }
+.avail {
+  display: inline-flex; align-items: center; gap: .5rem; font-size: .82rem; color: var(--muted);
+  border: 1px solid var(--border); background: var(--surface); padding: .35rem .8rem;
+  border-radius: 999px; margin-bottom: 1.6rem;
+}
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-2); box-shadow: 0 0 0 0 var(--accent-2); animation: pulse 2s infinite; }
+@keyframes pulse { 0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent-2) 60%,transparent);} 70%{box-shadow:0 0 0 8px transparent;} 100%{box-shadow:0 0 0 0 transparent;} }
+.hero h1 { font-size: clamp(2.4rem, 6vw, 4rem); font-weight: 800; letter-spacing: -.03em; line-height: 1.05; margin-bottom: 1.1rem; }
+.hero h1 .grad { background: linear-gradient(100deg, var(--accent), var(--accent-2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.hero .role { font-family: 'Newsreader', serif; font-size: clamp(1.1rem, 2.6vw, 1.45rem); color: var(--muted); font-style: italic; margin-bottom: 1.4rem; }
+.hero p.lead { font-size: 1.08rem; color: var(--muted); max-width: 620px; margin-bottom: 2rem; }
+.cta { display: flex; gap: .9rem; flex-wrap: wrap; }
+.btn {
+  display: inline-flex; align-items: center; gap: .5rem; font-weight: 600; font-size: .95rem;
+  padding: .8rem 1.4rem; border-radius: 11px; transition: transform .2s, box-shadow .2s, background .2s, border-color .2s;
+}
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 26px -10px var(--accent); }
+.btn-ghost { border: 1px solid var(--border); color: var(--text); background: var(--surface); }
+.btn-ghost:hover { border-color: var(--accent); transform: translateY(-2px); }
+
+/* ---------- STATS ---------- */
+.stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem; margin-top: 3.5rem; }
+.stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.3rem; }
+.stat .n { font-size: 1.7rem; font-weight: 800; color: var(--accent); letter-spacing: -.02em; }
+.stat .l { font-size: .85rem; color: var(--muted); margin-top: .2rem; }
+@media (max-width:680px){ .stats{ grid-template-columns: repeat(2,1fr);} }
+
+/* ---------- ABOUT ---------- */
+.about-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 3rem; align-items: start; }
+.about-grid p { color: var(--muted); margin-bottom: 1.1rem; font-size: 1.04rem; }
+.about-grid p strong { color: var(--text); font-weight: 600; }
+.facts { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.6rem; }
+.fact { display: flex; gap: .8rem; padding: .7rem 0; border-bottom: 1px dashed var(--border); font-size: .95rem; }
+.fact:last-child { border-bottom: 0; }
+.fact .k { color: var(--faint); min-width: 92px; font-weight: 500; }
+.fact .v { color: var(--text); }
+@media (max-width:780px){ .about-grid{ grid-template-columns: 1fr; gap: 2rem;} }
+
+/* ---------- RESEARCH ---------- */
+.focus-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.2rem; }
+.focus { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; transition: border-color .25s, transform .25s; }
+.focus:hover { border-color: var(--accent); transform: translateY(-3px); }
+.focus .ico { font-size: 1.5rem; margin-bottom: .7rem; }
+.focus h3 { font-size: 1.08rem; font-weight: 700; margin-bottom: .4rem; }
+.focus p { color: var(--muted); font-size: .95rem; }
+@media (max-width:680px){ .focus-grid{ grid-template-columns: 1fr;} }
+
+/* ---------- PROJECTS ---------- */
+.proj-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px,1fr)); gap: 1.3rem; }
+.proj {
+  display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 1.5rem; transition: border-color .25s, transform .25s, box-shadow .25s; position: relative;
+}
+.proj:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 16px 36px -22px var(--accent); }
+.proj .tag { font-size: .72rem; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; color: var(--accent-2); margin-bottom: .7rem; }
+.proj h3 { font-size: 1.12rem; font-weight: 700; margin-bottom: .55rem; line-height: 1.3; }
+.proj p { color: var(--muted); font-size: .93rem; flex-grow: 1; }
+.proj .links { display: flex; gap: 1rem; margin-top: 1.1rem; font-size: .85rem; font-weight: 600; }
+.proj .links a { color: var(--accent); }
+.proj .links a:hover { text-decoration: underline; }
+
+/* ---------- SKILLS ---------- */
+.chips { display: flex; flex-wrap: wrap; gap: .6rem; }
+.chip { background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: .5rem 1rem; font-size: .88rem; color: var(--muted); transition: border-color .2s, color .2s; }
+.chip:hover { border-color: var(--accent-2); color: var(--text); }
+
+/* ---------- CONTACT ---------- */
+.contact { text-align: center; }
+.contact h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; letter-spacing: -.02em; margin-bottom: 1rem; }
+.contact p { color: var(--muted); max-width: 520px; margin: 0 auto 2rem; font-size: 1.05rem; }
+.socials { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+/* ---------- FOOTER ---------- */
+footer { text-align: center; padding: 2.5rem 0; color: var(--faint); font-size: .85rem; border-top: 1px solid var(--border); }
+
+.reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease, transform .6s ease; }
+.reveal.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce){ .reveal{opacity:1;transform:none;} html{scroll-behavior:auto;} }
+</style>
 </head>
 <body>
 
-<div class="container">
-    <header>
-        <span class="tag">&lt;Hello_World /&gt;</span>
-        <div class="glitch-wrapper">
-            <h1 class="glitch" data-text="Vishnu B Raj">Vishnu B Raj</h1>
-        </div>
-        <h2 style="color: #94A3B8; font-size: 1.1rem; margin-top: 5px; font-weight: normal;">
-            AI PhD Scholar (IIT Palakkad) | CTO @ Deepflow
-        </h2>
-        <br>
-        <p id="bio"></p>
-        
-        <div class="btn-group">
-            <a href="mailto:vishnu@deepflow.in" class="btn">Initiate_Contact()</a>
-            <a href="https://github.com/vishnuexe" target="_blank" class="btn btn-secondary">GitHub Profile</a>
-        </div>
-    </header>
+<nav class="nav">
+  <div class="wrap nav-inner">
+    <a href="#top" class="brand">Vishnu<span>.</span>Raj</a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#research">Research</a>
+      <a href="#projects">Projects</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme">🌙</button>
+    </div>
+  </div>
+</nav>
 
-    <section>
-        <span class="tag">&lt;System_Status: Online /&gt;</span>
-        <h2 style="margin-bottom: 1.5rem;">Active Research & Projects</h2>
-        <div class="grid">
-            <a href="https://deepflow.in" target="_blank" class="card">
-                <h3>01 // Deepflow.in</h3>
-                <p>Co-founder & CTO. Building the next generation of explainable AI tools for industrial applications.</p>
-            </a>
-            <a href="https://github.com/vishnuexe/Social-Distancing-AI" target="_blank" class="card">
-                <h3>02 // Social Distancing AI</h3>
-                <p>Computer vision tool to analyze video surveillance for protocol adherence.</p>
-            </a>
-            <a href="https://github.com/vishnuexe/Covid-detection-from-xrays-using-pytorch" target="_blank" class="card">
-                <h3>03 // Medical Imaging AI</h3>
-                <p>ResNet-18 model implementation for detecting anomalies in X-Ray scans.</p>
-            </a>
-        </div>
-    </section>
+<header class="hero" id="top">
+  <div class="wrap hero-inner">
+    <span class="avail"><span class="dot"></span> Open to research collaborations & consulting</span>
+    <h1>Vishnu B Raj<br><span class="grad">AI Researcher &amp; Entrepreneur</span></h1>
+    <p class="role">PhD Scholar, IIT Palakkad · Co-founder &amp; CTO, Deepflow</p>
+    <p class="lead">I build trustworthy computer-vision systems — from research on deepfake detection and explainable AI to shipping real products. I like turning hard problems into simple, reliable solutions.</p>
+    <div class="cta">
+      <a href="mailto:vishnu@deepflow.in" class="btn btn-primary">Get in touch →</a>
+      <a href="https://github.com/vishnuexe" target="_blank" rel="noopener" class="btn btn-ghost">View GitHub</a>
+    </div>
 
-    <section style="margin-top: 5rem;">
-        <span class="tag">&lt;Modules_Loaded /&gt;</span>
-        <h2 style="margin-bottom: 1.5rem;">Core Interests</h2>
-        <div class="grid">
-            <div class="card">
-                <h3>Computer Vision</h3>
-                <p>Deep Learning, Explainable AI (XAI), Unsupervised Learning.</p>
-            </div>
-            <div class="card">
-                <h3>Exploration</h3>
-                <p>Driving 🚗 & Swimming 🏊</p>
-            </div>
-            <div class="card">
-                <h3>Simulation</h3>
-                <p>Gaming 🎮 & Music 🎧</p>
-            </div>
-        </div>
-    </section>
+    <div class="stats">
+      <div class="stat"><div class="n">PhD</div><div class="l">AI @ IIT Palakkad</div></div>
+      <div class="stat"><div class="n">CTO</div><div class="l">Co-founder, Deepflow</div></div>
+      <div class="stat"><div class="n">6+ yrs</div><div class="l">Computer Vision</div></div>
+      <div class="stat"><div class="n">12+</div><div class="l">Certifications</div></div>
+    </div>
+  </div>
+</header>
 
-    <footer>
-        <p>System.exit(0) // Designed by Vishnu B Raj (@vishnuexe)</p>
-    </footer>
-</div>
+<section id="about">
+  <div class="wrap">
+    <span class="eyebrow">About</span>
+    <h2 class="section-title">Research-driven, product-minded</h2>
+    <div class="about-grid">
+      <div>
+        <p>I'm a PhD scholar in Artificial Intelligence at the <strong>Indian Institute of Technology, Palakkad</strong>, where my research centers on <strong>deepfake and face-forgery detection</strong>, <strong>explainable AI</strong>, and generalizable computer-vision models.</p>
+        <p>Alongside research, I'm the <strong>Co-founder &amp; CTO of Deepflow</strong>, where we build the next generation of explainable AI tools for real-world applications. I enjoy bridging the gap between cutting-edge research and dependable engineering.</p>
+        <p>I've also been an active volunteer and mentor — with the Research Affairs Council at IIT Palakkad, IEEE, and the National Service Scheme — and I care about making AI both useful and understandable.</p>
+      </div>
+      <aside class="facts">
+        <div class="fact"><span class="k">Role</span><span class="v">Researcher · CTO · Mentor</span></div>
+        <div class="fact"><span class="k">Affiliation</span><span class="v">IIT Palakkad · Deepflow</span></div>
+        <div class="fact"><span class="k">Location</span><span class="v">Kerala, India</span></div>
+        <div class="fact"><span class="k">Focus</span><span class="v">Computer Vision · XAI</span></div>
+        <div class="fact"><span class="k">Email</span><span class="v"><a href="mailto:vishnu@deepflow.in" style="color:var(--accent)">vishnu@deepflow.in</a></span></div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section id="research">
+  <div class="wrap">
+    <span class="eyebrow">Research</span>
+    <h2 class="section-title">What I work on</h2>
+    <div class="focus-grid">
+      <div class="focus"><div class="ico">🕵️</div><h3>Deepfake &amp; Face-Forgery Detection</h3><p>Generalizable, quality-agnostic models that localize and explain manipulated facial content.</p></div>
+      <div class="focus"><div class="ico">🔍</div><h3>Explainable AI (XAI)</h3><p>Interpretable detection with attribute supervision — telling not just <em>whether</em> but <em>where</em> and <em>why</em>.</p></div>
+      <div class="focus"><div class="ico">🧠</div><h3>Computer Vision &amp; Deep Learning</h3><p>Representation learning, attention mechanisms, and robust models for vision tasks.</p></div>
+      <div class="focus"><div class="ico">🎨</div><h3>Generative Models</h3><p>GANs and image synthesis — understanding generation to better detect and defend against it.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap">
+    <span class="eyebrow">Selected Work</span>
+    <h2 class="section-title">Projects &amp; research code</h2>
+    <div class="proj-grid">
+      <article class="proj">
+        <span class="tag">Research · Deepfake</span>
+        <h3>HAMF³ — Hand-crafted Features Meet Attention</h3>
+        <p>Combining hand-crafted features with attention to catch machine-crafted fakes in face forgery detection.</p>
+        <div class="links"><a href="https://github.com/vishnuexe/HAMF3" target="_blank" rel="noopener">Code →</a></div>
+      </article>
+      <article class="proj">
+        <span class="tag">Research · Explainable AI</span>
+        <h3>Tell Me Where It Fakes</h3>
+        <p>Interpretable face-manipulation detection with attribute supervision — localizing and explaining forgeries.</p>
+        <div class="links"><a href="https://github.com/vishnuexe?tab=repositories" target="_blank" rel="noopener">Profile →</a></div>
+      </article>
+      <article class="proj">
+        <span class="tag">Industry · Deepflow</span>
+        <h3>Deepflow</h3>
+        <p>Co-founder &amp; CTO. Building explainable AI tooling for real-world, industrial applications.</p>
+        <div class="links"><a href="https://deepflow.in" target="_blank" rel="noopener">Visit site →</a></div>
+      </article>
+      <article class="proj">
+        <span class="tag">Medical Imaging</span>
+        <h3>COVID-19 Detection from X-Rays</h3>
+        <p>A ResNet-18 classifier on chest X-ray scans (Normal / Viral Pneumonia / COVID-19), built for education.</p>
+        <div class="links"><a href="https://github.com/vishnuexe/Covid-detection-from-xrays-using-pytorch" target="_blank" rel="noopener">Code →</a></div>
+      </article>
+      <article class="proj">
+        <span class="tag">Computer Vision</span>
+        <h3>Social Distancing AI</h3>
+        <p>A computer-vision tool analyzing CCTV/drone surveillance to monitor social-distancing protocol adherence.</p>
+        <div class="links"><a href="https://github.com/vishnuexe/Social-Distancing-AI" target="_blank" rel="noopener">Code →</a></div>
+      </article>
+      <article class="proj">
+        <span class="tag">Computer Vision</span>
+        <h3>Real-time Mask Detection</h3>
+        <p>Lightweight, CPU-optimized real-time face-mask detection for accessible deployment.</p>
+        <div class="links"><a href="https://github.com/vishnuexe/Mask-Detection" target="_blank" rel="noopener">Code →</a></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap">
+    <span class="eyebrow">Toolkit</span>
+    <h2 class="section-title">Skills &amp; technologies</h2>
+    <div class="chips">
+      <span class="chip">Python</span>
+      <span class="chip">PyTorch</span>
+      <span class="chip">TensorFlow</span>
+      <span class="chip">Keras</span>
+      <span class="chip">Deep Learning</span>
+      <span class="chip">Computer Vision</span>
+      <span class="chip">Explainable AI</span>
+      <span class="chip">Deepfake Detection</span>
+      <span class="chip">GANs</span>
+      <span class="chip">CNNs</span>
+      <span class="chip">Image Classification</span>
+      <span class="chip">Attention Models</span>
+      <span class="chip">Medical Imaging</span>
+      <span class="chip">Research &amp; Writing</span>
+      <span class="chip">Mentoring</span>
+      <span class="chip">Product Engineering</span>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div class="wrap">
+    <span class="eyebrow">Contact</span>
+    <h2>Let's build something trustworthy.</h2>
+    <p>Open to research collaborations, speaking, mentoring, and consulting on applied AI &amp; computer vision.</p>
+    <div class="socials">
+      <a href="mailto:vishnu@deepflow.in" class="btn btn-primary">Email me →</a>
+      <a href="https://github.com/vishnuexe" target="_blank" rel="noopener" class="btn btn-ghost">GitHub</a>
+      <a href="https://in.linkedin.com/in/vishnu-b-raj" target="_blank" rel="noopener" class="btn btn-ghost">LinkedIn</a>
+      <a href="https://deepflow.in" target="_blank" rel="noopener" class="btn btn-ghost">Deepflow</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© <span id="year"></span> Vishnu B Raj · Built with care · Kerala, India</div>
+</footer>
 
 <script>
-    const text = "I solve puzzles. \n\nWhether it's research at IIT Palakkad or building products at Deepflow, I look for simple solutions to complex problems.";
-    const speed = 40; 
-    let i = 0;
-    
-    function typeWriter() {
-        if (i < text.length) {
-            document.getElementById("bio").innerHTML += text.charAt(i);
-            i++;
-            setTimeout(typeWriter, speed);
-        }
-    }
-    
-    console.log("%c Hello, Developer. Looking for something? ", "background: #222; color: #bada55; font-size: 20px");
-    window.onload = typeWriter;
+  // Year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Theme toggle (persisted)
+  const root = document.documentElement;
+  const toggle = document.getElementById('themeToggle');
+  const saved = localStorage.getItem('theme');
+  if (saved) { root.setAttribute('data-theme', saved); toggle.textContent = saved === 'light' ? '☀️' : '🌙'; }
+  toggle.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    root.setAttribute('data-theme', next);
+    toggle.textContent = next === 'light' ? '☀️' : '🌙';
+    localStorage.setItem('theme', next);
+  });
+
+  // Scroll reveal
+  document.querySelectorAll('section .wrap > *, .proj, .focus, .stat').forEach(el => el.classList.add('reveal'));
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 </script>
 
 </body>
