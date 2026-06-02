@@ -102,30 +102,55 @@ def _covers_on(page, limit):
     return out
 
 
-def fetch_games(top_limit=5, playing_limit=6):
-    from playwright.sync_api import sync_playwright
-    top, playing = [], []
-    with sync_playwright() as p:
-        browser = p.chromium.launch(args=["--no-sandbox", "--disable-blink-features=AutomationControlled"])
-        ctx = browser.new_context(user_agent=UA, viewport={"width": 1280, "height": 1600})
-        page = ctx.new_page()
+def _games_from_profile_html(limit):
+    """Fallback: parse the most-recent games off the profile page HTML (no browser)."""
+    req = urllib.request.Request(f"https://backloggd.com/u/{BACKLOGGD_USER}/",
+                                 headers={"User-Agent": UA, "Accept-Language": "en-US,en;q=0.9"})
+    h = urllib.request.urlopen(req, timeout=30).read().decode("utf-8", "ignore")
+    out, seen = [], set()
+    for m in re.finditer(r'<a[^>]*href="/games/([a-z0-9][a-z0-9-]+)/"[^>]*>(.*?)</a>', h, re.S):
+        slug, inner = m.group(1), m.group(2)
+        if slug in ("lib", "added") or slug in seen:
+            continue
+        alt = re.search(r'alt="([^"]+)"', inner)
+        cov = re.search(r't_cover_big/([a-z0-9]+)\.jpg', inner)
+        if not cov:
+            continue
+        seen.add(slug)
+        out.append({
+            "title": (alt.group(1).strip() if alt else slug.replace("-", " ").title()),
+            "cover": f"https://images.igdb.com/igdb/image/upload/t_cover_big/{cov.group(1)}.jpg",
+            "url": f"https://www.backloggd.com/games/{slug}/",
+        })
+        if len(out) >= limit:
+            break
+    return out
 
-        # favourites / top games live on the profile page
-        page.goto(f"https://backloggd.com/u/{BACKLOGGD_USER}/", wait_until="networkidle", timeout=60000)
-        page.wait_for_timeout(3500)
-        top = _covers_on(page, top_limit)
 
-        # currently playing
-        try:
-            page.goto(f"https://backloggd.com/u/{BACKLOGGD_USER}/games/type:playing/",
+def fetch_games(limit=5):
+    """Latest games, newest first. Try the games list via a browser, then fall
+    back to the profile page's recent games."""
+    items = []
+    try:
+        from playwright.sync_api import sync_playwright
+        with sync_playwright() as p:
+            browser = p.chromium.launch(args=["--no-sandbox", "--disable-blink-features=AutomationControlled"])
+            ctx = browser.new_context(user_agent=UA, viewport={"width": 1280, "height": 1600})
+            page = ctx.new_page()
+            # default games list is ordered by most recently added
+            page.goto(f"https://backloggd.com/u/{BACKLOGGD_USER}/games/",
                       wait_until="networkidle", timeout=60000)
             page.wait_for_timeout(3500)
-            playing = _covers_on(page, playing_limit)
+            items = _covers_on(page, limit)
+            browser.close()
+    except Exception as e:
+        print(f"games (browser) failed: {e}", file=sys.stderr)
+    if not items:
+        try:
+            items = _games_from_profile_html(limit)
         except Exception as e:
-            print(f"playing fetch failed: {e}", file=sys.stderr)
-
-        browser.close()
-    return top, playing
+            print(f"games (profile fallback) failed: {e}", file=sys.stderr)
+    return items
 
 
 # ------------------------------------------------------------------------ main
@@ -144,19 +169,13 @@ def main():
 
     # games
     try:
-        top, playing = fetch_games()
+        games = fetch_games()
     except Exception as e:
-        top, playing = [], []
+        games = []
         print(f"games fetch failed: {e}", file=sys.stderr)
-    if top or playing:
-        prev = load("games.json")
-        save("games.json", {
-            "updated": TODAY,
-            "source": "backloggd",
-            "user": BACKLOGGD_USER,
-            "top": top or prev.get("top", []),
-            "playing": playing if playing or not prev else prev.get("playing", []),
-        })
+    if games:
+        save("games.json", {"updated": TODAY, "source": "backloggd",
+                            "user": BACKLOGGD_USER, "items": games})
     else:
         print("keeping existing games.json (no new data)")
 

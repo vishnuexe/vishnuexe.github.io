@@ -13,7 +13,7 @@
 :root{
   --bg:#0a0b10; --surface:#14161f; --border:#262b38; --text:#eef1f7;
   --muted:#9aa3b8; --faint:#69707f; --accent:#8b7bff; --accent-2:#22d3ee;
-  --max:880px;
+  --max:1200px;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 body{
@@ -108,12 +108,9 @@ footer{margin-top:3.5rem; padding-top:1.3rem; border-top:1px solid var(--border)
   </section>
 
   <section id="games">
-    <h2><span class="em">🕹️</span> Games</h2>
-    <p class="lead-line">What I'm into right now — logged on <a href="https://backloggd.com/u/v_shnuexe/" target="_blank" rel="noopener">Backloggd</a>.</p>
-    <div class="subhead" id="playing-head" hidden>▶ Now playing</div>
-    <div class="covers" id="playing-grid" hidden></div>
-    <div class="subhead">★ Top games</div>
-    <div class="covers" id="top-grid"></div>
+    <h2><span class="em">🕹️</span> Recently played</h2>
+    <p class="lead-line">My five latest games — logged on <a href="https://backloggd.com/u/v_shnuexe/" target="_blank" rel="noopener">Backloggd</a>.</p>
+    <div class="covers" id="game-grid"></div>
     <a class="btn alt" href="https://backloggd.com/u/v_shnuexe/" target="_blank" rel="noopener" style="margin-top:1.4rem;">See my full Backloggd →</a>
   </section>
 
@@ -164,13 +161,7 @@ footer{margin-top:3.5rem; padding-top:1.3rem; border-top:1px solid var(--border)
 
   fetch('data/games.json', { cache: 'no-store' })
     .then(r => r.json())
-    .then(d => {
-      render('top-grid', (d.top || []).slice(0, 5));
-      if (render('playing-grid', (d.playing || []).slice(0, 6))) {
-        document.getElementById('playing-grid').hidden = false;
-        document.getElementById('playing-head').hidden = false;
-      }
-    })
+    .then(d => render('game-grid', (d.items || d.top || []).slice(0, 5)))
     .catch(() => {});
 </script>
 </body>

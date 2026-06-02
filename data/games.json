@@ -2,10 +2,10 @@
   "updated": "2026-06-02",
   "source": "backloggd",
   "user": "v_shnuexe",
-  "top": [
+  "items": [
+    { "title": "Delta Force", "cover": "https://images.igdb.com/igdb/image/upload/t_cover_big/coa98y.jpg", "url": "https://www.backloggd.com/games/delta-force--1/" },
     { "title": "Inside", "cover": "https://images.igdb.com/igdb/image/upload/t_cover_big/co2fca.jpg", "url": "https://www.backloggd.com/games/inside/" },
     { "title": "Limbo", "cover": "https://images.igdb.com/igdb/image/upload/t_cover_big/co1qrs.jpg", "url": "https://www.backloggd.com/games/limbo/" },
     { "title": "The Last of Us Part II", "cover": "https://images.igdb.com/igdb/image/upload/t_cover_big/co5ziw.jpg", "url": "https://www.backloggd.com/games/the-last-of-us-part-ii/" }
-  ],
-  "playing": []
+  ]
 }
