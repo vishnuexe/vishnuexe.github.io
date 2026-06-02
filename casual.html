@@ -11,13 +11,18 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  --bg:#fff8f0; --surface:#ffffff; --border:#f0e3d4; --text:#2a2320;
-  --muted:#6f6258; --faint:#a99d90; --accent:#e2663c; --accent-2:#2f8f83;
+  --bg:#0a0b10; --surface:#14161f; --border:#262b38; --text:#eef1f7;
+  --muted:#9aa3b8; --faint:#69707f; --accent:#8b7bff; --accent-2:#22d3ee;
   --max:880px;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 body{
-  background:var(--bg); color:var(--text);
+  background:var(--bg);
+  background-image:
+    radial-gradient(55rem 55rem at 100% -12%, rgba(139,123,255,.14), transparent 60%),
+    radial-gradient(45rem 45rem at -12% 18%, rgba(34,211,238,.10), transparent 55%);
+  background-attachment:fixed;
+  color:var(--text);
   font-family:'Inter',system-ui,sans-serif; font-size:17px; line-height:1.7;
   -webkit-font-smoothing:antialiased;
 }
@@ -29,7 +34,7 @@ a:hover{text-decoration:underline;}
 .back{color:var(--muted); display:inline-flex; gap:.4rem; align-items:center;}
 .back:hover{color:var(--text); text-decoration:none;}
 
-.hero h1{font-family:'Fraunces',serif; font-size:clamp(2.2rem,6vw,3.4rem); font-weight:700; line-height:1.05; letter-spacing:-.02em; margin-bottom:.6rem;}
+.hero h1{font-family:'Fraunces',serif; font-size:clamp(2.2rem,6vw,3.4rem); font-weight:700; line-height:1.05; letter-spacing:-.02em; margin-bottom:.6rem; background:linear-gradient(100deg,#ffffff,#8b7bff 55%,#22d3ee); -webkit-background-clip:text; background-clip:text; color:transparent;}
 .hero h1 .wave{display:inline-block; transform-origin:70% 70%;}
 .hero p.sub{font-family:'Fraunces',serif; font-style:italic; font-size:1.2rem; color:var(--muted); margin-bottom:1.2rem;}
 .hero p.intro{color:var(--muted); max-width:620px;}
@@ -40,8 +45,8 @@ h2 .em{font-size:1.4rem;}
 
 /* hobby cards */
 .hobbies{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1rem;}
-.hobby{background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:1.3rem; text-align:center; transition:transform .2s;}
-.hobby:hover{transform:translateY(-4px);}
+.hobby{background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:1.3rem; text-align:center; transition:transform .2s, border-color .2s, box-shadow .2s;}
+.hobby:hover{transform:translateY(-4px); border-color:var(--accent); box-shadow:0 14px 34px -18px rgba(139,123,255,.7);}
 .hobby .e{font-size:2rem; display:block; margin-bottom:.5rem;}
 .hobby .n{font-weight:600;}
 .hobby .d{font-size:.85rem; color:var(--faint); margin-top:.2rem;}
@@ -51,11 +56,11 @@ h2 .em{font-size:1.4rem;}
 .panel p{color:var(--muted);}
 .btn{display:inline-block; margin-top:1rem; background:var(--accent); color:#fff; font-weight:600; font-size:.92rem; padding:.6rem 1.2rem; border-radius:10px;}
 .btn:hover{text-decoration:none; opacity:.92;}
-.btn.alt{background:var(--accent-2);}
+.btn.alt{background:var(--accent-2); color:#04222b;}
 
 /* lists */
 .tags{display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.4rem;}
-.tag{background:#fff; border:1px solid var(--border); border-radius:999px; padding:.4rem .9rem; font-size:.88rem; color:var(--muted);}
+.tag{background:var(--surface); border:1px solid var(--border); border-radius:999px; padding:.4rem .9rem; font-size:.88rem; color:var(--muted);}
 .note{font-size:.85rem; color:var(--faint); margin-top:.8rem; font-style:italic;}
 
 /* cover-art grids (games + films) */
