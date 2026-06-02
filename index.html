@@ -51,6 +51,7 @@ a:hover { text-decoration: underline; }
 .navlinks::-webkit-scrollbar { display: none; }
 .navlinks a { color: var(--muted); white-space: nowrap; }
 .navlinks a:hover { color: var(--accent); text-decoration: none; }
+.navlinks a.active { color: var(--accent); font-weight: 600; }
 @media (max-width: 700px){ .navbrand { display: none; } .topnav-inner { justify-content: flex-start; } }
 
 .layout {
@@ -156,7 +157,7 @@ footer { color: var(--faint); font-size: .85rem; font-family: 'Inter', sans-seri
       <a href="#research">Projects</a>
       <a href="#teaching">Teaching</a>
       <a href="#education">Education</a>
-      <a href="#service">Service</a>
+      <a href="#service">Volunteering</a>
       <a href="#contact">Contact</a>
     </div>
   </div>
@@ -270,7 +271,7 @@ footer { color: var(--faint); font-size: .85rem; font-family: 'Inter', sans-seri
     </section>
 
     <section id="service">
-      <h2>Service &amp; Outreach</h2>
+      <h2>Volunteering</h2>
       <div class="entry">
         <div class="when">2024 – 2025</div>
         <div class="what"><strong>Research Affairs Council — Technical Affairs</strong><div class="sub">IIT Palakkad</div></div>
@@ -294,6 +295,34 @@ footer { color: var(--faint); font-size: .85rem; font-family: 'Inter', sans-seri
   </main>
 </div>
 
-<script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Scroll-spy: highlight the nav link for the section currently in view
+  (function () {
+    const links = Array.from(document.querySelectorAll('.navlinks a'));
+    const byId = {};
+    links.forEach(a => { byId[a.getAttribute('href').slice(1)] = a; });
+    const sections = Array.from(document.querySelectorAll('main section[id]'));
+
+    const setActive = (id) => {
+      const link = byId[id];
+      if (!link || link.classList.contains('active')) return;
+      links.forEach(a => a.classList.remove('active'));
+      link.classList.add('active');
+      link.scrollIntoView({ block: 'nearest', inline: 'center' });
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      // Pick the entry nearest the top of the viewport that is intersecting
+      const visible = entries
+        .filter(e => e.isIntersecting)
+        .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+      if (visible.length) setActive(visible[0].target.id);
+    }, { rootMargin: '-72px 0px -65% 0px', threshold: 0 });
+
+    sections.forEach(s => observer.observe(s));
+  })();
+</script>
 </body>
 </html>
