@@ -70,23 +70,46 @@ a:hover { text-decoration: underline; }
 .page-curl .sky i {
   position: absolute; width: 2px; height: 2px; border-radius: 50%;
   background: #fff; box-shadow: 0 0 3px #cfe3ff;
-  animation: twinkle 1.8s ease-in-out infinite;
+  animation: twinkle 1.9s ease-in-out infinite;
 }
+/* sparkle streaks (twinkle glints) */
+.page-curl .sky i::before, .page-curl .sky i::after {
+  content: ""; position: absolute; left: 50%; top: 50%;
+  background: #fff; border-radius: 2px;
+  animation: streak 1.9s ease-in-out infinite; animation-delay: inherit;
+}
+.page-curl .sky i::before { width: 7px; height: 1px; }
+.page-curl .sky i::after  { width: 1px; height: 7px; }
+/* always-on stars */
 .page-curl .sky i:nth-child(1){ top: 14%; left: 70%; animation-delay: 0s; }
 .page-curl .sky i:nth-child(2){ top: 24%; left: 86%; animation-delay: .5s; }
 .page-curl .sky i:nth-child(3){ top: 42%; left: 82%; animation-delay: 1s; }
 .page-curl .sky i:nth-child(4){ top: 9%;  left: 52%; animation-delay: .3s; width: 1.5px; height: 1.5px; }
 .page-curl .sky i:nth-child(5){ top: 56%; left: 92%; animation-delay: 1.3s; }
 .page-curl .sky i:nth-child(6){ top: 32%; left: 63%; animation-delay: .8s; width: 1.5px; height: 1.5px; }
+/* extra stars — revealed on hover */
+.page-curl .sky i:nth-child(n+7){ display: none; }
+.page-curl .sky i:nth-child(7){ top: 64%; left: 96%; animation-delay: .2s; }
+.page-curl .sky i:nth-child(8){ top: 72%; left: 86%; animation-delay: .9s; width: 1.5px; height: 1.5px; }
+.page-curl .sky i:nth-child(9){ top: 20%; left: 42%; animation-delay: .6s; }
+.page-curl .sky i:nth-child(10){ top: 48%; left: 60%; animation-delay: 1.1s; width: 1.5px; height: 1.5px; }
+.page-curl .sky i:nth-child(11){ top: 6%;  left: 30%; animation-delay: 1.4s; }
+.page-curl .sky i:nth-child(12){ top: 80%; left: 98%; animation-delay: .4s; width: 1.5px; height: 1.5px; }
 @keyframes twinkle { 0%, 100% { opacity: .2; transform: scale(.6); } 50% { opacity: 1; transform: scale(1); } }
+@keyframes streak { 0%, 100% { opacity: 0; transform: translate(-50%, -50%) scale(.2); } 50% { opacity: .85; transform: translate(-50%, -50%) scale(1); } }
 /* folded white flap — lower-left triangle, slightly shaded near the crease */
 .page-curl::after {
   content: ""; position: absolute; inset: 0;
   clip-path: polygon(0 0, 0 100%, 100% 100%);
   background: linear-gradient(135deg, #e9e9ec, #ffffff 40%);
 }
-.page-curl:hover { width: 52px; height: 52px; filter: drop-shadow(-3px 4px 5px rgba(0,0,0,.3)); }
-@media (prefers-reduced-motion: reduce){ .page-curl { transition: none; } .page-curl .sky i { animation: none; opacity: .85; } }
+.page-curl:hover { width: 56px; height: 56px; filter: drop-shadow(-3px 4px 5px rgba(0,0,0,.3)); }
+.page-curl:hover .sky i:nth-child(n+7){ display: block; }
+@media (prefers-reduced-motion: reduce){
+  .page-curl { transition: none; }
+  .page-curl .sky i, .page-curl .sky i::before, .page-curl .sky i::after { animation: none; }
+  .page-curl .sky i { opacity: .9; }
+}
 
 .layout {
   max-width: var(--max);
@@ -197,7 +220,7 @@ footer { color: var(--faint); font-size: .85rem; font-family: 'Inter', sans-seri
     </div>
   </div>
 </nav>
-<a class="page-curl" href="casual.html" title="Beyond research → films, games &amp; more" aria-label="Personal / casual page"><span class="sky"><i></i><i></i><i></i><i></i><i></i><i></i></span></a>
+<a class="page-curl" href="casual.html" title="Beyond research → films, games &amp; more" aria-label="Personal / casual page"><span class="sky"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></a>
 
 <div class="layout">
 
