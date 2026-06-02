@@ -58,6 +58,13 @@ h2 .em{font-size:1.4rem;}
 .tag{background:#fff; border:1px solid var(--border); border-radius:999px; padding:.4rem .9rem; font-size:.88rem; color:var(--muted);}
 .note{font-size:.85rem; color:var(--faint); margin-top:.8rem; font-style:italic;}
 
+/* game cover cards */
+.games{display:grid; grid-template-columns:repeat(auto-fill, minmax(130px,1fr)); gap:1.1rem;}
+.game{display:flex; flex-direction:column; gap:.55rem; text-align:center; transition:transform .2s;}
+.game:hover{transform:translateY(-5px); text-decoration:none;}
+.game img{width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:12px; border:1px solid var(--border); box-shadow:0 10px 24px -12px rgba(0,0,0,.4);}
+.game span{font-size:.9rem; font-weight:600; color:var(--text);}
+
 footer{margin-top:3.5rem; padding-top:1.3rem; border-top:1px solid var(--border); color:var(--faint); font-size:.85rem;}
 </style>
 </head>
@@ -96,14 +103,23 @@ footer{margin-top:3.5rem; padding-top:1.3rem; border-top:1px solid var(--border)
   </section>
 
   <section id="games">
-    <h2><span class="em">🕹️</span> Games I'm playing</h2>
-    <div class="panel">
-      <p>A running list of what's currently installed and what I keep coming back to:</p>
-      <div class="tags">
-        <span class="tag">— add your games here —</span>
-      </div>
-      <p class="note">Drop me your games list (and any Steam / backloggd / PSN profile) and I'll fill this in properly.</p>
+    <h2><span class="em">🕹️</span> Games I love</h2>
+    <p style="color:var(--muted); margin-bottom:1.3rem;">My all-time favourites — I log everything I play on <a href="https://backloggd.com/u/v_shnuexe/" target="_blank" rel="noopener">Backloggd</a>.</p>
+    <div class="games">
+      <a class="game" href="https://www.backloggd.com/games/inside/" target="_blank" rel="noopener">
+        <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/co2fca.jpg" alt="Inside" loading="lazy">
+        <span>Inside</span>
+      </a>
+      <a class="game" href="https://www.backloggd.com/games/limbo/" target="_blank" rel="noopener">
+        <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/co1qrs.jpg" alt="Limbo" loading="lazy">
+        <span>Limbo</span>
+      </a>
+      <a class="game" href="https://www.backloggd.com/games/the-last-of-us-part-ii/" target="_blank" rel="noopener">
+        <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/co5ziw.jpg" alt="The Last of Us Part II" loading="lazy">
+        <span>The Last of Us Part II</span>
+      </a>
     </div>
+    <a class="btn alt" href="https://backloggd.com/u/v_shnuexe/" target="_blank" rel="noopener" style="margin-top:1.4rem;">See my full Backloggd →</a>
   </section>
 
   <section id="music">
