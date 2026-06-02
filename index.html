@@ -57,15 +57,23 @@ a:hover { text-decoration: underline; }
 /* Page-curl (dog-ear) in the top-right corner → casual page */
 .page-curl {
   position: fixed; top: 0; right: 0; z-index: 60;
-  width: 52px; height: 52px;
-  clip-path: polygon(0 0, 100% 0, 100% 100%);
-  background:
-    linear-gradient(135deg, rgba(255,255,255,.55), rgba(255,255,255,0) 45%),
-    linear-gradient(225deg, #ff5f6d, #ffb347 22%, #ffe838 40%, #47e891 58%, #4facfe 78%, #b06ab3);
-  filter: drop-shadow(-3px 3px 4px rgba(0,0,0,.28));
-  transition: width .28s ease, height .28s ease, filter .28s ease;
+  width: 36px; height: 36px;
+  filter: drop-shadow(-2px 3px 3px rgba(0,0,0,.22));
+  transition: width .25s ease, height .25s ease, filter .25s ease;
 }
-.page-curl:hover { width: 90px; height: 90px; filter: drop-shadow(-5px 5px 7px rgba(0,0,0,.38)) saturate(1.15); }
+/* rainbow underside — upper-right triangle */
+.page-curl::before {
+  content: ""; position: absolute; inset: 0;
+  clip-path: polygon(0 0, 100% 0, 100% 100%);
+  background: linear-gradient(210deg, #ff4d6d, #ff9a3d 20%, #ffe14d 38%, #46d98a 56%, #3aa0ff 76%, #a86bd6 94%);
+}
+/* folded white flap — lower-left triangle, slightly shaded near the crease */
+.page-curl::after {
+  content: ""; position: absolute; inset: 0;
+  clip-path: polygon(0 0, 0 100%, 100% 100%);
+  background: linear-gradient(135deg, #e9e9ec, #ffffff 40%);
+}
+.page-curl:hover { width: 52px; height: 52px; filter: drop-shadow(-3px 4px 5px rgba(0,0,0,.3)); }
 @media (prefers-reduced-motion: reduce){ .page-curl { transition: none; } }
 
 .layout {
