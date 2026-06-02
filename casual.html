@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vishnu B Raj — Off the Clock</title>
+<meta name="description" content="The casual side of Vishnu B Raj — films, games, music, and hobbies.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fff8f0; --surface:#ffffff; --border:#f0e3d4; --text:#2a2320;
+  --muted:#6f6258; --faint:#a99d90; --accent:#e2663c; --accent-2:#2f8f83;
+  --max:880px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  background:var(--bg); color:var(--text);
+  font-family:'Inter',system-ui,sans-serif; font-size:17px; line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--accent); text-decoration:none;}
+a:hover{text-decoration:underline;}
+.wrap{max-width:var(--max); margin:0 auto; padding:2.5rem 1.4rem 4rem;}
+
+.topbar{display:flex; justify-content:space-between; align-items:center; margin-bottom:2.5rem; font-size:.92rem;}
+.back{color:var(--muted); display:inline-flex; gap:.4rem; align-items:center;}
+.back:hover{color:var(--text); text-decoration:none;}
+
+.hero h1{font-family:'Fraunces',serif; font-size:clamp(2.2rem,6vw,3.4rem); font-weight:700; line-height:1.05; letter-spacing:-.02em; margin-bottom:.6rem;}
+.hero h1 .wave{display:inline-block; transform-origin:70% 70%;}
+.hero p.sub{font-family:'Fraunces',serif; font-style:italic; font-size:1.2rem; color:var(--muted); margin-bottom:1.2rem;}
+.hero p.intro{color:var(--muted); max-width:620px;}
+
+section{margin-top:3rem;}
+h2{font-family:'Fraunces',serif; font-size:1.5rem; font-weight:700; margin-bottom:1.2rem; display:flex; align-items:center; gap:.6rem;}
+h2 .em{font-size:1.4rem;}
+
+/* hobby cards */
+.hobbies{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:1rem;}
+.hobby{background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:1.3rem; text-align:center; transition:transform .2s;}
+.hobby:hover{transform:translateY(-4px);}
+.hobby .e{font-size:2rem; display:block; margin-bottom:.5rem;}
+.hobby .n{font-weight:600;}
+.hobby .d{font-size:.85rem; color:var(--faint); margin-top:.2rem;}
+
+/* generic panel */
+.panel{background:var(--surface); border:1px solid var(--border); border-radius:16px; padding:1.6rem;}
+.panel p{color:var(--muted);}
+.btn{display:inline-block; margin-top:1rem; background:var(--accent); color:#fff; font-weight:600; font-size:.92rem; padding:.6rem 1.2rem; border-radius:10px;}
+.btn:hover{text-decoration:none; opacity:.92;}
+.btn.alt{background:var(--accent-2);}
+
+/* lists */
+.tags{display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.4rem;}
+.tag{background:#fff; border:1px solid var(--border); border-radius:999px; padding:.4rem .9rem; font-size:.88rem; color:var(--muted);}
+.note{font-size:.85rem; color:var(--faint); margin-top:.8rem; font-style:italic;}
+
+footer{margin-top:3.5rem; padding-top:1.3rem; border-top:1px solid var(--border); color:var(--faint); font-size:.85rem;}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <a class="back" href="index.html">← Back to the professional side</a>
+    <span style="color:var(--faint);">Vishnu B Raj</span>
+  </div>
+
+  <header class="hero">
+    <h1>Hey, I'm Vishnu <span class="wave">👋</span></h1>
+    <p class="sub">When I'm not chasing deepfakes…</p>
+    <p class="intro">This is the off-the-clock corner of my site — the films I'm watching, the games I'm playing, the music in my ears, and the things that get me away from the screen. Welcome in.</p>
+  </header>
+
+  <section id="hobbies">
+    <h2><span class="em">🎯</span> Things I love</h2>
+    <div class="hobbies">
+      <div class="hobby"><span class="e">🚗</span><div class="n">Driving</div><div class="d">Long drives, open roads</div></div>
+      <div class="hobby"><span class="e">🏊</span><div class="n">Swimming</div><div class="d">Best reset button</div></div>
+      <div class="hobby"><span class="e">🎮</span><div class="n">Gaming</div><div class="d">Wind-down mode</div></div>
+      <div class="hobby"><span class="e">🎧</span><div class="n">Music</div><div class="d">Always something playing</div></div>
+    </div>
+  </section>
+
+  <section id="films">
+    <h2><span class="em">🎬</span> Films I've been watching</h2>
+    <div class="panel">
+      <p>I track everything I watch on Letterboxd — ratings, reviews, and the ever-growing watchlist.</p>
+      <!-- Replace the href below with your Letterboxd profile URL, e.g. https://letterboxd.com/yourusername -->
+      <a class="btn" href="https://letterboxd.com/" target="_blank" rel="noopener">My Letterboxd →</a>
+      <p class="note">Send me your Letterboxd username and I'll wire this up (and can embed your recent films / favourites automatically).</p>
+    </div>
+  </section>
+
+  <section id="games">
+    <h2><span class="em">🕹️</span> Games I'm playing</h2>
+    <div class="panel">
+      <p>A running list of what's currently installed and what I keep coming back to:</p>
+      <div class="tags">
+        <span class="tag">— add your games here —</span>
+      </div>
+      <p class="note">Drop me your games list (and any Steam / backloggd / PSN profile) and I'll fill this in properly.</p>
+    </div>
+  </section>
+
+  <section id="music">
+    <h2><span class="em">🎵</span> On repeat</h2>
+    <div class="panel">
+      <p>Music is the soundtrack to everything I do — coding, driving, late-night reading.</p>
+      <p class="note">Share a Spotify / Apple Music / Last.fm link and I'll add a "currently listening" section here.</p>
+    </div>
+  </section>
+
+  <footer>© <span id="year"></span> Vishnu B Raj · the fun page · <a href="index.html">research &amp; work →</a></footer>
+</div>
+<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+</body>
+</html>
