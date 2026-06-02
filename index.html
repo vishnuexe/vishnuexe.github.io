@@ -31,7 +31,7 @@
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 2rem; }
+html { scroll-behavior: smooth; scroll-padding-top: 72px; }
 body {
   background: var(--bg);
   color: var(--text);
@@ -43,10 +43,20 @@ body {
 a { color: var(--link); text-decoration: none; }
 a:hover { text-decoration: underline; }
 
+/* ---------- TOP NAV ---------- */
+.topnav { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
+.topnav-inner { max-width: var(--max); margin: 0 auto; padding: 0 1.5rem; height: 54px; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
+.navbrand { font-weight: 700; font-size: .95rem; white-space: nowrap; color: var(--text); }
+.navlinks { display: flex; gap: 1.4rem; overflow-x: auto; font-family: 'Inter', sans-serif; font-size: .88rem; scrollbar-width: none; }
+.navlinks::-webkit-scrollbar { display: none; }
+.navlinks a { color: var(--muted); white-space: nowrap; }
+.navlinks a:hover { color: var(--accent); text-decoration: none; }
+@media (max-width: 700px){ .navbrand { display: none; } .topnav-inner { justify-content: flex-start; } }
+
 .layout {
   max-width: var(--max);
   margin: 0 auto;
-  padding: 3.5rem 1.5rem 4rem;
+  padding: 3rem 1.5rem 4rem;
   display: grid;
   grid-template-columns: 270px 1fr;
   gap: 3.5rem;
@@ -54,7 +64,7 @@ a:hover { text-decoration: underline; }
 }
 
 /* ---------- SIDEBAR ---------- */
-.sidebar { position: sticky; top: 2.5rem; }
+.sidebar { position: sticky; top: 4.8rem; }
 .portrait {
   width: 170px; height: 170px; border-radius: 8px;
   margin-bottom: 1.3rem; object-fit: cover;
@@ -134,6 +144,24 @@ footer { color: var(--faint); font-size: .85rem; font-family: 'Inter', sans-seri
 </style>
 </head>
 <body>
+
+<nav class="topnav">
+  <div class="topnav-inner">
+    <span class="navbrand">Vishnu B Raj</span>
+    <div class="navlinks">
+      <a href="#bio">About</a>
+      <a href="#interests">Research Interests</a>
+      <a href="#skills">Skills</a>
+      <a href="#publications">Publications</a>
+      <a href="#research">Projects</a>
+      <a href="#teaching">Teaching</a>
+      <a href="#education">Education</a>
+      <a href="#service">Service</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
 <div class="layout">
 
   <!-- ============ SIDEBAR ============ -->
@@ -234,7 +262,11 @@ footer { color: var(--faint); font-size: .85rem; font-family: 'Inter', sans-seri
       <div class="entry"><div class="when">Jan – Jul 2024</div><div class="what"><strong>Database Management Systems</strong><div class="sub">Teaching Assistant</div></div></div>
       <div class="entry"><div class="when">Aug – Dec 2023</div><div class="what"><strong>Machine Learning</strong><div class="sub">Teaching Assistant</div></div></div>
       <div class="entry"><div class="when">Jan – Jul 2023</div><div class="what"><strong>Deep Learning</strong><div class="sub">Teaching Assistant</div></div></div>
-      <p style="color:var(--faint); font-size:.92rem; font-family:'Inter',sans-serif; margin-top:1rem;">Workshop instructor on Deep Learning with Python (IIT Bombay) and Image Processing (Python &amp; MATLAB) and Ethical Hacking &amp; Cybersecurity (NIT Calicut).</p>
+      <p style="color:var(--muted); font-size:.96rem; margin:1.6rem 0 1.2rem;">Workshops &amp; training delivered as instructor:</p>
+      <div class="entry"><div class="when">IIT Bombay</div><div class="what"><strong>Deep Learning using Python</strong><div class="sub">Instructor</div></div></div>
+      <div class="entry"><div class="when">NIT Calicut</div><div class="what"><strong>Image Processing using Python</strong><div class="sub">Instructor</div></div></div>
+      <div class="entry"><div class="when">NIT Calicut</div><div class="what"><strong>Image Processing using MATLAB</strong><div class="sub">Instructor</div></div></div>
+      <div class="entry"><div class="when">NIT Calicut</div><div class="what"><strong>Ethical Hacking &amp; Cybersecurity</strong><div class="sub">Instructor</div></div></div>
     </section>
 
     <section id="service">
