@@ -48,11 +48,18 @@ a:hover { text-decoration: underline; }
 .topnav { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--bg) 60%, transparent); -webkit-backdrop-filter: blur(14px) saturate(160%); backdrop-filter: blur(14px) saturate(160%); border-bottom: 1px solid color-mix(in srgb, var(--border) 70%, transparent); box-shadow: 0 4px 24px -14px rgba(0,0,0,.28); }
 .topnav-inner { max-width: var(--max); margin: 0 auto; padding: 0 1.5rem; height: 54px; display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; }
 .navbrand { font-weight: 700; font-size: .95rem; white-space: nowrap; color: var(--text); }
-.navlinks { display: flex; gap: 1.4rem; overflow-x: auto; font-family: 'Inter', sans-serif; font-size: .88rem; scrollbar-width: none; }
+.navlinks { display: flex; flex: 1; gap: 1.4rem; overflow-x: auto; font-family: 'Inter', sans-serif; font-size: .88rem; scrollbar-width: none; }
 .navlinks::-webkit-scrollbar { display: none; }
 .navlinks a { color: var(--muted); white-space: nowrap; }
 .navlinks a:hover { color: var(--accent); text-decoration: none; }
-@media (max-width: 700px){ .navbrand { display: none; } .topnav-inner { justify-content: flex-start; } }
+@media (max-width: 700px){ .navbrand { display: none; } }
+
+/* Rainbow patch → casual page */
+.rainbow-patch { flex: none; position: relative; width: 26px; height: 26px; border-radius: 50%; overflow: hidden; box-shadow: 0 0 0 1px rgba(0,0,0,.06), 0 2px 8px rgba(0,0,0,.18); transition: transform .25s ease, box-shadow .25s ease; }
+.rainbow-patch::before { content: ""; position: absolute; inset: -30%; background: conic-gradient(from 0deg, #ff5f6d, #ffc371, #47e891, #4facfe, #b06ab3, #ff5f6d); animation: patch-spin 5s linear infinite; }
+.rainbow-patch:hover { transform: scale(1.18); box-shadow: 0 0 0 1px rgba(0,0,0,.06), 0 4px 14px rgba(0,0,0,.28); }
+@keyframes patch-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce){ .rainbow-patch::before { animation: none; } }
 
 .layout {
   max-width: var(--max);
@@ -161,6 +168,7 @@ footer { color: var(--faint); font-size: .85rem; font-family: 'Inter', sans-seri
       <a href="#service">Volunteering</a>
       <a href="#contact">Contact</a>
     </div>
+    <a class="rainbow-patch" href="casual.html" title="Beyond research → films, games &amp; more" aria-label="Personal / casual page"></a>
   </div>
 </nav>
 
