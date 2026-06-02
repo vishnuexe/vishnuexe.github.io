@@ -58,12 +58,15 @@ h2 .em{font-size:1.4rem;}
 .tag{background:#fff; border:1px solid var(--border); border-radius:999px; padding:.4rem .9rem; font-size:.88rem; color:var(--muted);}
 .note{font-size:.85rem; color:var(--faint); margin-top:.8rem; font-style:italic;}
 
-/* game cover cards */
-.games{display:grid; grid-template-columns:repeat(auto-fill, minmax(130px,1fr)); gap:1.1rem;}
-.game{display:flex; flex-direction:column; gap:.55rem; text-align:center; transition:transform .2s;}
-.game:hover{transform:translateY(-5px); text-decoration:none;}
-.game img{width:100%; aspect-ratio:3/4; object-fit:cover; border-radius:12px; border:1px solid var(--border); box-shadow:0 10px 24px -12px rgba(0,0,0,.4);}
-.game span{font-size:.9rem; font-weight:600; color:var(--text);}
+/* cover-art grids (games + films) */
+.covers{display:grid; grid-template-columns:repeat(auto-fill, minmax(120px,1fr)); gap:1.1rem;}
+.cover-card{display:flex; flex-direction:column; gap:.5rem; text-align:center; transition:transform .2s;}
+.cover-card:hover{transform:translateY(-5px); text-decoration:none;}
+.cover-card img{width:100%; aspect-ratio:2/3; object-fit:cover; border-radius:12px; border:1px solid var(--border); box-shadow:0 10px 24px -12px rgba(0,0,0,.4); background:var(--surface);}
+.cover-card .t{font-size:.88rem; font-weight:600; color:var(--text); line-height:1.25;}
+.cover-card .stars{font-size:.85rem; color:var(--accent); letter-spacing:1px;}
+.subhead{font-family:'Fraunces',serif; font-size:1.05rem; font-weight:600; color:var(--muted); margin:1.8rem 0 .9rem;}
+.lead-line{color:var(--muted); margin-bottom:1.2rem;}
 
 footer{margin-top:3.5rem; padding-top:1.3rem; border-top:1px solid var(--border); color:var(--faint); font-size:.85rem;}
 </style>
@@ -93,32 +96,19 @@ footer{margin-top:3.5rem; padding-top:1.3rem; border-top:1px solid var(--border)
   </section>
 
   <section id="films">
-    <h2><span class="em">🎬</span> Films I've been watching</h2>
-    <div class="panel">
-      <p>I track everything I watch on Letterboxd — ratings, reviews, and the ever-growing watchlist.</p>
-      <!-- Replace the href below with your Letterboxd profile URL, e.g. https://letterboxd.com/yourusername -->
-      <a class="btn" href="https://letterboxd.com/" target="_blank" rel="noopener">My Letterboxd →</a>
-      <p class="note">Send me your Letterboxd username and I'll wire this up (and can embed your recent films / favourites automatically).</p>
-    </div>
+    <h2><span class="em">🎬</span> Recently watched</h2>
+    <p class="lead-line">My five latest watches — straight from my <a href="https://letterboxd.com/vishnuexe/" target="_blank" rel="noopener">Letterboxd</a>.</p>
+    <div class="covers" id="film-grid"></div>
+    <a class="btn" href="https://letterboxd.com/vishnuexe/" target="_blank" rel="noopener">My Letterboxd →</a>
   </section>
 
   <section id="games">
-    <h2><span class="em">🕹️</span> Games I love</h2>
-    <p style="color:var(--muted); margin-bottom:1.3rem;">My all-time favourites — I log everything I play on <a href="https://backloggd.com/u/v_shnuexe/" target="_blank" rel="noopener">Backloggd</a>.</p>
-    <div class="games">
-      <a class="game" href="https://www.backloggd.com/games/inside/" target="_blank" rel="noopener">
-        <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/co2fca.jpg" alt="Inside" loading="lazy">
-        <span>Inside</span>
-      </a>
-      <a class="game" href="https://www.backloggd.com/games/limbo/" target="_blank" rel="noopener">
-        <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/co1qrs.jpg" alt="Limbo" loading="lazy">
-        <span>Limbo</span>
-      </a>
-      <a class="game" href="https://www.backloggd.com/games/the-last-of-us-part-ii/" target="_blank" rel="noopener">
-        <img src="https://images.igdb.com/igdb/image/upload/t_cover_big/co5ziw.jpg" alt="The Last of Us Part II" loading="lazy">
-        <span>The Last of Us Part II</span>
-      </a>
-    </div>
+    <h2><span class="em">🕹️</span> Games</h2>
+    <p class="lead-line">What I'm into right now — logged on <a href="https://backloggd.com/u/v_shnuexe/" target="_blank" rel="noopener">Backloggd</a>.</p>
+    <div class="subhead" id="playing-head" hidden>▶ Now playing</div>
+    <div class="covers" id="playing-grid" hidden></div>
+    <div class="subhead">★ Top games</div>
+    <div class="covers" id="top-grid"></div>
     <a class="btn alt" href="https://backloggd.com/u/v_shnuexe/" target="_blank" rel="noopener" style="margin-top:1.4rem;">See my full Backloggd →</a>
   </section>
 
@@ -132,6 +122,51 @@ footer{margin-top:3.5rem; padding-top:1.3rem; border-top:1px solid var(--border)
 
   <footer>© <span id="year"></span> Vishnu B Raj · the fun page · <a href="index.html">research &amp; work →</a></footer>
 </div>
-<script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const esc = s => (s || '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+  function stars(r) {
+    if (r == null) return '';
+    const full = Math.floor(r), half = r - full >= 0.5;
+    return '★'.repeat(full) + (half ? '½' : '');
+  }
+
+  function coverCard(item, opts = {}) {
+    const img = opts.poster ? item.poster : item.cover;
+    if (!img) return '';
+    const sub = opts.poster
+      ? `<span class="stars">${stars(item.rating)}</span>`
+      : '';
+    return `<a class="cover-card" href="${esc(item.url || '#')}" target="_blank" rel="noopener">
+        <img src="${esc(img)}" alt="${esc(item.title)}" loading="lazy">
+        <span class="t">${esc(item.title)}</span>${sub}
+      </a>`;
+  }
+
+  function render(grid, items, opts) {
+    const el = document.getElementById(grid);
+    if (!el || !items || !items.length) return false;
+    el.innerHTML = items.map(i => coverCard(i, opts)).join('');
+    return true;
+  }
+
+  fetch('data/films.json', { cache: 'no-store' })
+    .then(r => r.json())
+    .then(d => render('film-grid', (d.items || []).slice(0, 5), { poster: true }))
+    .catch(() => {});
+
+  fetch('data/games.json', { cache: 'no-store' })
+    .then(r => r.json())
+    .then(d => {
+      render('top-grid', (d.top || []).slice(0, 5));
+      if (render('playing-grid', (d.playing || []).slice(0, 6))) {
+        document.getElementById('playing-grid').hidden = false;
+        document.getElementById('playing-head').hidden = false;
+      }
+    })
+    .catch(() => {});
+</script>
 </body>
 </html>
