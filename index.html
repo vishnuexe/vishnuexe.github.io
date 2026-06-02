@@ -108,6 +108,14 @@ em.term { font-style: normal; font-weight: 600; }
 .pub .actions { font-family: 'Inter', sans-serif; font-size: .85rem; margin-top: .35rem; display: flex; gap: 1rem; }
 .tagline { display:inline-block; font-family:'Inter',sans-serif; font-size:.72rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--accent); background:var(--accent-soft); padding:.12rem .5rem; border-radius:4px; margin-bottom:.4rem; }
 
+/* Publications list */
+.pubs { list-style: none; counter-reset: pub; }
+.pubs li { position: relative; padding: 0 0 1.1rem 2.3rem; margin-bottom: 1rem; border-bottom: 1px solid var(--border); counter-increment: pub; }
+.pubs li:last-child { border-bottom: 0; margin-bottom: 0; padding-bottom: 0; }
+.pubs li::before { content: "[" counter(pub) "]"; position: absolute; left: 0; top: .1rem; color: var(--accent); font-family: 'Inter', sans-serif; font-size: .9rem; font-weight: 600; }
+.pubs .venue { font-style: italic; }
+.pubs .pubactions { display: block; margin-top: .4rem; font-family: 'Inter', sans-serif; font-size: .85rem; }
+
 /* Education / service */
 .entry { display: grid; grid-template-columns: 130px 1fr; gap: 1rem; padding: .8rem 0; border-bottom: 1px solid var(--border); }
 .entry:last-child { border-bottom: 0; }
@@ -136,6 +144,7 @@ footer { color: var(--faint); font-size: .85rem; font-family: 'Inter', sans-seri
 
     <ul class="links">
       <li><span class="ic">✉</span><a href="mailto:142204003@smail.iitpkd.ac.in">142204003@smail.iitpkd.ac.in</a></li>
+      <li><span class="ic">🎓</span><a href="https://iitpkd.ac.in/people/142204003" target="_blank" rel="noopener">IIT Palakkad Profile</a></li>
       <li><span class="ic">◆</span><a href="https://github.com/vishnuexe" target="_blank" rel="noopener">GitHub</a></li>
       <li><span class="ic">in</span><a href="https://in.linkedin.com/in/vishnu-b-raj" target="_blank" rel="noopener">LinkedIn</a></li>
       <li><span class="ic">📍</span>Kerala, India</li>
@@ -173,7 +182,12 @@ footer { color: var(--faint); font-size: .85rem; font-family: 'Inter', sans-seri
 
     <section id="publications">
       <h2>Publications</h2>
-      <p style="color:var(--muted); font-size:.96rem;">Manuscripts in preparation. Send me your finalized citations (venue, year, co-authors, DOI/arXiv) and they will be listed here with links and BibTeX.</p>
+      <ol class="pubs">
+        <li>
+          <strong>V. B. Raj</strong> and K. Hareesh, &ldquo;Review on Generative Adversarial Networks,&rdquo; <span class="venue">2020 International Conference on Communication and Signal Processing (ICCSP)</span>, Chennai, India, 2020, pp. 0479&ndash;0482.
+          <span class="pubactions"><a href="https://ieeexplore.ieee.org/abstract/document/9182058" target="_blank" rel="noopener">IEEE Xplore ↗</a> &nbsp;·&nbsp; <a href="https://doi.org/10.1109/ICCSP48568.2020.9182058" target="_blank" rel="noopener">doi:10.1109/ICCSP48568.2020.9182058</a></span>
+        </li>
+      </ol>
     </section>
 
     <section id="research">
