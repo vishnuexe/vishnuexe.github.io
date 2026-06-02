@@ -70,13 +70,13 @@ a:hover { text-decoration: underline; }
 .page-curl .sky i {
   position: absolute; width: 2px; height: 2px; border-radius: 50%;
   background: #fff; box-shadow: 0 0 3px #cfe3ff;
-  animation: twinkle 1.9s ease-in-out infinite;
+  animation: twinkle 1.9s ease-in-out infinite backwards;
 }
 /* sparkle streaks (twinkle glints) */
 .page-curl .sky i::before, .page-curl .sky i::after {
   content: ""; position: absolute; left: 50%; top: 50%;
-  background: #fff; border-radius: 2px;
-  animation: streak 1.9s ease-in-out infinite; animation-delay: inherit;
+  background: #fff; border-radius: 2px; opacity: 0;
+  animation: streak 1.9s ease-in-out infinite backwards; animation-delay: inherit;
 }
 .page-curl .sky i::before { width: 7px; height: 1px; }
 .page-curl .sky i::after  { width: 1px; height: 7px; }
