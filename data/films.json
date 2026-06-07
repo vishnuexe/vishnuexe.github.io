@@ -1,8 +1,29 @@
 {
-  "updated": "2026-06-02",
+  "updated": "2026-06-07",
   "source": "letterboxd",
   "user": "vishnuexe",
   "items": [
+    {
+      "title": "Vaazha",
+      "year": "2024",
+      "rating": 4.0,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/1/0/7/5/5/1/2/1075512-vaazha-biopic-of-a-billion-boys-0-600-0-900-crop.jpg?v=a6861db2cd",
+      "url": "https://letterboxd.com/vishnuexe/film/vaazha/"
+    },
+    {
+      "title": "Vaazha II",
+      "year": "2026",
+      "rating": 4.0,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/1/2/3/1/4/5/6/1231456-vaazha-ii-0-600-0-900-crop.jpg?v=fa9ddbc35a",
+      "url": "https://letterboxd.com/vishnuexe/film/vaazha-ii/"
+    },
+    {
+      "title": "Temple Grandin",
+      "year": "2010",
+      "rating": 5.0,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/2/9/6/7/0/29670-temple-grandin-0-600-0-900-crop.jpg?v=4d647b80c1",
+      "url": "https://letterboxd.com/vishnuexe/film/temple-grandin/"
+    },
     {
       "title": "Project Hail Mary",
       "year": "2026",
@@ -16,27 +37,6 @@
       "rating": 2.0,
       "poster": "https://a.ltrbxd.com/resized/film-poster/9/0/7/8/6/8/907868-swapped-2026-0-600-0-900-crop.jpg?v=c7bb59e165",
       "url": "https://letterboxd.com/vishnuexe/film/swapped-2026/"
-    },
-    {
-      "title": "Sambhavam Adhyayam Onnu",
-      "year": "2026",
-      "rating": 3.0,
-      "poster": "https://a.ltrbxd.com/resized/film-poster/1/3/4/6/6/9/3/1346693-sambhavam-adhyayam-onnu-0-600-0-900-crop.jpg?v=d241691aa8",
-      "url": "https://letterboxd.com/vishnuexe/film/sambhavam-adhyayam-onnu/"
-    },
-    {
-      "title": "Masthishka Maranam",
-      "year": "2026",
-      "rating": 4.0,
-      "poster": "https://a.ltrbxd.com/resized/film-poster/1/3/2/1/4/3/2/1321432-masthishka-maranam-0-600-0-900-crop.jpg?v=f9c4fe3eaa",
-      "url": "https://letterboxd.com/vishnuexe/film/masthishka-maranam/"
-    },
-    {
-      "title": "2010: The Year We Make Contact",
-      "year": "1984",
-      "rating": 4.0,
-      "poster": "https://a.ltrbxd.com/resized/film-poster/4/9/3/3/8/49338-2010-1984-0-600-0-900-crop.jpg?v=8057824269",
-      "url": "https://letterboxd.com/vishnuexe/film/2010-1984/"
     }
   ]
 }
