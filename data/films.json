@@ -1,8 +1,22 @@
 {
-  "updated": "2026-06-14",
+  "updated": "2026-06-21",
   "source": "letterboxd",
   "user": "vishnuexe",
   "items": [
+    {
+      "title": "Drishyam 3",
+      "year": "2026",
+      "rating": 3.0,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/7/6/2/4/5/4/762454-drishyam-3-0-600-0-900-crop.jpg?v=274483966a",
+      "url": "https://letterboxd.com/vishnuexe/film/drishyam-3/"
+    },
+    {
+      "title": "Obsession",
+      "year": "2025",
+      "rating": 5.0,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/1/2/3/4/4/7/2/1234472-obsession-2025-2-0-600-0-900-crop.jpg?v=cff6fc00b6",
+      "url": "https://letterboxd.com/vishnuexe/film/obsession-2025/"
+    },
     {
       "title": "Vaazha",
       "year": "2024",
@@ -23,20 +37,6 @@
       "rating": 5.0,
       "poster": "https://a.ltrbxd.com/resized/film-poster/2/9/6/7/0/29670-temple-grandin-0-600-0-900-crop.jpg?v=4d647b80c1",
       "url": "https://letterboxd.com/vishnuexe/film/temple-grandin/"
-    },
-    {
-      "title": "Project Hail Mary",
-      "year": "2026",
-      "rating": 4.0,
-      "poster": "https://a.ltrbxd.com/resized/film-poster/6/1/1/2/8/8/611288-project-hail-mary-0-600-0-900-crop.jpg?v=ac31b6ec03",
-      "url": "https://letterboxd.com/vishnuexe/film/project-hail-mary/"
-    },
-    {
-      "title": "Swapped",
-      "year": "2026",
-      "rating": 2.0,
-      "poster": "https://a.ltrbxd.com/resized/film-poster/9/0/7/8/6/8/907868-swapped-2026-0-600-0-900-crop.jpg?v=c7bb59e165",
-      "url": "https://letterboxd.com/vishnuexe/film/swapped-2026/"
     }
   ]
 }
