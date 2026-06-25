@@ -1,11 +1,57 @@
 {
-  "updated": "2026-06-02",
+  "updated": "2026-06-25",
   "source": "backloggd",
   "user": "v_shnuexe",
   "items": [
-    { "title": "Delta Force", "cover": "https://images.igdb.com/igdb/image/upload/t_cover_big/coa98y.jpg", "url": "https://www.backloggd.com/games/delta-force--1/" },
-    { "title": "Inside", "cover": "https://images.igdb.com/igdb/image/upload/t_cover_big/co2fca.jpg", "url": "https://www.backloggd.com/games/inside/" },
-    { "title": "Limbo", "cover": "https://images.igdb.com/igdb/image/upload/t_cover_big/co1qrs.jpg", "url": "https://www.backloggd.com/games/limbo/" },
-    { "title": "The Last of Us Part II", "cover": "https://images.igdb.com/igdb/image/upload/t_cover_big/co5ziw.jpg", "url": "https://www.backloggd.com/games/the-last-of-us-part-ii/" }
+    {
+      "title": "Mad Max",
+      "cover": "https://cdn.cloudflare.steamstatic.com/steam/apps/234140/library_600x900_2x.jpg",
+      "url": "https://www.backloggd.com/games/mad-max/"
+    },
+    {
+      "title": "Delta Force",
+      "cover": "https://cdn.cloudflare.steamstatic.com/steam/apps/2507950/library_600x900_2x.jpg",
+      "url": "https://www.backloggd.com/games/delta-force--1/"
+    },
+    {
+      "title": "Little Nightmares II",
+      "cover": "https://cdn.cloudflare.steamstatic.com/steam/apps/860510/library_600x900_2x.jpg",
+      "url": "https://www.backloggd.com/games/little-nightmares-ii/"
+    },
+    {
+      "title": "Little Nightmares",
+      "cover": "https://cdn.cloudflare.steamstatic.com/steam/apps/424840/library_600x900_2x.jpg",
+      "url": "https://www.backloggd.com/games/little-nightmares/"
+    },
+    {
+      "title": "Inside",
+      "cover": "https://cdn.cloudflare.steamstatic.com/steam/apps/304430/library_600x900_2x.jpg",
+      "url": "https://www.backloggd.com/games/inside/"
+    },
+    {
+      "title": "Limbo",
+      "cover": "https://cdn.cloudflare.steamstatic.com/steam/apps/48000/library_600x900_2x.jpg",
+      "url": "https://www.backloggd.com/games/limbo/"
+    },
+    {
+      "title": "Assassin's Creed II",
+      "cover": "https://cdn.cloudflare.steamstatic.com/steam/apps/33230/library_600x900_2x.jpg",
+      "url": "https://www.backloggd.com/games/assassins-creed-ii/"
+    },
+    {
+      "title": "Call of Duty: Black Ops II",
+      "cover": "https://cdn.cloudflare.steamstatic.com/steam/apps/202970/library_600x900_2x.jpg",
+      "url": "https://www.backloggd.com/games/call-of-duty-black-ops-ii/"
+    },
+    {
+      "title": "Assassin's Creed II",
+      "cover": "https://cdn.cloudflare.steamstatic.com/steam/apps/33230/library_600x900_2x.jpg",
+      "url": "https://www.backloggd.com/games/assassins-creed-ii/"
+    },
+    {
+      "title": "The Last of Us Part II",
+      "cover": "https://cdn.cloudflare.steamstatic.com/steam/apps/2531310/library_600x900_2x.jpg",
+      "url": "https://www.backloggd.com/games/the-last-of-us-part-ii/"
+    }
   ]
 }
