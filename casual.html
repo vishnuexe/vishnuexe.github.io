@@ -20,6 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
 :root{
   --bg:#08090e; --surface:#13151d; --border:#252a37; --text:#eef1f7;
@@ -81,6 +82,24 @@ h2 .em{display:inline-grid; place-items:center; width:2.5rem; height:2.5rem; fon
 .hobby .e{font-size:2.1rem; display:block; margin-bottom:.55rem;}
 .hobby .n{font-weight:600;}
 .hobby .d{font-size:.85rem; color:var(--faint); margin-top:.2rem;}
+.hobby.clickable{cursor:pointer;}
+.hobby .maphint{font-size:.72rem; font-weight:600; color:var(--accent-2); margin-top:.55rem;}
+
+/* driving routes map modal */
+.mapmodal[hidden]{display:none;}
+.mapmodal{position:fixed; inset:0; z-index:200; display:flex; align-items:center; justify-content:center; padding:1.2rem;}
+.mapmodal-backdrop{position:absolute; inset:0; background:rgba(4,5,9,.72); -webkit-backdrop-filter:blur(4px); backdrop-filter:blur(4px);}
+.mapmodal-dialog{position:relative; width:min(900px,100%); max-height:90vh; display:flex; flex-direction:column; background:var(--surface); border:1px solid var(--glass-bd); border-radius:18px; overflow:hidden; box-shadow:0 30px 80px -20px rgba(0,0,0,.8);}
+.mapmodal-head{display:flex; align-items:center; justify-content:space-between; padding:1rem 1.3rem; border-bottom:1px solid var(--border);}
+.mapmodal-head h3{font-family:'Fraunces',serif; font-size:1.2rem;}
+.mapmodal-x{background:var(--glass); border:1px solid var(--glass-bd); color:var(--text); width:34px; height:34px; border-radius:9px; cursor:pointer; font-size:1rem; line-height:1;}
+.mapmodal-x:hover{border-color:var(--accent);}
+.mapmodal-map{flex:1; min-height:60vh; width:100%; background:#0c0e15;}
+.mapmodal-legend{display:flex; flex-wrap:wrap; gap:.5rem 1.1rem; padding:.9rem 1.3rem; border-top:1px solid var(--border); font-size:.85rem; color:var(--muted);}
+.mapmodal-legend .legrow{display:inline-flex; align-items:center; gap:.45rem;}
+.mapmodal-legend i{width:16px; height:4px; border-radius:2px; display:inline-block; flex:none;}
+.leaflet-container{font-family:'Inter',sans-serif; background:#0c0e15;}
+@media (max-width:640px){ .mapmodal{padding:.6rem;} .mapmodal-map{min-height:55vh;} }
 
 /* generic panel */
 .panel{background:var(--glass); border:1px solid var(--glass-bd); border-radius:18px; padding:1.7rem; backdrop-filter:blur(10px);}
@@ -195,7 +214,7 @@ footer{margin-top:4.5rem; padding-top:1.4rem; border-top:1px solid var(--border)
   <section id="hobbies">
     <h2><span class="em">🎯</span> Things I love</h2>
     <div class="hobbies">
-      <div class="hobby"><span class="e">🚗</span><div class="n">Driving</div><div class="d">Long drives, open roads</div></div>
+      <div class="hobby clickable" id="drive-card" role="button" tabindex="0" aria-haspopup="dialog" aria-label="Driving — open a map of routes I have driven"><span class="e">🚗</span><div class="n">Driving</div><div class="d">Long drives, open roads</div><div class="maphint">Tap for my routes →</div></div>
       <div class="hobby"><span class="e">🏊</span><div class="n">Swimming</div><div class="d">Best reset button</div></div>
       <div class="hobby"><span class="e">🎮</span><div class="n">Gaming</div><div class="d">Wind-down mode</div></div>
       <div class="hobby"><span class="e">🎧</span><div class="n">Music</div><div class="d">Always something playing</div></div>
@@ -218,8 +237,22 @@ footer{margin-top:4.5rem; padding-top:1.4rem; border-top:1px solid var(--border)
 
   <footer>© <span id="year"></span> Vishnu B Raj · the fun page · <a href="index.html">research &amp; work →</a></footer>
 </div>
+
+<div class="mapmodal" id="drive-modal" hidden role="dialog" aria-modal="true" aria-label="Routes I've driven">
+  <div class="mapmodal-backdrop" data-close></div>
+  <div class="mapmodal-dialog">
+    <div class="mapmodal-head">
+      <h3>🚗 Roads I've driven</h3>
+      <button class="mapmodal-x" type="button" data-close aria-label="Close map">✕</button>
+    </div>
+    <div id="drive-map" class="mapmodal-map"></div>
+    <div class="mapmodal-legend" id="drive-legend"></div>
+  </div>
+</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.14/dist/lenis.min.js"></script>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -387,6 +420,85 @@ footer{margin-top:4.5rem; padding-top:1.4rem; border-top:1px solid var(--border)
         delay: anime.stagger(34, { grid: [COLS, ROWS], from: idx }),
         easing: 'easeOutQuad' });
     });
+  })();
+
+  // ---------- Driving routes map (Leaflet + OSM, OSRM road geometry) ----------
+  (function () {
+    const card = document.getElementById('drive-card');
+    const modal = document.getElementById('drive-modal');
+    const mapEl = document.getElementById('drive-map');
+    const legendEl = document.getElementById('drive-legend');
+    if (!card || !modal || !mapEl || !window.L) return;
+
+    const P = {
+      cusat:      { name: 'CUSAT, Kochi',       ll: [10.0460, 76.3290] },
+      munnar:     { name: 'Munnar',             ll: [10.0889, 77.0595] },
+      kannur:     { name: 'Kannur',             ll: [11.8745, 75.3704] },
+      wayanad:    { name: 'Wayanad',            ll: [11.6085, 76.0826] },
+      iitpkd:     { name: 'IIT Palakkad',       ll: [10.8105, 76.7050] },
+      ooty:       { name: 'Ooty',               ll: [11.4064, 76.6932] },
+      valparai:   { name: 'Valparai',           ll: [10.3266, 76.9560] },
+      palathattu: { name: 'Palakkayam Thattu',  ll: [11.8408, 75.7847] },
+    };
+    const ROUTES = [
+      { from: 'cusat',  to: 'munnar',     color: '#8b7bff', label: 'Kochi → Munnar' },
+      { from: 'kannur', to: 'wayanad',    color: '#22d3ee', label: 'Kannur → Wayanad' },
+      { from: 'iitpkd', to: 'ooty',       color: '#34d399', label: 'IIT Palakkad → Ooty' },
+      { from: 'iitpkd', to: 'valparai',   color: '#f472b6', label: 'IIT Palakkad → Valparai' },
+      { from: 'kannur', to: 'palathattu', color: '#fbbf24', label: 'Kannur → Palakkayam Thattu' },
+    ];
+
+    let map = null, built = false;
+
+    function build() {
+      if (built) return; built = true;
+      map = L.map(mapEl, { scrollWheelZoom: false });
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 17, attribution: '© OpenStreetMap contributors'
+      }).addTo(map);
+
+      const pts = [];
+      Object.values(P).forEach(p => {
+        L.circleMarker(p.ll, { radius: 5, color: '#fff', weight: 2, fillColor: '#111827', fillOpacity: 1 })
+          .addTo(map).bindTooltip(p.name, { direction: 'top' });
+        pts.push(p.ll);
+      });
+      map.fitBounds(pts, { padding: [30, 30] });
+
+      legendEl.innerHTML = ROUTES.map(r =>
+        `<span class="legrow"><i style="background:${r.color}"></i>${r.label}</span>`).join('');
+
+      ROUTES.forEach(r => {
+        const a = P[r.from].ll, b = P[r.to].ll;
+        const straight = () => L.polyline([a, b], { color: r.color, weight: 3, opacity: .8, dashArray: '6,7' }).addTo(map);
+        const url = `https://router.project-osrm.org/route/v1/driving/${a[1]},${a[0]};${b[1]},${b[0]}?overview=full&geometries=geojson`;
+        fetch(url)
+          .then(res => res.json())
+          .then(d => {
+            if (d.code === 'Ok' && d.routes && d.routes.length) {
+              const line = d.routes[0].geometry.coordinates.map(c => [c[1], c[0]]);
+              L.polyline(line, { color: r.color, weight: 4, opacity: .9 }).addTo(map);
+            } else { straight(); }
+          })
+          .catch(straight);
+      });
+    }
+
+    function open() {
+      modal.hidden = false;
+      document.body.style.overflow = 'hidden';
+      build();
+      setTimeout(() => map && map.invalidateSize(), 60);
+    }
+    function close() {
+      modal.hidden = true;
+      document.body.style.overflow = '';
+    }
+
+    card.addEventListener('click', open);
+    card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(); } });
+    modal.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', close));
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && !modal.hidden) close(); });
   })();
 </script>
 </body>
