@@ -3,7 +3,7 @@
 
 - Films  : Letterboxd RSS (reliable, no browser needed) -> 10 most recent.
 - Games  : Backloggd via a real headless browser (Playwright) to get past
-           Cloudflare -> up to 5 "top" (favourite) games + currently "playing".
+           Cloudflare -> up to 10 most-recent games.
 
 Design rule: never overwrite a file with empty results. If a source fails
 (Cloudflare block, layout change, network error), we keep the last-good data.
@@ -169,7 +169,7 @@ def main():
 
     # games
     try:
-        games = fetch_games()
+        games = fetch_games(10)
     except Exception as e:
         games = []
         print(f"games fetch failed: {e}", file=sys.stderr)

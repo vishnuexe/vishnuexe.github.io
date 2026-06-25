@@ -301,7 +301,7 @@ footer{margin-top:4.5rem; padding-top:1.4rem; border-top:1px solid var(--border)
 
   fetch('data/games.json', { cache: 'no-store' })
     .then(r => r.json())
-    .then(d => { render('game-grid', (d.items || d.top || []).slice(0, 5)); revealStagger('game-grid'); })
+    .then(d => { render('game-grid', (d.items || d.top || []).slice(0, 10)); revealStagger('game-grid'); })
     .catch(() => {});
 
   // scroll progress bar
