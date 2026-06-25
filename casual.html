@@ -109,6 +109,14 @@ h2 .em{display:inline-grid; place-items:center; width:2.5rem; height:2.5rem; fon
 .subhead{font-family:'Fraunces',serif; font-size:1.05rem; font-weight:600; color:var(--muted); margin:1.8rem 0 .9rem;}
 .lead-line{color:var(--muted); margin-bottom:1.4rem;}
 
+/* "See more" toggle — phones show 5 films, tap to reveal all 10 (desktop shows all) */
+.see-more{display:none; width:100%; margin-top:1.2rem; padding:.7rem 1.3rem; font:inherit; font-size:.9rem; font-weight:600; color:var(--text); background:var(--glass); border:1px solid var(--glass-bd); border-radius:12px; backdrop-filter:blur(8px); cursor:pointer; transition:border-color .2s, transform .2s;}
+.see-more:hover{border-color:var(--accent); transform:translateY(-1px);}
+@media (max-width:640px){
+  #film-grid:not(.expanded) .cover-card:nth-child(n+6){display:none;}
+  .see-more{display:block;}
+}
+
 footer{margin-top:4.5rem; padding-top:1.4rem; border-top:1px solid var(--border); color:var(--faint); font-size:.85rem;}
 
 /* nav bar (glass) */
@@ -208,6 +216,7 @@ footer{margin-top:4.5rem; padding-top:1.4rem; border-top:1px solid var(--border)
     <h2><span class="em">🎬</span> Recently watched</h2>
     <p class="lead-line">My five latest watches — straight from my <a href="https://letterboxd.com/vishnuexe/" target="_blank" rel="noopener">Letterboxd</a>.</p>
     <div class="covers" id="film-grid"></div>
+    <button class="see-more" id="film-more" type="button" aria-expanded="false">See more films</button>
     <a class="btn" href="https://letterboxd.com/vishnuexe/" target="_blank" rel="noopener">My Letterboxd →</a>
   </section>
 
@@ -296,7 +305,21 @@ footer{margin-top:4.5rem; padding-top:1.4rem; border-top:1px solid var(--border)
   // films + games (then reveal their cards)
   fetch('data/films.json', { cache: 'no-store' })
     .then(r => r.json())
-    .then(d => { render('film-grid', (d.items || []).slice(0, 5), { poster: true }); revealStagger('film-grid'); })
+    .then(d => {
+      render('film-grid', (d.items || []).slice(0, 10), { poster: true });
+      revealStagger('film-grid');
+      const grid = document.getElementById('film-grid');
+      const more = document.getElementById('film-more');
+      if (more) {
+        // Nothing hidden to reveal (5 or fewer films) → no button needed
+        if (!grid || grid.children.length <= 5) { more.style.display = 'none'; }
+        more.addEventListener('click', () => {
+          grid.classList.add('expanded');
+          more.setAttribute('aria-expanded', 'true');
+          more.style.display = 'none';
+        });
+      }
+    })
     .catch(() => {});
 
   fetch('data/games.json', { cache: 'no-store' })

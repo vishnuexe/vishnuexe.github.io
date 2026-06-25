@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Refresh data/games.json and data/films.json for the casual page.
 
-- Films  : Letterboxd RSS (reliable, no browser needed) -> 5 most recent.
+- Films  : Letterboxd RSS (reliable, no browser needed) -> 10 most recent.
 - Games  : Backloggd via a real headless browser (Playwright) to get past
            Cloudflare -> up to 5 "top" (favourite) games + currently "playing".
 
@@ -157,7 +157,7 @@ def fetch_games(limit=5):
 def main():
     # films
     try:
-        films = fetch_films()
+        films = fetch_films(10)
     except Exception as e:
         films = []
         print(f"films fetch failed: {e}", file=sys.stderr)
