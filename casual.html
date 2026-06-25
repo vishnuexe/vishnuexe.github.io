@@ -106,6 +106,7 @@ h2 .em{display:inline-grid; place-items:center; width:2.5rem; height:2.5rem; fon
 .cover-card:hover img{transform:scale(1.08);}
 .cover-card .t{font-size:.88rem; font-weight:600; color:var(--text); line-height:1.25;}
 .cover-card .stars{font-size:.82rem; color:var(--accent-2); letter-spacing:1px;}
+.cover-card .gyear{font-size:.8rem; color:var(--faint);}
 .subhead{font-family:'Fraunces',serif; font-size:1.05rem; font-weight:600; color:var(--muted); margin:1.8rem 0 .9rem;}
 .lead-line{color:var(--muted); margin-bottom:1.4rem;}
 
@@ -238,7 +239,7 @@ footer{margin-top:4.5rem; padding-top:1.4rem; border-top:1px solid var(--border)
     if (!img) return '';
     const sub = opts.poster
       ? `<span class="stars">${stars(item.rating)}</span>`
-      : '';
+      : (item.year ? `<span class="gyear">${esc(String(item.year))}</span>` : '');
     return `<a class="cover-card" href="${esc(item.url || '#')}" target="_blank" rel="noopener">
         <span class="poster"><img src="${esc(img)}" alt="${esc(item.title)}" loading="lazy"></span>
         <span class="t">${esc(item.title)}</span>${sub}
@@ -301,7 +302,10 @@ footer{margin-top:4.5rem; padding-top:1.4rem; border-top:1px solid var(--border)
 
   fetch('data/games.json', { cache: 'no-store' })
     .then(r => r.json())
-    .then(d => { render('game-grid', (d.items || d.top || []).slice(0, 10)); revealStagger('game-grid'); })
+    .then(d => {
+      const gs = (d.items || d.top || []).slice().sort((a, b) => (b.year || 0) - (a.year || 0));
+      render('game-grid', gs.slice(0, 10)); revealStagger('game-grid');
+    })
     .catch(() => {});
 
   // scroll progress bar
