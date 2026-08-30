@@ -1,8 +1,29 @@
 {
-  "updated": "2026-08-23",
+  "updated": "2026-08-30",
   "source": "letterboxd",
   "user": "vishnuexe",
   "items": [
+    {
+      "title": "Mollywood Times",
+      "year": "2026",
+      "rating": 4.0,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/1/1/3/2/4/2/9/1132429-mollywood-times-0-600-0-900-crop.jpg?v=fafdf231be",
+      "url": "https://letterboxd.com/vishnuexe/film/mollywood-times/"
+    },
+    {
+      "title": "Balan - The Boy",
+      "year": "2026",
+      "rating": 5.0,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/1/2/9/3/0/7/9/1293079-balan-1-0-600-0-900-crop.jpg?v=8e81e14385",
+      "url": "https://letterboxd.com/vishnuexe/film/balan-the-boy/"
+    },
+    {
+      "title": "Dridam",
+      "year": "2026",
+      "rating": 3.0,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/8/1/8/9/2/5/818925-dridam-0-600-0-900-crop.jpg?v=22b04233cc",
+      "url": "https://letterboxd.com/vishnuexe/film/dridam/"
+    },
     {
       "title": "Thudakkam",
       "year": "2026",
@@ -51,27 +72,6 @@
       "rating": 4.0,
       "poster": "https://a.ltrbxd.com/resized/film-poster/1/2/3/1/4/5/6/1231456-vaazha-ii-0-600-0-900-crop.jpg?v=fa9ddbc35a",
       "url": "https://letterboxd.com/vishnuexe/film/vaazha-ii/"
-    },
-    {
-      "title": "Temple Grandin",
-      "year": "2010",
-      "rating": 5.0,
-      "poster": "https://a.ltrbxd.com/resized/film-poster/2/9/6/7/0/29670-temple-grandin-0-600-0-900-crop.jpg?v=4d647b80c1",
-      "url": "https://letterboxd.com/vishnuexe/film/temple-grandin/"
-    },
-    {
-      "title": "Project Hail Mary",
-      "year": "2026",
-      "rating": 4.0,
-      "poster": "https://a.ltrbxd.com/resized/film-poster/6/1/1/2/8/8/611288-project-hail-mary-0-600-0-900-crop.jpg?v=ac31b6ec03",
-      "url": "https://letterboxd.com/vishnuexe/film/project-hail-mary/"
-    },
-    {
-      "title": "Swapped",
-      "year": "2026",
-      "rating": 2.0,
-      "poster": "https://a.ltrbxd.com/resized/film-poster/9/0/7/8/6/8/907868-swapped-2026-0-600-0-900-crop.jpg?v=c7bb59e165",
-      "url": "https://letterboxd.com/vishnuexe/film/swapped-2026/"
     }
   ]
 }
