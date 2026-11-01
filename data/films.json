@@ -1,8 +1,15 @@
 {
-  "updated": "2026-10-25",
+  "updated": "2026-11-01",
   "source": "letterboxd",
   "user": "vishnuexe",
   "items": [
+    {
+      "title": "Jailer 2",
+      "year": "2026",
+      "rating": 5.0,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/1/1/1/7/6/5/3/1117653-jailer-2-2026-0-600-0-900-crop.jpg?v=a29f5a504f",
+      "url": "https://letterboxd.com/vishnuexe/film/jailer-2-2026/"
+    },
     {
       "title": "Mollywood Times",
       "year": "2026",
@@ -65,13 +72,6 @@
       "rating": 4.0,
       "poster": "https://a.ltrbxd.com/resized/film-poster/1/0/7/5/5/1/2/1075512-vaazha-biopic-of-a-billion-boys-0-600-0-900-crop.jpg?v=a6861db2cd",
       "url": "https://letterboxd.com/vishnuexe/film/vaazha/"
-    },
-    {
-      "title": "Vaazha II",
-      "year": "2026",
-      "rating": 4.0,
-      "poster": "https://a.ltrbxd.com/resized/film-poster/1/2/3/1/4/5/6/1231456-vaazha-ii-0-600-0-900-crop.jpg?v=fa9ddbc35a",
-      "url": "https://letterboxd.com/vishnuexe/film/vaazha-ii/"
     }
   ]
 }
