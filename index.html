@@ -60,16 +60,16 @@ a:hover { text-decoration: underline; }
 @media (max-width: 700px){ .navbrand { display: none; } .navlinks { justify-content: flex-start; } }
 
 /* ---------- White rabbit (top-left) → follow it to the casual page ---------- */
-.topnav-inner { padding-left: calc(1.5rem + 34px); }
+.topnav-inner { padding-left: calc(1.5rem + 26px); }
 .rabbit {
   position: fixed; top: 14px; left: 10px; z-index: 61;
-  width: 40px; height: 34px; display: block; cursor: pointer; top: 10px;
+  width: 28px; height: 24px; display: block; cursor: pointer; top: 15px;
   filter: drop-shadow(0 1px 1.5px rgba(0,0,0,.25));
   will-change: transform;
 }
 .rabbit svg { width: 100%; height: 100%; display: block; overflow: visible; }
-.rabbit .rb-anim { position: absolute; width: 80px; height: 80px; left: -20px; top: -24px; pointer-events: none; }
-.rabbit .rb-anim svg { width: 80px !important; height: 80px !important; }
+.rabbit .rb-anim { position: absolute; width: 56px; height: 56px; left: -14px; top: -17px; pointer-events: none; }
+.rabbit .rb-anim svg { width: 56px !important; height: 56px !important; }
 .rabbit.lottie-ready > svg { display: none; }
 .rabbit .ear { transform-box: fill-box; transform-origin: 50% 100%; animation: ear-twitch 5s ease-in-out infinite; }
 .rabbit .ear.e2 { animation-delay: .25s; }
@@ -264,7 +264,7 @@ footer { color: var(--faint); font-size: .85rem; font-family: 'Inter', sans-seri
     </div>
   </div>
 </nav>
-<a class="rabbit" id="rabbit" href="casual.html" title="Follow the white rabbit…" aria-label="Follow the white rabbit to my casual page">
+<span class="rabbit" id="rabbit" role="img" title="Follow the white rabbit…" aria-label="A white rabbit">
   <span class="rb-anim" id="rb-anim" aria-hidden="true"></span>
   <svg viewBox="0 0 40 32" aria-hidden="true">
     <g stroke="#4a4a4a" stroke-width="1" stroke-linejoin="round">
@@ -280,7 +280,7 @@ footer { color: var(--faint); font-size: .85rem; font-family: 'Inter', sans-seri
     <circle cx="31.6" cy="13.4" r="1.05" fill="#1f2328"/>
     <circle class="nose" cx="35.6" cy="15.4" r=".9" fill="#e88a9c"/>
   </svg>
-</a>
+</span>
 <a class="page-curl" href="casual.html" title="Beyond research → films, games &amp; more" aria-label="Personal / casual page"><span class="sky"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></a>
 
 <div class="layout">
@@ -527,7 +527,7 @@ footer { color: var(--faint); font-size: .85rem; font-family: 'Inter', sans-seri
   var r = document.getElementById('rabbit'), curl = document.querySelector('.page-curl');
   if (!r || !curl) return;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduce || !r.animate) return;                       // plain link: click just navigates
+  if (reduce || !r.animate) return;                       // reduced motion: rabbit just sits
 
   var anim = null, RUN = [0, 18];
   function startLottie() {
@@ -542,7 +542,7 @@ footer { color: var(--faint); font-size: .85rem; font-family: 'Inter', sans-seri
   s.src = 'https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie_light.min.js';
   s.onload = startLottie; document.head.appendChild(s);
 
-  var x = 0, y = 0, state = 'home', busy = false, navAfter = false;
+  var x = 0, y = 0, state = 'home', busy = false;
   function path(x0, y0, x1, y1, n, bob) {      // gentle bounce on top of the run cycle
     var k = [], steps = n * 4;
     for (var i = 0; i <= steps; i++) {
@@ -558,32 +558,31 @@ footer { color: var(--faint); font-size: .85rem; font-family: 'Inter', sans-seri
   }
 
   function hopAway() {
-    busy = true; running(.75);
-    go(Math.min(90, window.innerWidth * .18), 0, 2, 3, 600).then(function () { stopping(); state = 'away'; busy = false; });
+    busy = true; running(.45);
+    go(Math.min(80, window.innerWidth * .16), 0, 2, 2, 1000).then(function () { stopping(); state = 'away'; busy = false; });
   }
 
-  function bolt(thenNavigate) {
+  function bolt() {
     busy = true; state = 'gone'; r.style.pointerEvents = 'none';
     var c = curl.getBoundingClientRect(), b = r.getBoundingClientRect();
     var tx = x + (c.left + c.width * .55) - (b.left + b.width / 2);
     var ty = y + (c.top + 4) - (b.top + b.height / 2);
     var dist = Math.abs(tx - x);
-    running(1.1);
-    go(tx - 44, ty + 4, Math.max(3, Math.round(dist / 110)), 3, Math.max(650, dist * 0.75)).then(function () {
+    running(.6);
+    go(tx - 34, ty + 4, Math.max(3, Math.round(dist / 110)), 2, Math.max(1200, dist * 1.4)).then(function () {
       curl.classList.add('gulp');
       return r.animate([                                    // leap into the opening
-        { transform: 'translate(' + (tx - 44) + 'px,' + (ty + 4) + 'px)', opacity: 1 },
+        { transform: 'translate(' + (tx - 34) + 'px,' + (ty + 4) + 'px)', opacity: 1 },
         { transform: 'translate(' + (tx - 20) + 'px,' + (ty - 16) + 'px) rotate(-22deg) scale(.85)', opacity: 1, offset: .5 },
         { transform: 'translate(' + (tx + 6) + 'px,' + (ty - 4) + 'px) rotate(40deg) scale(.12)', opacity: 0 }
-      ], { duration: 480, easing: 'ease-in', fill: 'forwards' }).finished;
+      ], { duration: 700, easing: 'ease-in', fill: 'forwards' }).finished;
     }).then(function () {
-      if (thenNavigate || navAfter) { window.location.href = r.href; return; }
       setTimeout(function () { curl.classList.remove('gulp'); }, 350);
       setTimeout(function () {                              // come back home later
         r.getAnimations().forEach(function (a) { a.cancel(); });
-        x = -60; y = 0; running(.8);
+        x = -60; y = 0; running(.45);
         r.animate([{ transform: 'translate(-60px,0)', opacity: 1 }, { transform: 'translate(0,0)', opacity: 1 }],
-                  { duration: 700, easing: 'ease-out', fill: 'forwards' }).finished.then(function () {
+                  { duration: 1100, easing: 'ease-out', fill: 'forwards' }).finished.then(function () {
           x = 0; y = 0; stopping(); state = 'home'; busy = false; r.style.pointerEvents = '';
         });
       }, 4500);
@@ -592,18 +591,17 @@ footer { color: var(--faint); font-size: .85rem; font-family: 'Inter', sans-seri
 
   r.addEventListener('pointerenter', function (e) {
     if (busy || e.pointerType === 'touch') return;
-    if (state === 'home') hopAway(); else if (state === 'away') bolt(false);
+    if (state === 'home') hopAway(); else if (state === 'away') bolt();
   });
-  r.addEventListener('click', function (e) {               // click: run into the opening, then go
-    e.preventDefault();
-    if (state === 'gone') { navAfter = true; return; }
+  r.addEventListener('click', function () {               // click: just run into the opening
+    if (state === 'gone') return;
     r.getAnimations().forEach(function (a) { a.commitStyles && a.commitStyles(); });
-    bolt(true);
+    bolt();
   });
   window.addEventListener('pageshow', function (ev) {      // coming back via the Back button
     if (!ev.persisted) return;
     r.getAnimations().forEach(function (a) { a.cancel(); });
-    r.style.transform = ''; x = 0; y = 0; state = 'home'; busy = false; navAfter = false; r.style.pointerEvents = '';
+    r.style.transform = ''; x = 0; y = 0; state = 'home'; busy = false; r.style.pointerEvents = '';
     curl.classList.remove('gulp'); if (anim) anim.goToAndStop(0, true);
   });
 })();
