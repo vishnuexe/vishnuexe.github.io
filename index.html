@@ -188,6 +188,7 @@ em.term { font-style: normal; font-weight: 600; }
 .pubs li:last-child { border-bottom: 0; margin-bottom: 0; padding-bottom: 0; }
 .pubs li::before { content: "[" counter(pub) "]"; position: absolute; left: 0; top: .1rem; color: var(--accent); font-family: 'Inter', sans-serif; font-size: .9rem; font-weight: 600; }
 .pubs .venue { font-style: italic; }
+.pubs .award { display: inline-block; margin-top: .45rem; font-family: 'Inter', sans-serif; font-size: .78rem; font-weight: 600; letter-spacing: .02em; color: var(--accent); background: var(--accent-soft); padding: .15rem .55rem; border-radius: 4px; }
 .pubs .pubactions { display: block; margin-top: .4rem; font-family: 'Inter', sans-serif; font-size: .85rem; }
 
 /* Education / service */
@@ -275,8 +276,12 @@ footer { color: var(--faint); font-size: .85rem; font-family: 'Inter', sans-seri
     </section>
 
     <section id="publications">
-      <h2>Selected Publications</h2>
+      <h2>Publications</h2>
       <ol class="pubs">
+        <li>
+          <strong>V. B. Raj</strong>, S. Bhadra, and M. Das, &ldquo;Hand-crafted Features Meet Self-Attention to Catch Machine-crafted Face-Forgery Sans Pixel-Annotation (HAMF3),&rdquo; <span class="venue">International Conference on Computer Vision and Machine Learning (CVML)</span>, 2026.
+          <span class="award">🏆 Best Paper Award</span>
+        </li>
         <li>
           <strong>V. B. Raj</strong> and K. Hareesh, &ldquo;Review on Generative Adversarial Networks,&rdquo; <span class="venue">2020 International Conference on Communication and Signal Processing (ICCSP)</span>, Chennai, India, 2020, pp. 0479&ndash;0482.
           <span class="pubactions"><a href="https://ieeexplore.ieee.org/abstract/document/9182058" target="_blank" rel="noopener">IEEE Xplore ↗</a> &nbsp;·&nbsp; <a href="https://doi.org/10.1109/ICCSP48568.2020.9182058" target="_blank" rel="noopener">doi:10.1109/ICCSP48568.2020.9182058</a></span>
