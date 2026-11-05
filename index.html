@@ -188,7 +188,10 @@ em.term { font-style: normal; font-weight: 600; }
 .pubs li:last-child { border-bottom: 0; margin-bottom: 0; padding-bottom: 0; }
 .pubs li::before { content: "[" counter(pub) "]"; position: absolute; left: 0; top: .1rem; color: var(--accent); font-family: 'Inter', sans-serif; font-size: .9rem; font-weight: 600; }
 .pubs .venue { font-style: italic; }
-.pubs .award { display: inline-block; margin-top: .45rem; font-family: 'Inter', sans-serif; font-size: .78rem; font-weight: 600; letter-spacing: .02em; color: var(--accent); background: var(--accent-soft); padding: .15rem .55rem; border-radius: 4px; }
+.pubs .award { display: inline-block; margin-top: .45rem; font-family: 'Inter', sans-serif; font-size: .78rem; font-weight: 700; letter-spacing: .02em; background: var(--accent-soft); padding: .15rem .55rem; border-radius: 4px; }
+.pubs .award .rainbow { background: linear-gradient(135deg, #d7263d, #f46036, #c89b00, #1b998b, #2e86de, #6a4c93, #d7263d); background-size: 300% 300%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: rainbow-diag 6s linear infinite alternate; }
+@keyframes rainbow-diag { from { background-position: 0% 0%; } to { background-position: 100% 100%; } }
+@media (prefers-reduced-motion: reduce) { .pubs .award .rainbow { animation: none; } }
 .pubs .pubactions { display: block; margin-top: .4rem; font-family: 'Inter', sans-serif; font-size: .85rem; }
 
 /* Education / service */
@@ -280,7 +283,7 @@ footer { color: var(--faint); font-size: .85rem; font-family: 'Inter', sans-seri
       <ol class="pubs">
         <li>
           <strong>V. B. Raj</strong>, S. Bhadra, and M. Das, &ldquo;Hand-crafted Features Meet Self-Attention to Catch Machine-crafted Face-Forgery Sans Pixel-Annotation (HAMF3),&rdquo; <span class="venue">International Conference on Computer Vision and Machine Learning (CVML)</span>, Nanchang, China, 2026.
-          <span class="award">🏆 Best Paper Award</span>
+          <span class="award">🏆 <span class="rainbow">Best Paper Award</span></span>
         </li>
         <li>
           <strong>V. B. Raj</strong> and K. Hareesh, &ldquo;Review on Generative Adversarial Networks,&rdquo; <span class="venue">2020 International Conference on Communication and Signal Processing (ICCSP)</span>, Chennai, India, 2020, pp. 0479&ndash;0482.
