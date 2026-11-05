@@ -147,7 +147,7 @@ a:hover { text-decoration: underline; }
   opacity: 0; transition: opacity .3s ease;
 }
 .portrait-wrap .lens canvas, .portrait-wrap .lens .edges { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-.portrait-wrap .lens .edges { object-fit: cover; filter: url(#edge-filter); mix-blend-mode: screen; }
+.portrait-wrap .lens .edges { object-fit: cover; filter: url(#edge-filter); }
 .portrait-wrap:hover .lens { opacity: 1; }
 .sidebar h1 { font-size: 1.55rem; font-weight: 700; letter-spacing: -.01em; line-height: 1.2; }
 .sidebar .title { color: var(--muted); font-size: 1rem; margin-top: .4rem; line-height: 1.45; }
@@ -253,7 +253,7 @@ footer { color: var(--faint); font-size: .85rem; font-family: 'Inter', sans-seri
       <img class="portrait" src="profile.jpg" alt="Vishnu B Raj">
       <div class="lens" aria-hidden="true">
         <canvas class="rain"></canvas>
-        <img class="edges" src="profile.jpg" alt="">
+        <img class="edges" src="profile-person.png" alt="">
       </div>
     </div>
     <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -432,7 +432,7 @@ footer { color: var(--faint); font-size: .85rem; font-family: 'Inter', sans-seri
     w.style.setProperty('--y', (e.clientY - r.top) + 'px');
   });
 
-  /* Falling 1s and 0s behind the edge lines (runs only while hovering) */
+  /* Falling 1s and 0s behind the cut-out body (runs only while hovering) */
   var c = w.querySelector('canvas.rain'); if (!c || !c.getContext) return;
   var ctx = c.getContext('2d'), dpr = Math.min(window.devicePixelRatio || 1, 2);
   var size = 170, fs = 10, cols = Math.ceil(size / fs), drops = [], raf = null, last = 0;
