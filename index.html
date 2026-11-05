@@ -147,7 +147,7 @@ a:hover { text-decoration: underline; }
   opacity: 0; transition: opacity .3s ease;
 }
 .portrait-wrap .lens canvas, .portrait-wrap .lens .edges { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-.portrait-wrap .lens .edges { object-fit: cover; filter: url(#edge-filter); }
+.portrait-wrap .lens .edges { object-fit: cover; }
 .portrait-wrap:hover .lens { opacity: 1; }
 .sidebar h1 { font-size: 1.55rem; font-weight: 700; letter-spacing: -.01em; line-height: 1.2; }
 .sidebar .title { color: var(--muted); font-size: 1rem; margin-top: .4rem; line-height: 1.45; }
@@ -253,20 +253,9 @@ footer { color: var(--faint); font-size: .85rem; font-family: 'Inter', sans-seri
       <img class="portrait" src="profile.jpg" alt="Vishnu B Raj">
       <div class="lens" aria-hidden="true">
         <canvas class="rain"></canvas>
-        <img class="edges" src="profile-person.png" alt="">
+        <img class="edges" src="profile-edges.png" alt="">
       </div>
     </div>
-    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-      <filter id="edge-filter" color-interpolation-filters="sRGB">
-        <feColorMatrix type="matrix" values=".299 .587 .114 0 0  .299 .587 .114 0 0  .299 .587 .114 0 0  0 0 0 1 0"/>
-        <feConvolveMatrix order="3" preserveAlpha="true" kernelMatrix="0 -1 0  -1 4 -1  0 -1 0"/>
-        <feComponentTransfer>
-          <feFuncR type="linear" slope="0"/>
-          <feFuncG type="linear" slope="5" intercept="-0.15"/>
-          <feFuncB type="linear" slope="1.3" intercept="-0.04"/>
-        </feComponentTransfer>
-      </filter>
-    </svg>
     <h1>Vishnu B Raj</h1>
     <div class="title">PhD Scholar, Artificial Intelligence</div>
     <div class="affil">Indian Institute of Technology, Palakkad<br>Advisor: <a href="https://iitpkd.ac.in/people/sahely" target="_blank" rel="noopener">Dr. Sahely Bhadra</a></div>
