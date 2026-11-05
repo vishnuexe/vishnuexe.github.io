@@ -70,7 +70,8 @@ a:hover { text-decoration: underline; }
 .rabbit svg { width: 100%; height: 100%; display: block; overflow: visible; }
 .rabbit .rb-anim { position: absolute; width: 56px; height: 56px; left: -14px; top: -17px; pointer-events: none; }
 .rabbit .rb-anim svg { width: 56px !important; height: 56px !important; }
-.rabbit.lottie-ready > svg { display: none; }
+.rabbit > svg { display: none; }                 /* hand-drawn fallback: only if Lottie fails */
+.rabbit.fallback > svg { display: block; }
 .rabbit .ear { transform-box: fill-box; transform-origin: 50% 100%; animation: ear-twitch 5s ease-in-out infinite; }
 .rabbit .ear.e2 { animation-delay: .25s; }
 .rabbit .nose { transform-box: fill-box; transform-origin: center; animation: nose-wiggle 1.6s ease-in-out infinite; }
@@ -526,21 +527,24 @@ footer { color: var(--faint); font-size: .85rem; font-family: 'Inter', sans-seri
 (function () {
   var r = document.getElementById('rabbit'), curl = document.querySelector('.page-curl');
   if (!r || !curl) return;
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduce || !r.animate) return;                       // reduced motion: rabbit just sits
-
-  var anim = null, RUN = [0, 18];
+  var anim = null, RUN = [0, 18], ready = false;
+  function fallback() { if (!ready) r.classList.add('fallback'); }
   function startLottie() {
-    if (!window.lottie) return;
+    if (!window.lottie) return fallback();
     anim = lottie.loadAnimation({ container: document.getElementById('rb-anim'), renderer: 'svg',
       loop: false, autoplay: false, path: 'assets/rabbit-davsan.json' });
-    anim.addEventListener('DOMLoaded', function () { r.classList.add('lottie-ready'); anim.goToAndStop(0, true); });
+    anim.addEventListener('DOMLoaded', function () { ready = true; r.classList.remove('fallback'); anim.goToAndStop(0, true); });
+    anim.addEventListener('data_failed', fallback);
   }
   function running(speed) { if (!anim) return; anim.loop = true; anim.setSpeed(speed || 1); anim.playSegments(RUN, true); }
   function stopping() { if (!anim) return; anim.loop = false; anim.goToAndStop(0, true); }
   var s = document.createElement('script');
   s.src = 'https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie_light.min.js';
-  s.onload = startLottie; document.head.appendChild(s);
+  s.onload = startLottie; s.onerror = fallback; document.head.appendChild(s);
+  setTimeout(fallback, 4000);                              // CDN too slow → show the hand-drawn one
+
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce || !r.animate) return;                       // reduced motion: rabbit just sits
 
   var x = 0, y = 0, state = 'home', busy = false;
   function path(x0, y0, x1, y1, n, bob) {      // gentle bounce on top of the run cycle
@@ -568,8 +572,8 @@ footer { color: var(--faint); font-size: .85rem; font-family: 'Inter', sans-seri
     var tx = x + (c.left + c.width * .55) - (b.left + b.width / 2);
     var ty = y + (c.top + 4) - (b.top + b.height / 2);
     var dist = Math.abs(tx - x);
-    running(.6);
-    go(tx - 34, ty + 4, Math.max(3, Math.round(dist / 110)), 2, Math.max(1200, dist * 1.4)).then(function () {
+    running(.4);
+    go(tx - 34, ty + 4, Math.max(3, Math.round(dist / 110)), 2, Math.max(2200, dist * 2.6)).then(function () {
       curl.classList.add('gulp');
       return r.animate([                                    // leap into the opening
         { transform: 'translate(' + (tx - 34) + 'px,' + (ty + 4) + 'px)', opacity: 1 },
