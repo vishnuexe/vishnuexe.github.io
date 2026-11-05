@@ -189,7 +189,7 @@ em.term { font-style: normal; font-weight: 600; }
 .pubs li::before { content: "[" counter(pub) "]"; position: absolute; left: 0; top: .1rem; color: var(--accent); font-family: 'Inter', sans-serif; font-size: .9rem; font-weight: 600; }
 .pubs .venue { font-style: italic; }
 .pubs .award { display: inline-block; margin-top: .45rem; font-family: 'Inter', sans-serif; font-size: .78rem; font-weight: 700; letter-spacing: .02em; background: var(--accent-soft); padding: .15rem .55rem; border-radius: 4px; }
-.pubs .award .rainbow { background: linear-gradient(135deg, #d7263d, #f46036, #c89b00, #1b998b, #2e86de, #6a4c93, #d7263d); background-size: 300% 300%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: rainbow-diag 6s linear infinite alternate; }
+.pubs .award .rainbow { background: linear-gradient(135deg, #d7263d, #f46036, #c89b00, #1b998b, #2e86de, #6a4c93, #d7263d); background-size: 300% 300%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: rainbow-diag 2.5s linear infinite alternate; }
 @keyframes rainbow-diag { from { background-position: 0% 0%; } to { background-position: 100% 100%; } }
 @media (prefers-reduced-motion: reduce) { .pubs .award .rainbow { animation: none; } }
 .pubs .pubactions { display: block; margin-top: .4rem; font-family: 'Inter', sans-serif; font-size: .85rem; }
