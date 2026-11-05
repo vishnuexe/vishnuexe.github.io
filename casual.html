@@ -19,35 +19,35 @@
 <meta name="twitter:image" content="https://vishnuexe.github.io/profile.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
 :root{
-  --bg:#08090e; --surface:#13151d; --border:#252a37; --text:#eef1f7;
-  --muted:#9aa3b8; --faint:#69707f; --accent:#8b7bff; --accent-2:#22d3ee;
-  --glass:rgba(255,255,255,.045); --glass-bd:rgba(255,255,255,.09);
-  --grad:linear-gradient(115deg,#8b7bff,#22d3ee);
+  --bg:#000; --surface:#020b05; --border:#0d3a1a; --text:#d4ffdf;
+  --muted:#6fe39a; --faint:#2f9a5a; --accent:#00ff41; --accent-2:#7dffa8;
+  --glass:rgba(0,20,6,.55); --glass-bd:rgba(0,255,65,.22);
+  --grad:linear-gradient(115deg,#00ff41,#00a82b);
+  --glow:0 0 6px rgba(0,255,65,.65), 0 0 18px rgba(0,255,65,.35);
   --max:1200px;
 }
 *{margin:0;padding:0;box-sizing:border-box;}
 html{scroll-behavior:smooth; scroll-padding-top:76px;}
 body{
   background:var(--bg); color:var(--text);
-  font-family:'Inter',system-ui,sans-serif; font-size:17px; line-height:1.7;
+  font-family:'JetBrains Mono',ui-monospace,monospace; font-size:17px; line-height:1.7;
   -webkit-font-smoothing:antialiased; overflow-x:hidden;
 }
-/* animated gradient blobs */
+/* matrix: digital rain canvas + CRT scanlines */
+#matrix-rain{position:fixed; inset:0; width:100vw; height:100vh; z-index:-2; pointer-events:none; opacity:.42;}
 body::before{
-  content:""; position:fixed; inset:-20%; z-index:-1; pointer-events:none;
+  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none;
   background:
-    radial-gradient(38rem 38rem at 18% 12%, rgba(139,123,255,.22), transparent 60%),
-    radial-gradient(34rem 34rem at 88% 8%, rgba(34,211,238,.18), transparent 60%),
-    radial-gradient(40rem 40rem at 70% 95%, rgba(236,72,153,.12), transparent 62%);
-  filter:blur(8px); animation:drift 24s ease-in-out infinite alternate;
+    repeating-linear-gradient(to bottom, rgba(0,0,0,0) 0, rgba(0,0,0,0) 2px, rgba(0,0,0,.28) 3px),
+    radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,.75) 100%);
 }
-@keyframes drift{ from{transform:translate3d(-3%,-2%,0) scale(1);} to{transform:translate3d(4%,3%,0) scale(1.12);} }
-::selection{background:rgba(139,123,255,.35);}
+::selection{background:#00ff41; color:#000;}
 a{color:var(--accent); text-decoration:none;}
+a:not(.btn):not(.cover-card):hover{text-shadow:0 0 8px rgba(0,255,65,.8);}
 a:hover{text-decoration:underline;}
 .wrap{max-width:var(--max); margin:0 auto; padding:2.5rem 1.4rem 5rem;}
 
@@ -59,25 +59,28 @@ a:hover{text-decoration:underline;}
 .hero{position:relative; overflow:hidden; min-height:46vh; display:flex; flex-direction:column; justify-content:center; padding:3.5rem 0; border-radius:24px;}
 .hero > *{position:relative; z-index:1;}
 .dotgrid{position:absolute; inset:-10% 0; z-index:0; display:grid; grid-template-columns:repeat(var(--cols,26),1fr); grid-auto-rows:1fr; place-items:center; pointer-events:none; will-change:transform;}
-.dotgrid .d{width:5px; height:5px; border-radius:50%; background:rgba(139,123,255,.4); transform:scale(.5);}
+.dotgrid .d{width:5px; height:5px; border-radius:50%; background:rgba(0,255,65,.4); transform:scale(.5);}
 .status{display:inline-flex; align-items:center; gap:.55rem; font-size:.82rem; color:var(--muted); border:1px solid var(--glass-bd); background:var(--glass); padding:.4rem .9rem; border-radius:999px; margin-bottom:1.4rem; backdrop-filter:blur(8px);}
 .status .dot{width:8px;height:8px;border-radius:50%;background:var(--accent-2); box-shadow:0 0 0 0 var(--accent-2); animation:pulse 2.2s infinite;}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(34,211,238,.55);}70%{box-shadow:0 0 0 9px transparent;}100%{box-shadow:0 0 0 0 transparent;}}
-.hero h1{font-family:'Fraunces',serif; font-size:clamp(2.6rem,7vw,4.2rem); font-weight:700; line-height:1.04; letter-spacing:-.025em; margin-bottom:.7rem; background:linear-gradient(100deg,#ffffff 10%,#8b7bff 55%,#22d3ee); -webkit-background-clip:text; background-clip:text; color:transparent;}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(125,255,168,.55);}70%{box-shadow:0 0 0 9px transparent;}100%{box-shadow:0 0 0 0 transparent;}}
+.hero h1{font-family:'Share Tech Mono',monospace; font-size:clamp(2.6rem,7vw,4.2rem); font-weight:700; line-height:1.04; letter-spacing:-.025em; margin-bottom:.7rem; color:var(--accent); text-shadow:var(--glow);}
+.hero h1 .cursor{display:inline-block; width:.55em; margin-left:.08em; color:var(--accent); animation:blink 1s steps(1) infinite;}
+@keyframes blink{50%{opacity:0;}}
 .hero h1 .wave{display:inline-block; transform-origin:70% 70%; animation:wave 2.6s ease-in-out infinite;}
 @keyframes wave{0%,60%,100%{transform:rotate(0);}10%{transform:rotate(16deg);}20%{transform:rotate(-8deg);}30%{transform:rotate(16deg);}40%{transform:rotate(-4deg);}50%{transform:rotate(10deg);}}
-.hero p.sub{font-family:'Fraunces',serif; font-style:italic; font-size:1.25rem; color:var(--muted); margin-bottom:1.2rem;}
+.hero p.sub::before{content:"> "; color:var(--accent);}
+.hero p.sub{font-family:'Share Tech Mono',monospace; font-size:1.25rem; color:var(--muted); margin-bottom:1.2rem;}
 .hero p.intro{color:var(--muted); max-width:640px; font-size:1.05rem;}
 
 section{margin-top:4rem;}
-h2{font-family:'Fraunces',serif; font-size:1.6rem; font-weight:700; margin-bottom:1.3rem; display:flex; align-items:center; gap:.7rem;}
-h2 .em{display:inline-grid; place-items:center; width:2.5rem; height:2.5rem; font-size:1.3rem; border-radius:12px; background:var(--glass); border:1px solid var(--glass-bd); box-shadow:inset 0 0 18px rgba(139,123,255,.18);}
+h2{font-family:'Share Tech Mono',monospace; font-size:1.6rem; font-weight:400; color:var(--accent); text-shadow:0 0 8px rgba(0,255,65,.5); margin-bottom:1.3rem; display:flex; align-items:center; gap:.7rem;}
+h2 .em{display:inline-grid; place-items:center; width:2.5rem; height:2.5rem; font-size:1.3rem; border-radius:12px; background:var(--glass); border:1px solid var(--glass-bd); box-shadow:inset 0 0 18px rgba(0,255,65,.18);}
 
 /* hobby cards (glass) */
 .hobbies{display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:1.1rem;}
 .hobby{position:relative; background:var(--glass); border:1px solid var(--glass-bd); border-radius:18px; padding:1.5rem 1.3rem; text-align:center; backdrop-filter:blur(10px); transition:transform .25s, border-color .25s, box-shadow .25s; overflow:hidden;}
 .hobby::after{content:""; position:absolute; inset:0; background:var(--grad); opacity:0; transition:opacity .25s; mix-blend-mode:overlay;}
-.hobby:hover{transform:translateY(-6px); border-color:transparent; box-shadow:0 20px 44px -20px rgba(139,123,255,.8), 0 0 0 1px rgba(139,123,255,.5);}
+.hobby:hover{transform:translateY(-6px); border-color:transparent; box-shadow:0 20px 44px -20px rgba(0,255,65,.8), 0 0 0 1px rgba(0,255,65,.5);}
 .hobby:hover::after{opacity:.16;}
 .hobby .e{font-size:2.1rem; display:block; margin-bottom:.55rem;}
 .hobby .n{font-weight:600;}
@@ -88,25 +91,26 @@ h2 .em{display:inline-grid; place-items:center; width:2.5rem; height:2.5rem; fon
 /* driving routes map modal */
 .mapmodal[hidden]{display:none;}
 .mapmodal{position:fixed; inset:0; z-index:200; display:flex; align-items:center; justify-content:center; padding:1.2rem;}
-.mapmodal-backdrop{position:absolute; inset:0; background:rgba(4,5,9,.72); -webkit-backdrop-filter:blur(4px); backdrop-filter:blur(4px);}
+.mapmodal-backdrop{position:absolute; inset:0; background:rgba(0,0,0,.8); -webkit-backdrop-filter:blur(4px); backdrop-filter:blur(4px);}
 .mapmodal-dialog{position:relative; width:min(900px,100%); max-height:90vh; display:flex; flex-direction:column; background:var(--surface); border:1px solid var(--glass-bd); border-radius:18px; overflow:hidden; box-shadow:0 30px 80px -20px rgba(0,0,0,.8);}
 .mapmodal-head{display:flex; align-items:center; justify-content:space-between; padding:1rem 1.3rem; border-bottom:1px solid var(--border);}
-.mapmodal-head h3{font-family:'Fraunces',serif; font-size:1.2rem;}
+.mapmodal-head h3{font-family:'Share Tech Mono',monospace; font-size:1.2rem;}
 .mapmodal-x{background:var(--glass); border:1px solid var(--glass-bd); color:var(--text); width:34px; height:34px; border-radius:9px; cursor:pointer; font-size:1rem; line-height:1;}
 .mapmodal-x:hover{border-color:var(--accent);}
-.mapmodal-map{flex:1; min-height:60vh; width:100%; background:#0c0e15;}
+.mapmodal-map{flex:1; min-height:60vh; width:100%; background:#000;}
 .mapmodal-legend{display:flex; flex-wrap:wrap; gap:.5rem 1.1rem; padding:.9rem 1.3rem; border-top:1px solid var(--border); font-size:.85rem; color:var(--muted);}
 .mapmodal-legend .legrow{display:inline-flex; align-items:center; gap:.45rem;}
 .mapmodal-legend i{width:16px; height:4px; border-radius:2px; display:inline-block; flex:none;}
-.leaflet-container{font-family:'Inter',sans-serif; background:#0c0e15;}
+.leaflet-tile-pane{filter:grayscale(1) invert(1) sepia(1) hue-rotate(70deg) saturate(2.6) brightness(.75) contrast(1.1);}
+.leaflet-container{font-family:'JetBrains Mono',monospace; background:#000;}
 @media (max-width:640px){ .mapmodal{padding:.6rem;} .mapmodal-map{min-height:55vh;} }
 
 /* generic panel */
 .panel{background:var(--glass); border:1px solid var(--glass-bd); border-radius:18px; padding:1.7rem; backdrop-filter:blur(10px);}
 .panel p{color:var(--muted);}
-.btn{display:inline-flex; align-items:center; gap:.4rem; margin-top:1.1rem; background:var(--grad); color:#0a0b14; font-weight:700; font-size:.92rem; padding:.7rem 1.3rem; border-radius:12px; transition:transform .2s, box-shadow .2s;}
-.btn:hover{text-decoration:none; transform:translateY(-2px); box-shadow:0 14px 30px -12px rgba(139,123,255,.8);}
-.btn.alt{background:linear-gradient(115deg,#22d3ee,#34d399);}
+.btn{text-transform:uppercase; letter-spacing:.06em; box-shadow:var(--glow); display:inline-flex; align-items:center; gap:.4rem; margin-top:1.1rem; background:var(--grad); color:#0a0b14; font-weight:700; font-size:.92rem; padding:.7rem 1.3rem; border-radius:12px; transition:transform .2s, box-shadow .2s;}
+.btn:hover{text-decoration:none; transform:translateY(-2px); box-shadow:0 14px 30px -12px rgba(0,255,65,.8);}
+.btn.alt{background:linear-gradient(115deg,#7dffa8,#00a82b);}
 
 /* lists */
 .tags{display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.4rem;}
@@ -117,15 +121,15 @@ h2 .em{display:inline-grid; place-items:center; width:2.5rem; height:2.5rem; fon
 .covers{display:grid; grid-template-columns:repeat(auto-fill, minmax(125px,1fr)); gap:1.3rem;}
 .cover-card{display:flex; flex-direction:column; gap:.55rem; text-align:center;}
 .cover-card .poster{position:relative; border-radius:14px; overflow:hidden; border:1px solid var(--glass-bd); box-shadow:0 14px 30px -16px rgba(0,0,0,.7); transition:transform .25s, box-shadow .25s; background:var(--surface);}
-.cover-card .poster::after{content:""; position:absolute; inset:0; background:linear-gradient(to top, rgba(8,9,14,.55), transparent 45%); opacity:0; transition:opacity .25s;}
+.cover-card .poster::after{content:""; position:absolute; inset:0; background:linear-gradient(to top, rgba(0,0,0,.6), transparent 45%); opacity:0; transition:opacity .25s;}
 .cover-card img{display:block; width:100%; aspect-ratio:2/3; object-fit:cover; transition:transform .5s ease;}
 .cover-card:hover{text-decoration:none;}
-.cover-card:hover .poster{transform:translateY(-6px); box-shadow:0 26px 50px -18px rgba(139,123,255,.7); border-color:rgba(139,123,255,.6);}
+.cover-card:hover .poster{transform:translateY(-6px); box-shadow:0 26px 50px -18px rgba(0,255,65,.7); border-color:rgba(0,255,65,.6);}
 .cover-card:hover .poster::after{opacity:1;}
 .cover-card:hover img{transform:scale(1.08);}
-.cover-card .t{font-size:.88rem; font-weight:600; color:var(--text); line-height:1.25;}
+.cover-card .t{font-size:.82rem; font-weight:500; color:var(--text); line-height:1.25;}
 .cover-card .stars{font-size:.82rem; color:var(--accent-2); letter-spacing:1px;}
-.subhead{font-family:'Fraunces',serif; font-size:1.05rem; font-weight:600; color:var(--muted); margin:1.8rem 0 .9rem;}
+.subhead{font-family:'Share Tech Mono',monospace; font-size:1.05rem; font-weight:600; color:var(--muted); margin:1.8rem 0 .9rem;}
 .lead-line{color:var(--muted); margin-bottom:1.4rem;}
 
 footer{margin-top:4.5rem; padding-top:1.4rem; border-top:1px solid var(--border); color:var(--faint); font-size:.85rem;}
@@ -133,7 +137,7 @@ footer{margin-top:4.5rem; padding-top:1.4rem; border-top:1px solid var(--border)
 /* nav bar (glass) */
 .topnav{position:sticky; top:0; z-index:50; background:color-mix(in srgb, var(--bg) 55%, transparent); -webkit-backdrop-filter:blur(14px) saturate(160%); backdrop-filter:blur(14px) saturate(160%); border-bottom:1px solid var(--glass-bd);}
 .topnav-inner{max-width:var(--max); margin:0 auto; padding:0 1.4rem; height:58px; display:flex; align-items:center; justify-content:space-between; gap:1.5rem;}
-.navbrand{font-family:'Fraunces',serif; font-weight:700; font-size:1.05rem; color:var(--text); white-space:nowrap;}
+.navbrand{font-family:'Share Tech Mono',monospace; font-weight:700; font-size:1.05rem; color:var(--text); white-space:nowrap;}
 .navbrand:hover{text-decoration:none;}
 .navlinks{display:flex; flex:1; justify-content:flex-end; gap:1.4rem; overflow-x:auto; padding-right:56px; font-size:.9rem; scrollbar-width:none;}
 .navlinks::-webkit-scrollbar{display:none;}
@@ -163,12 +167,12 @@ footer{margin-top:4.5rem; padding-top:1.4rem; border-top:1px solid var(--border)
 .page-curl .sky i:nth-child(12){top:80%; left:98%; animation-delay:.4s; width:1.5px; height:1.5px;}
 @keyframes twinkle{0%,100%{opacity:.2; transform:scale(.6);}50%{opacity:1; transform:scale(1);}}
 @keyframes streak{0%,100%{opacity:0; transform:translate(-50%,-50%) scale(.2);}50%{opacity:.85; transform:translate(-50%,-50%) scale(1);}}
-.page-curl::after{content:""; position:absolute; inset:0; clip-path:polygon(0 0,0 100%,100% 100%); background:linear-gradient(135deg,#1a1d27,#0c0e15 40%);}
+.page-curl::after{content:""; position:absolute; inset:0; clip-path:polygon(0 0,0 100%,100% 100%); background:linear-gradient(135deg,#03200c,#000 40%);}
 .page-curl:hover{width:56px; height:56px; filter:drop-shadow(-3px 4px 6px rgba(0,0,0,.55));}
 .page-curl:hover .sky i:nth-child(n+7){display:block;}
 
 /* scroll progress bar */
-.progress{position:fixed; top:0; left:0; height:3px; width:0; z-index:70; background:var(--grad); box-shadow:0 0 12px rgba(139,123,255,.7);}
+.progress{position:fixed; top:0; left:0; height:3px; width:0; z-index:70; background:var(--grad); box-shadow:0 0 12px rgba(0,255,65,.7);}
 
 /* scroll reveal */
 .reveal{opacity:0; transform:translateY(34px); transition:opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1);}
@@ -181,7 +185,7 @@ footer{margin-top:4.5rem; padding-top:1.4rem; border-top:1px solid var(--border)
 .rw.in .word > span{transform:translateY(0);}
 
 @media (prefers-reduced-motion: reduce){
-  body::before, .hero h1 .wave, .status .dot{animation:none;}
+  body::before, .hero h1 .wave, .status .dot, .hero h1 .cursor{animation:none;}
   .reveal{opacity:1; transform:none; transition:none;}
   .rw .word > span{transform:none; transition:none;}
   html{scroll-behavior:auto;}
@@ -189,6 +193,7 @@ footer{margin-top:4.5rem; padding-top:1.4rem; border-top:1px solid var(--border)
 </style>
 </head>
 <body>
+<canvas id="matrix-rain" aria-hidden="true"></canvas>
 <div class="progress" id="progress"></div>
 
 <nav class="topnav">
@@ -207,7 +212,7 @@ footer{margin-top:4.5rem; padding-top:1.4rem; border-top:1px solid var(--border)
 
   <header class="hero">
     <div class="dotgrid" id="dotgrid" aria-hidden="true"></div>
-    <h1>Hey, I'm Vishnu <span class="wave">👋</span></h1>
+    <h1><span class="typed" data-text="Hey, I'm Vishnu">Hey, I'm Vishnu</span><span class="cursor" aria-hidden="true">▌</span> <span class="wave">👋</span></h1>
     <p class="sub">When I'm not chasing deepfakes…</p>
   </header>
 
@@ -255,6 +260,43 @@ footer{margin-top:4.5rem; padding-top:1.4rem; border-top:1px solid var(--border)
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ---------- Matrix digital rain (full-page background) ----------
+  (function () {
+    const c = document.getElementById('matrix-rain'); if (!c || !c.getContext) return;
+    const ctx = c.getContext('2d');
+    const still = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const glyphs = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワン0101';
+    const FS = 16; let W, H, cols, drops, last = 0;
+    function size() {
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = window.innerWidth; H = window.innerHeight;
+      c.width = W * dpr; c.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      cols = Math.ceil(W / FS); drops = Array.from({ length: cols }, () => Math.random() * -H / FS);
+      ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H);
+    }
+    function step() {
+      ctx.fillStyle = 'rgba(0,0,0,0.08)'; ctx.fillRect(0, 0, W, H);
+      ctx.font = FS + 'px "Share Tech Mono", monospace';
+      for (let i = 0; i < cols; i++) {
+        const ch = glyphs[(Math.random() * glyphs.length) | 0], x = i * FS, y = drops[i] * FS;
+        ctx.fillStyle = Math.random() < .08 ? '#d4ffdf' : '#00ff41';
+        ctx.fillText(ch, x, y);
+        if (y > H && Math.random() > .975) drops[i] = 0; else drops[i]++;
+      }
+    }
+    function loop(t) { requestAnimationFrame(loop); if (document.hidden || t - last < 45) return; last = t; step(); }
+    size(); window.addEventListener('resize', size);
+    if (still) { for (let k = 0; k < 120; k++) step(); } else requestAnimationFrame(loop);
+  })();
+
+  // ---------- typing effect on the hero heading ----------
+  (function () {
+    const el = document.querySelector('.hero h1 .typed');
+    if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const text = el.dataset.text; el.textContent = ''; let i = 0;
+    (function tick() { el.textContent = text.slice(0, ++i); if (i < text.length) setTimeout(tick, 70 + Math.random() * 60); })();
+  })();
 
   const esc = s => (s || '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
@@ -416,7 +458,7 @@ footer{margin-top:4.5rem; padding-top:1.4rem; border-top:1px solid var(--border)
       const idx = cy * COLS + cx;
       anime({ targets: dots,
         scale: [{ value: 1.9, duration: 130 }, { value: 1, duration: 520 }],
-        backgroundColor: [{ value: '#22d3ee', duration: 130 }, { value: 'rgba(139,123,255,.4)', duration: 600 }],
+        backgroundColor: [{ value: '#7dffa8', duration: 130 }, { value: 'rgba(0,255,65,.4)', duration: 600 }],
         delay: anime.stagger(34, { grid: [COLS, ROWS], from: idx }),
         easing: 'easeOutQuad' });
     });
@@ -441,11 +483,11 @@ footer{margin-top:4.5rem; padding-top:1.4rem; border-top:1px solid var(--border)
       palathattu: { name: 'Palakkayam Thattu',  ll: [11.8408, 75.7847] },
     };
     const ROUTES = [
-      { from: 'cusat',  to: 'munnar',     color: '#8b7bff', label: 'Kochi → Munnar' },
-      { from: 'kannur', to: 'wayanad',    color: '#22d3ee', label: 'Kannur → Wayanad' },
-      { from: 'iitpkd', to: 'ooty',       color: '#34d399', label: 'IIT Palakkad → Ooty' },
-      { from: 'iitpkd', to: 'valparai',   color: '#f472b6', label: 'IIT Palakkad → Valparai' },
-      { from: 'kannur', to: 'palathattu', color: '#fbbf24', label: 'Kannur → Palakkayam Thattu' },
+      { from: 'cusat',  to: 'munnar',     color: '#00ff41', label: 'Kochi → Munnar' },
+      { from: 'kannur', to: 'wayanad',    color: '#ffffff', label: 'Kannur → Wayanad' },
+      { from: 'iitpkd', to: 'ooty',       color: '#b6ff00', label: 'IIT Palakkad → Ooty' },
+      { from: 'iitpkd', to: 'valparai',   color: '#00e5ff', label: 'IIT Palakkad → Valparai' },
+      { from: 'kannur', to: 'palathattu', color: '#ffd400', label: 'Kannur → Palakkayam Thattu' },
     ];
 
     let map = null, built = false;
@@ -459,7 +501,7 @@ footer{margin-top:4.5rem; padding-top:1.4rem; border-top:1px solid var(--border)
 
       const pts = [];
       Object.values(P).forEach(p => {
-        L.circleMarker(p.ll, { radius: 5, color: '#fff', weight: 2, fillColor: '#111827', fillOpacity: 1 })
+        L.circleMarker(p.ll, { radius: 5, color: '#fff', weight: 2, fillColor: '#000', fillOpacity: 1 })
           .addTo(map).bindTooltip(p.name, { direction: 'top' });
         pts.push(p.ll);
       });
