@@ -136,17 +136,17 @@ a:hover { text-decoration: underline; }
   background: var(--accent-soft);
   color: var(--accent); font-size: 3.2rem; font-weight: 600; letter-spacing: -.02em;
 }
-/* Thermal-camera hover lens on portrait */
+/* Edge-detection hover lens on portrait */
 .portrait-wrap { position: relative; width: 170px; height: 170px; margin-bottom: 1.3rem; --x: 50%; --y: 50%; }
 .portrait-wrap .portrait { margin-bottom: 0; display: block; }
-.portrait-wrap .thermal {
+.portrait-wrap .edges {
   position: absolute; inset: 0; pointer-events: none;
-  filter: url(#thermal-filter);
+  filter: url(#edge-filter); background: #000;
   -webkit-mask-image: radial-gradient(circle 48px at var(--x) var(--y), #000 55%, transparent 100%);
           mask-image: radial-gradient(circle 48px at var(--x) var(--y), #000 55%, transparent 100%);
   opacity: 0; transition: opacity .25s ease;
 }
-.portrait-wrap:hover .thermal { opacity: 1; }
+.portrait-wrap:hover .edges { opacity: 1; }
 .sidebar h1 { font-size: 1.55rem; font-weight: 700; letter-spacing: -.01em; line-height: 1.2; }
 .sidebar .title { color: var(--muted); font-size: 1rem; margin-top: .4rem; line-height: 1.45; }
 .sidebar .affil { color: var(--faint); font-size: .92rem; margin-top: .5rem; }
@@ -249,15 +249,16 @@ footer { color: var(--faint); font-size: .85rem; font-family: 'Inter', sans-seri
   <aside class="sidebar">
     <div class="portrait-wrap" id="portrait">
       <img class="portrait" src="profile.jpg" alt="Vishnu B Raj">
-      <img class="portrait thermal" src="profile.jpg" alt="" aria-hidden="true">
+      <img class="portrait edges" src="profile.jpg" alt="" aria-hidden="true">
     </div>
     <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-      <filter id="thermal-filter" color-interpolation-filters="sRGB">
+      <filter id="edge-filter" color-interpolation-filters="sRGB">
         <feColorMatrix type="matrix" values=".299 .587 .114 0 0  .299 .587 .114 0 0  .299 .587 .114 0 0  0 0 0 1 0"/>
+        <feConvolveMatrix order="3" preserveAlpha="true" kernelMatrix="-1 -1 -1  -1 8 -1  -1 -1 -1"/>
         <feComponentTransfer>
-          <feFuncR type="table" tableValues="0 .1 .5 .85 1 1 1"/>
-          <feFuncG type="table" tableValues="0 0 0 .1 .45 .8 1"/>
-          <feFuncB type="table" tableValues="0 .35 .55 .45 .05 .1 .9"/>
+          <feFuncR type="linear" slope="4"/>
+          <feFuncG type="linear" slope="4"/>
+          <feFuncB type="linear" slope="4"/>
         </feComponentTransfer>
       </filter>
     </svg>
