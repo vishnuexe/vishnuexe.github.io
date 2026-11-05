@@ -441,8 +441,7 @@ footer { color: var(--faint); font-size: .85rem; font-family: 'Inter', sans-seri
   ctx.font = fs + 'px monospace';
   var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   function frame(t){
-    raf = requestAnimationFrame(frame);
-    if (t - last < 50) return; last = t;
+    if (!still) { raf = requestAnimationFrame(frame); if (t - last < 50) return; last = t; }
     ctx.fillStyle = 'rgba(0,0,0,0.14)'; ctx.fillRect(0, 0, size, size);
     for (var i = 0; i < cols; i++) {
       var y = drops[i] * fs;
@@ -453,7 +452,7 @@ footer { color: var(--faint); font-size: .85rem; font-family: 'Inter', sans-seri
       if (y > size && Math.random() > .95) drops[i] = 0; else drops[i] += 1;
     }
   }
-  w.addEventListener('pointerenter', function(){ if (!raf && !still) raf = requestAnimationFrame(frame); else if (still) frame(0); });
+  w.addEventListener('pointerenter', function(){ if (still) { for (var k = 0; k < 25; k++) frame(0); } else if (!raf) raf = requestAnimationFrame(frame); });
   w.addEventListener('pointerleave', function(){ if (raf) { cancelAnimationFrame(raf); raf = null; } });
 })();
 </script>
