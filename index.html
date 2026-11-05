@@ -59,6 +59,24 @@ a:hover { text-decoration: underline; }
 .navlinks a:hover { color: var(--accent); text-decoration: none; }
 @media (max-width: 700px){ .navbrand { display: none; } .navlinks { justify-content: flex-start; } }
 
+/* ---------- White rabbit (top-left) → follow it to the casual page ---------- */
+.topnav-inner { padding-left: calc(1.5rem + 34px); }
+.rabbit {
+  position: fixed; top: 14px; left: 10px; z-index: 61;
+  width: 32px; height: 26px; display: block; cursor: pointer;
+  filter: drop-shadow(0 1px 1.5px rgba(0,0,0,.35));
+  will-change: transform;
+}
+.rabbit svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.rabbit .ear { transform-box: fill-box; transform-origin: 50% 100%; animation: ear-twitch 5s ease-in-out infinite; }
+.rabbit .ear.e2 { animation-delay: .25s; }
+.rabbit .nose { transform-box: fill-box; transform-origin: center; animation: nose-wiggle 1.6s ease-in-out infinite; }
+@keyframes ear-twitch { 0%, 86%, 100% { transform: rotate(0); } 90% { transform: rotate(-14deg); } 94% { transform: rotate(6deg); } }
+@keyframes nose-wiggle { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.35); } }
+.rabbit:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+.page-curl.gulp { width: 58px; height: 58px; }
+@media (prefers-reduced-motion: reduce) { .rabbit .ear, .rabbit .nose { animation: none; } }
+
 /* Page-curl (dog-ear) in the top-right corner → casual page */
 .page-curl {
   position: fixed; top: 0; right: 0; z-index: 60;
@@ -243,6 +261,22 @@ footer { color: var(--faint); font-size: .85rem; font-family: 'Inter', sans-seri
     </div>
   </div>
 </nav>
+<a class="rabbit" id="rabbit" href="casual.html" title="Follow the white rabbit…" aria-label="Follow the white rabbit to my casual page">
+  <svg viewBox="0 0 40 32" aria-hidden="true">
+    <g stroke="#4a4a4a" stroke-width="1" stroke-linejoin="round">
+      <ellipse class="ear" cx="26.5" cy="5.5" rx="2.1" ry="6.2" fill="#fff" transform="rotate(-16 26.5 5.5)"/>
+      <ellipse class="ear e2" cx="30.5" cy="5.2" rx="2.1" ry="6.4" fill="#fff" transform="rotate(9 30.5 5.2)"/>
+      <circle cx="6.8" cy="19.5" r="3.4" fill="#fff"/>
+      <ellipse cx="17.5" cy="20" rx="10.5" ry="7.6" fill="#fff"/>
+      <ellipse cx="12.5" cy="27.2" rx="4.2" ry="1.8" fill="#fff"/>
+      <ellipse cx="23" cy="27.4" rx="3.6" ry="1.7" fill="#fff"/>
+      <ellipse cx="29.5" cy="14.5" rx="6.3" ry="5.6" fill="#fff"/>
+    </g>
+    <path d="M26.3 2.2 L26.9 9.5 M30.6 1.6 L30.5 9.3" stroke="#f4b6c2" stroke-width="1.2" stroke-linecap="round"/>
+    <circle cx="31.6" cy="13.4" r="1.05" fill="#1f2328"/>
+    <circle class="nose" cx="35.6" cy="15.4" r=".9" fill="#e88a9c"/>
+  </svg>
+</a>
 <a class="page-curl" href="casual.html" title="Beyond research → films, games &amp; more" aria-label="Personal / casual page"><span class="sky"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span></a>
 
 <div class="layout">
@@ -454,6 +488,90 @@ footer { color: var(--faint); font-size: .85rem; font-family: 'Inter', sans-seri
   }
   w.addEventListener('pointerenter', function(){ if (still) { for (var k = 0; k < 25; k++) frame(0); } else if (!raf) raf = requestAnimationFrame(frame); });
   w.addEventListener('pointerleave', function(){ if (raf) { cancelAnimationFrame(raf); raf = null; } });
+})();
+</script>
+<script>
+/* ---------- Name scramble on load ---------- */
+(function () {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var POOL = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789#%&@$*+=?';
+  document.querySelectorAll('.sidebar h1, .navbrand').forEach(function (el) {
+    var final = el.textContent; el.setAttribute('aria-label', final);
+    var start = performance.now(), dur = 1300;
+    // each letter settles at its own time, roughly left → right
+    var settle = final.split('').map(function (_, i) { return (0.25 + 0.6 * i / final.length + Math.random() * 0.15) * dur; });
+    var lastSwap = 0, cur = final.split('');
+    (function frame(t) {
+      var e = t - start, done = true;
+      if (t - lastSwap > 45) {
+        lastSwap = t;
+        for (var i = 0; i < final.length; i++) {
+          if (final[i] === ' ' || e >= settle[i]) cur[i] = final[i];
+          else { cur[i] = POOL[(Math.random() * POOL.length) | 0]; done = false; }
+        }
+        el.textContent = cur.join('');
+      } else done = false;
+      if (!done && e < dur + 200) requestAnimationFrame(frame); else el.textContent = final;
+    })(start);
+  });
+})();
+
+/* ---------- White rabbit: hop away once, then bolt into the page curl ---------- */
+(function () {
+  var r = document.getElementById('rabbit'), curl = document.querySelector('.page-curl');
+  if (!r || !curl || !r.animate) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var x = 0, y = 0, state = 'home', busy = false;
+
+  function hops(x0, y0, x1, y1, n, hopH) {
+    var k = [], steps = n * 4;
+    for (var i = 0; i <= steps; i++) {
+      var f = i / steps, px = x0 + (x1 - x0) * f, py = y0 + (y1 - y0) * f;
+      var ph = (f * n) % 1, lift = Math.sin(Math.PI * ph) * hopH;
+      var squash = (ph < .12 || ph > .88) ? 'scale(1.08,.9)' : 'scale(.96,1.05)';
+      k.push({ transform: 'translate(' + px + 'px,' + (py - lift) + 'px) ' + squash, offset: f });
+    }
+    k[k.length - 1].transform = 'translate(' + x1 + 'px,' + y1 + 'px)';
+    return k;
+  }
+  function go(x1, y1, n, h, ms) {
+    var a = r.animate(hops(x, y, x1, y1, n, h), { duration: ms, easing: 'linear', fill: 'forwards' });
+    x = x1; y = y1; return a.finished;
+  }
+
+  r.addEventListener('pointerenter', function (e) {
+    if (busy || e.pointerType === 'touch') return;
+    busy = true;
+    if (state === 'home') {
+      go(Math.min(90, window.innerWidth * .18), 0, 2, 9, 520).then(function () { state = 'away'; busy = false; });
+    } else if (state === 'away') {
+      r.style.pointerEvents = 'none';
+      var c = curl.getBoundingClientRect(), b = r.getBoundingClientRect();
+      var tx = x + (c.left + c.width * .55) - (b.left + b.width / 2);
+      var ty = y + (c.top + 4) - (b.top + b.height / 2);
+      var dist = Math.abs(tx - x);
+      go(tx - 40, ty + 6, Math.max(3, Math.round(dist / 90)), 12, Math.max(700, dist * 0.9)).then(function () {
+        curl.classList.add('gulp');
+        // final leap into the opening: up, spin, shrink, vanish
+        return r.animate([
+          { transform: 'translate(' + (tx - 40) + 'px,' + (ty + 6) + 'px)', opacity: 1 },
+          { transform: 'translate(' + (tx - 18) + 'px,' + (ty - 14) + 'px) rotate(-25deg) scale(.9)', opacity: 1, offset: .5 },
+          { transform: 'translate(' + (tx + 6) + 'px,' + (ty - 4) + 'px) rotate(40deg) scale(.15)', opacity: 0 }
+        ], { duration: 520, easing: 'ease-in', fill: 'forwards' }).finished;
+      }).then(function () {
+        setTimeout(function () { curl.classList.remove('gulp'); }, 350);
+        // respawn quietly back home after a while
+        setTimeout(function () {
+          r.getAnimations().forEach(function (a) { a.cancel(); });
+          x = -50; y = 0;
+          r.animate([{ transform: 'translate(-50px,0)', opacity: 0 }, { transform: 'translate(-50px,0)', opacity: 1, offset: .01 }].concat(hops(-50, 0, 0, 0, 2, 8).slice(1)),
+                    { duration: 600, fill: 'forwards' }).finished.then(function () {
+            x = 0; y = 0; state = 'home'; busy = false; r.style.pointerEvents = '';
+          });
+        }, 4500);
+      });
+    }
+  });
 })();
 </script>
 <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
