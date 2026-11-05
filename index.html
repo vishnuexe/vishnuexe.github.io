@@ -64,13 +64,12 @@ a:hover { text-decoration: underline; }
 .rabbit {
   position: fixed; top: 14px; left: 10px; z-index: 61;
   width: 40px; height: 34px; display: block; cursor: pointer; top: 10px;
-  /* white fur on a cream page: thin dark halo works as an outline */
-  filter: drop-shadow(0 0 .6px #3a3a3a) drop-shadow(0 0 .6px #3a3a3a) drop-shadow(0 1px 1.5px rgba(0,0,0,.3));
+  filter: drop-shadow(0 1px 1.5px rgba(0,0,0,.25));
   will-change: transform;
 }
 .rabbit svg { width: 100%; height: 100%; display: block; overflow: visible; }
-.rabbit .rb-anim { position: absolute; width: 68px; height: 68px; left: -14px; top: -18px; pointer-events: none; }
-.rabbit .rb-anim svg { width: 68px !important; height: 68px !important; }
+.rabbit .rb-anim { position: absolute; width: 80px; height: 80px; left: -20px; top: -24px; pointer-events: none; }
+.rabbit .rb-anim svg { width: 80px !important; height: 80px !important; }
 .rabbit.lottie-ready > svg { display: none; }
 .rabbit .ear { transform-box: fill-box; transform-origin: 50% 100%; animation: ear-twitch 5s ease-in-out infinite; }
 .rabbit .ear.e2 { animation-delay: .25s; }
@@ -522,23 +521,23 @@ footer { color: var(--faint); font-size: .85rem; font-family: 'Inter', sans-seri
 })();
 
 /* ---------- White rabbit ----------
-   Animation: "Rabbit Running" by Trịnh Quang Huy (LottieFiles, Lottie Simple License),
-   recoloured white -> assets/rabbit-run.json. Run cycle = frames 0–26, stop/sit = 133–207. */
+   Animation: "davsan" by Musa Adanur (original by Takanori Akagi), LottieFiles, Lottie Simple License.
+   White body fill added -> assets/rabbit-davsan.json. One 18-frame hop cycle @60fps; frame 0 = crouched/sitting. */
 (function () {
   var r = document.getElementById('rabbit'), curl = document.querySelector('.page-curl');
   if (!r || !curl) return;
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduce || !r.animate) return;                       // plain link: click just navigates
 
-  var anim = null, RUN = [0, 26], STOP = [133, 207];
+  var anim = null, RUN = [0, 18];
   function startLottie() {
     if (!window.lottie) return;
     anim = lottie.loadAnimation({ container: document.getElementById('rb-anim'), renderer: 'svg',
-      loop: false, autoplay: false, path: 'assets/rabbit-run.json' });
-    anim.addEventListener('DOMLoaded', function () { r.classList.add('lottie-ready'); anim.goToAndStop(STOP[1], true); });
+      loop: false, autoplay: false, path: 'assets/rabbit-davsan.json' });
+    anim.addEventListener('DOMLoaded', function () { r.classList.add('lottie-ready'); anim.goToAndStop(0, true); });
   }
-  function running(speed) { if (!anim) return; anim.loop = true; anim.setSpeed(speed || 1.4); anim.playSegments(RUN, true); }
-  function stopping() { if (!anim) return; anim.loop = false; anim.setSpeed(1.6); anim.playSegments(STOP, true); }
+  function running(speed) { if (!anim) return; anim.loop = true; anim.setSpeed(speed || 1); anim.playSegments(RUN, true); }
+  function stopping() { if (!anim) return; anim.loop = false; anim.goToAndStop(0, true); }
   var s = document.createElement('script');
   s.src = 'https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie_light.min.js';
   s.onload = startLottie; document.head.appendChild(s);
@@ -559,7 +558,7 @@ footer { color: var(--faint); font-size: .85rem; font-family: 'Inter', sans-seri
   }
 
   function hopAway() {
-    busy = true; running(1.3);
+    busy = true; running(.75);
     go(Math.min(90, window.innerWidth * .18), 0, 2, 3, 600).then(function () { stopping(); state = 'away'; busy = false; });
   }
 
@@ -569,7 +568,7 @@ footer { color: var(--faint); font-size: .85rem; font-family: 'Inter', sans-seri
     var tx = x + (c.left + c.width * .55) - (b.left + b.width / 2);
     var ty = y + (c.top + 4) - (b.top + b.height / 2);
     var dist = Math.abs(tx - x);
-    running(2);
+    running(1.1);
     go(tx - 44, ty + 4, Math.max(3, Math.round(dist / 110)), 3, Math.max(650, dist * 0.75)).then(function () {
       curl.classList.add('gulp');
       return r.animate([                                    // leap into the opening
@@ -582,7 +581,7 @@ footer { color: var(--faint); font-size: .85rem; font-family: 'Inter', sans-seri
       setTimeout(function () { curl.classList.remove('gulp'); }, 350);
       setTimeout(function () {                              // come back home later
         r.getAnimations().forEach(function (a) { a.cancel(); });
-        x = -60; y = 0; running(1.3);
+        x = -60; y = 0; running(.8);
         r.animate([{ transform: 'translate(-60px,0)', opacity: 1 }, { transform: 'translate(0,0)', opacity: 1 }],
                   { duration: 700, easing: 'ease-out', fill: 'forwards' }).finished.then(function () {
           x = 0; y = 0; stopping(); state = 'home'; busy = false; r.style.pointerEvents = '';
@@ -605,7 +604,7 @@ footer { color: var(--faint); font-size: .85rem; font-family: 'Inter', sans-seri
     if (!ev.persisted) return;
     r.getAnimations().forEach(function (a) { a.cancel(); });
     r.style.transform = ''; x = 0; y = 0; state = 'home'; busy = false; navAfter = false; r.style.pointerEvents = '';
-    curl.classList.remove('gulp'); if (anim) anim.goToAndStop(STOP[1], true);
+    curl.classList.remove('gulp'); if (anim) anim.goToAndStop(0, true);
   });
 })();
 </script>
