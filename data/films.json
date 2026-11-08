@@ -1,8 +1,22 @@
 {
-  "updated": "2026-11-01",
+  "updated": "2026-11-08",
   "source": "letterboxd",
   "user": "vishnuexe",
   "items": [
+    {
+      "title": "Ramayana: Rise of a Legend",
+      "year": "2026",
+      "rating": 5.0,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/5/8/2/4/6/6/582466-ramayana-rise-of-a-legend-0-600-0-900-crop.jpg?v=68491e1f52",
+      "url": "https://letterboxd.com/vishnuexe/film/ramayana-rise-of-a-legend/"
+    },
+    {
+      "title": "Midsommar",
+      "year": "2019",
+      "rating": 4.0,
+      "poster": "https://a.ltrbxd.com/resized/film-poster/4/5/9/5/6/4/459564-midsommar-0-600-0-900-crop.jpg?v=ed7b8ded1f",
+      "url": "https://letterboxd.com/vishnuexe/film/midsommar/"
+    },
     {
       "title": "Jailer 2",
       "year": "2026",
@@ -58,20 +72,6 @@
       "rating": 3.0,
       "poster": "https://a.ltrbxd.com/resized/film-poster/7/6/2/4/5/4/762454-drishyam-3-0-600-0-900-crop.jpg?v=274483966a",
       "url": "https://letterboxd.com/vishnuexe/film/drishyam-3/"
-    },
-    {
-      "title": "Obsession",
-      "year": "2025",
-      "rating": 5.0,
-      "poster": "https://a.ltrbxd.com/resized/film-poster/1/2/3/4/4/7/2/1234472-obsession-2025-2-0-600-0-900-crop.jpg?v=cff6fc00b6",
-      "url": "https://letterboxd.com/vishnuexe/film/obsession-2025/"
-    },
-    {
-      "title": "Vaazha",
-      "year": "2024",
-      "rating": 4.0,
-      "poster": "https://a.ltrbxd.com/resized/film-poster/1/0/7/5/5/1/2/1075512-vaazha-biopic-of-a-billion-boys-0-600-0-900-crop.jpg?v=a6861db2cd",
-      "url": "https://letterboxd.com/vishnuexe/film/vaazha/"
     }
   ]
 }
