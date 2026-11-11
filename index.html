@@ -660,7 +660,7 @@ footer { color: var(--faint); font-size: .85rem; font-family: 'Inter', sans-seri
 </script>
 <script>
 /* ---------- Easter egg: Matrix mode ----------
-   Trigger: Konami code (↑ ↑ ↓ ↓ ← → ← → B A) or type "matrix" anywhere. Lasts 10 s; Esc / click the toast to exit. */
+   Trigger: Konami code (↑ ↑ ↓ ↓ ← → ← → B A), type "matrix" anywhere, or click/tap the profile photo. Lasts 10 s; Esc / click the toast to exit. */
 (function () {
   var KONAMI = ['arrowup','arrowup','arrowdown','arrowdown','arrowleft','arrowright','arrowleft','arrowright','b','a'];
   var WORD = 'matrix', keys = [], typed = '', on = false, timer = null, tick = null, raf = null;
@@ -716,6 +716,15 @@ footer { color: var(--faint); font-size: .85rem; font-family: 'Inter', sans-seri
   }
 
   window.addEventListener('resize', function () { if (on) rainSetup(); });
+  // click / tap the profile photo → same effect (tap again to exit)
+  var pic = document.getElementById('portrait');
+  if (pic) {
+    pic.style.cursor = 'pointer';
+    pic.setAttribute('role', 'button'); pic.setAttribute('tabindex', '0');
+    pic.setAttribute('aria-label', 'Profile photo — enter the Matrix');
+    pic.addEventListener('click', function () { on ? exit() : enter(); });
+    pic.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); on ? exit() : enter(); } });
+  }
   document.addEventListener('keydown', function (e) {
     var tag = (e.target.tagName || '').toLowerCase();
     if (tag === 'input' || tag === 'textarea' || e.target.isContentEditable || e.metaKey || e.ctrlKey || e.altKey) return;
