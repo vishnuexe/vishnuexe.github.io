@@ -87,7 +87,7 @@ html.matrix-mode {
   --faint: #2f9a5a; --accent: #00ff41; --accent-soft: rgba(0,255,65,.12); --link: #00ff41;
 }
 html.matrix-mode body { background: #000; }
-html.matrix-mode body, html.matrix-mode body * { font-family: 'JetBrains Mono', ui-monospace, 'Courier New', monospace !important; }
+html.matrix-mode body *:not(.topnav):not(.topnav *) { font-family: 'JetBrains Mono', ui-monospace, 'Courier New', monospace !important; }
 html.matrix-mode h1, html.matrix-mode h2, html.matrix-mode strong { text-shadow: 0 0 8px rgba(0,255,65,.6); }
 html.matrix-mode .portrait, html.matrix-mode img:not(.edges) { filter: grayscale(1) sepia(1) hue-rotate(70deg) saturate(4) brightness(.85); }
 html.matrix-mode .topnav { background: rgba(0,0,0,.7); }
@@ -688,7 +688,7 @@ footer { color: var(--faint); font-size: .85rem; font-family: 'Inter', sans-seri
   var toast = document.createElement('div'); toast.className = 'mx-toast'; toast.setAttribute('role', 'status');
   toast.addEventListener('click', function () { exit(); });
   function typeToast(msg, after) {
-    document.body.appendChild(toast); toast.innerHTML = '<span class="t"></span><span class="c">▌</span><small></small>';
+    document.body.appendChild(toast); toast.innerHTML = '<span class="t"></span><span class="c">▌</span>';
     requestAnimationFrame(function () { toast.classList.add('show'); });
     var t = toast.querySelector('.t'), i = 0;
     (function k() { t.textContent = msg.slice(0, ++i); if (i < msg.length) setTimeout(k, reduce ? 0 : 35); else if (after) after(); })();
@@ -701,10 +701,8 @@ footer { color: var(--faint); font-size: .85rem; font-family: 'Inter', sans-seri
       root.classList.add('matrix-mode'); rainSetup();
       if (reduce) { for (var k = 0; k < 120; k++) rainStep(); } else raf = requestAnimationFrame(loop);
       var left = 10;
-      typeToast('> access granted. you followed the white rabbit.', function () {
-        var sm = toast.querySelector('small');
-        tick = setInterval(function () { left--; if (sm) sm.textContent = left + 's · esc to exit'; if (left <= 0) exit(); }, 1000);
-        if (sm) sm.textContent = left + 's · esc to exit';
+      typeToast('follow the white rabbit', function () {
+        tick = setInterval(function () { left--; if (left <= 0) exit(); }, 1000);
       });
     }, reduce ? 0 : 300);
   }
