@@ -265,7 +265,7 @@ h2{font-family:var(--display); font-size:clamp(2rem,4.5vw,3rem); font-weight:700
 .rail-wrap{position:relative;}
 .covers{display:grid; grid-auto-flow:column; grid-auto-columns:clamp(132px,15vw,170px); grid-template-columns:none; gap:1.1rem;
   overflow-x:auto; scroll-snap-type:x mandatory; padding:.6rem .2rem 1.2rem; scrollbar-width:none;
-  -webkit-mask-image:linear-gradient(90deg,transparent,#000 3%,#000 94%,transparent); mask-image:linear-gradient(90deg,transparent,#000 3%,#000 94%,transparent);}
+  -webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 48px),transparent); mask-image:linear-gradient(90deg,#000 calc(100% - 48px),transparent);}
 .covers::-webkit-scrollbar{display:none;}
 .cover-card{scroll-snap-align:start; text-align:left;}
 .cover-card .poster{border-radius:16px; border:1px solid rgba(0,255,65,.14);}
