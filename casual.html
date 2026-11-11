@@ -19,7 +19,7 @@
 <meta name="twitter:image" content="https://vishnuexe.github.io/profile.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
 <style>
 :root{
@@ -190,6 +190,102 @@ footer{margin-top:4.5rem; padding-top:1.4rem; border-top:1px solid var(--border)
   .rw .word > span{transform:none; transition:none;}
   html{scroll-behavior:auto;}
 }
+
+/* =====================  MODERN LAYER (Matrix palette)  ===================== */
+:root{ --display:'Space Grotesk',system-ui,sans-serif; --body:'Inter',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace; --r:22px; }
+body{font-family:var(--body); font-size:16.5px; letter-spacing:-.005em;}
+#matrix-rain{opacity:.26;}
+body::before{background:
+    repeating-linear-gradient(to bottom, transparent 0 3px, rgba(0,0,0,.18) 3px 4px),
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(0,255,65,.10), transparent 70%),
+    radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,.8) 100%);}
+.wrap{padding-top:1.5rem;}
+
+/* floating pill nav */
+.topnav{position:fixed; top:14px; left:50%; transform:translateX(-50%); width:auto; max-width:calc(100% - 96px);
+  border:1px solid var(--glass-bd); border-radius:999px; background:rgba(0,12,4,.6); box-shadow:0 10px 40px -12px rgba(0,0,0,.9), inset 0 1px 0 rgba(255,255,255,.04);}
+.topnav-inner{height:46px; padding:0 .45rem 0 1.1rem; gap:1rem;}
+.navbrand{font-family:var(--mono); font-size:.82rem; font-weight:500; color:var(--accent);}
+.navbrand::before{content:"~/"; opacity:.55;}
+.navlinks{padding-right:0; gap:.2rem; font-family:var(--mono); font-size:.8rem;}
+.navlinks a{padding:.38rem .85rem; border-radius:999px; transition:background .2s,color .2s;}
+.navlinks a:hover, .navlinks a.active{background:rgba(0,255,65,.12); color:var(--accent); text-shadow:none;}
+
+/* hero */
+.hero{min-height:88vh; padding:7rem 0 4rem; border-radius:0;}
+.eyebrow{font-family:var(--mono); font-size:.78rem; letter-spacing:.14em; text-transform:uppercase; color:var(--faint); display:flex; align-items:center; gap:.6rem; margin-bottom:1.2rem;}
+.eyebrow::before{content:""; width:28px; height:1px; background:var(--accent); box-shadow:0 0 8px var(--accent);}
+.hero h1{font-family:var(--display); font-size:clamp(3rem,9.5vw,7.2rem); font-weight:700; letter-spacing:-.045em; line-height:.95; color:#eafff0; text-shadow:0 0 40px rgba(0,255,65,.25);}
+.hero h1 .accent{color:var(--accent); text-shadow:var(--glow);}
+.hero h1 .cursor{color:var(--accent); font-weight:400;}
+.hero p.sub{font-family:var(--body); font-size:clamp(1.05rem,2vw,1.3rem); color:var(--muted); margin:1.4rem 0 2.2rem; max-width:560px;}
+.hero p.sub::before{content:none;}
+.chips{display:flex; flex-wrap:wrap; gap:.6rem;}
+.chip{display:inline-flex; align-items:center; gap:.5rem; font-family:var(--mono); font-size:.82rem; color:var(--text); padding:.6rem 1rem; border:1px solid var(--glass-bd); border-radius:999px; background:rgba(0,20,6,.5); backdrop-filter:blur(8px); transition:border-color .2s, transform .2s, background .2s;}
+.chip:hover{text-decoration:none; border-color:var(--accent); background:rgba(0,255,65,.08); transform:translateY(-2px); text-shadow:none;}
+.chip .k{color:var(--accent);}
+.scrollcue{position:absolute; left:0; bottom:1.6rem; font-family:var(--mono); font-size:.72rem; color:var(--faint); letter-spacing:.14em; text-transform:uppercase; display:flex; align-items:center; gap:.6rem;}
+.scrollcue i{width:1px; height:34px; background:linear-gradient(var(--accent),transparent); animation:cue 1.8s ease-in-out infinite;}
+@keyframes cue{0%{transform:scaleY(0); transform-origin:top;}50%{transform:scaleY(1); transform-origin:top;}51%{transform-origin:bottom;}100%{transform:scaleY(0); transform-origin:bottom;}}
+
+/* section headers */
+section{margin-top:7rem;}
+.sec-head{display:flex; align-items:flex-end; justify-content:space-between; gap:1.5rem; flex-wrap:wrap; margin-bottom:1.8rem;}
+.sec-head .eyebrow{margin-bottom:.7rem;}
+h2{font-family:var(--display); font-size:clamp(2rem,4.5vw,3rem); font-weight:700; letter-spacing:-.035em; line-height:1; color:#eafff0; text-shadow:none; margin:0;}
+.lead-line{font-size:.98rem; margin:0; max-width:460px;}
+
+/* bento hobbies + cursor spotlight */
+.hobbies{grid-template-columns:repeat(4,1fr); grid-auto-rows:minmax(150px,auto); gap:1rem;}
+.card, .hobby{--mx:50%; --my:50%; position:relative; border-radius:var(--r); background:linear-gradient(180deg,rgba(0,26,8,.72),rgba(0,10,3,.72)); border:1px solid rgba(0,255,65,.14); backdrop-filter:blur(12px); overflow:hidden; isolation:isolate;}
+.card::before, .hobby::before{content:""; position:absolute; inset:0; z-index:-1; opacity:0; transition:opacity .3s; background:radial-gradient(320px circle at var(--mx) var(--my), rgba(0,255,65,.16), transparent 60%);}
+.card:hover::before, .hobby:hover::before{opacity:1;}
+.hobby{text-align:left; padding:1.4rem; display:flex; flex-direction:column; justify-content:flex-end; transition:transform .3s cubic-bezier(.22,1,.36,1), border-color .3s;}
+.hobby::after{content:none;}
+.hobby:hover{transform:translateY(-4px); border-color:rgba(0,255,65,.45); box-shadow:0 24px 50px -24px rgba(0,255,65,.45);}
+.hobby .e{font-size:1.5rem; width:46px; height:46px; display:grid; place-items:center; border-radius:14px; background:rgba(0,255,65,.08); border:1px solid rgba(0,255,65,.18); margin:0 0 auto;}
+.hobby .n{font-family:var(--display); font-size:1.25rem; font-weight:600; letter-spacing:-.02em; margin-top:1.4rem; color:#eafff0;}
+.hobby .d{font-size:.88rem; color:var(--muted);}
+.hobby.big{grid-column:span 2; grid-row:span 2; padding:1.8rem;
+  background:
+    radial-gradient(120% 80% at 100% 0%, rgba(0,255,65,.16), transparent 60%),
+    linear-gradient(180deg,rgba(0,26,8,.75),rgba(0,10,3,.75));}
+.hobby.big .n{font-size:clamp(1.8rem,3.4vw,2.6rem); letter-spacing:-.035em;}
+.hobby.big .d{font-size:1rem;}
+.hobby.big .routes{position:absolute; inset:0; z-index:-1; opacity:.55; pointer-events:none;}
+.hobby.big .routes path{fill:none; stroke:var(--accent); stroke-width:1.4; stroke-dasharray:5 7; animation:dash 18s linear infinite; filter:drop-shadow(0 0 4px rgba(0,255,65,.7));}
+.hobby.big .routes circle{fill:#000; stroke:var(--accent); stroke-width:1.5;}
+@keyframes dash{to{stroke-dashoffset:-240;}}
+.hobby .maphint{font-family:var(--mono); font-size:.78rem; font-weight:500; color:#000; background:var(--accent); align-self:flex-start; padding:.45rem .85rem; border-radius:999px; margin-top:1.1rem; box-shadow:var(--glow);}
+.hobby.wide{grid-column:span 2;}
+@media (max-width:820px){ .hobbies{grid-template-columns:repeat(2,1fr);} }
+@media (max-width:480px){ .hobby.big{grid-row:span 1;} }
+
+/* poster rails */
+.rail-wrap{position:relative;}
+.covers{display:grid; grid-auto-flow:column; grid-auto-columns:clamp(132px,15vw,170px); grid-template-columns:none; gap:1.1rem;
+  overflow-x:auto; scroll-snap-type:x mandatory; padding:.6rem .2rem 1.2rem; scrollbar-width:none;
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 3%,#000 94%,transparent); mask-image:linear-gradient(90deg,transparent,#000 3%,#000 94%,transparent);}
+.covers::-webkit-scrollbar{display:none;}
+.cover-card{scroll-snap-align:start; text-align:left;}
+.cover-card .poster{border-radius:16px; border:1px solid rgba(0,255,65,.14);}
+.cover-card .t{font-family:var(--body); font-size:.86rem;}
+.rail-nav{display:flex; gap:.5rem;}
+.rail-btn{width:42px; height:42px; border-radius:50%; border:1px solid var(--glass-bd); background:rgba(0,20,6,.6); color:var(--accent); font-size:1.05rem; cursor:pointer; transition:background .2s,border-color .2s,transform .2s;}
+.rail-btn:hover{background:rgba(0,255,65,.12); border-color:var(--accent); transform:scale(1.06);}
+
+/* buttons: outlined pill with sliding arrow */
+.btn, .btn.alt{background:transparent; color:var(--accent); border:1px solid rgba(0,255,65,.45); box-shadow:none; font-family:var(--mono); font-weight:500; font-size:.82rem; letter-spacing:.04em; border-radius:999px; padding:.75rem 1.25rem; margin-top:1.2rem !important;}
+.btn:hover{background:var(--accent); color:#000; box-shadow:var(--glow); transform:none;}
+.btn .arr{display:inline-block; transition:transform .25s;}
+.btn:hover .arr{transform:translateX(4px);}
+
+/* footer */
+footer{margin-top:8rem; padding:2.2rem 0 0; display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:1.2rem; font-family:var(--mono);}
+.foot-big{font-family:var(--display); font-size:clamp(1.6rem,4vw,2.4rem); font-weight:700; letter-spacing:-.03em; color:#eafff0;}
+.foot-big:hover{color:var(--accent); text-decoration:none;}
+
+@media (prefers-reduced-motion: reduce){ .scrollcue i, .hobby.big .routes path{animation:none;} }
 </style>
 </head>
 <body>
@@ -212,35 +308,54 @@ footer{margin-top:4.5rem; padding-top:1.4rem; border-top:1px solid var(--border)
 
   <header class="hero">
     <div class="dotgrid" id="dotgrid" aria-hidden="true"></div>
+    <div class="eyebrow">off the clock · v.b.raj</div>
     <h1><span class="typed" data-text="Hey, I'm Vishnu">Hey, I'm Vishnu</span><span class="cursor" aria-hidden="true">▌</span> <span class="wave">👋</span></h1>
-    <p class="sub">When I'm not chasing deepfakes…</p>
+    <p class="sub">When I'm not chasing deepfakes, I'm on a long drive, in the pool, deep in a game, or halfway through a film.</p>
+    <div class="chips">
+      <a class="chip" href="#hobbies"><span class="k">01</span> Hobbies</a>
+      <a class="chip" href="#films"><span class="k">02</span> Films</a>
+      <a class="chip" href="#games"><span class="k">03</span> Games</a>
+    </div>
+    <div class="scrollcue" aria-hidden="true"><i></i>scroll</div>
   </header>
 
   <section id="hobbies">
-    <h2><span class="em">🎯</span> Things I love</h2>
+    <div class="sec-head"><div><div class="eyebrow">01 — Hobbies</div><h2>Things I love</h2></div></div>
     <div class="hobbies">
-      <div class="hobby clickable" id="drive-card" role="button" tabindex="0" aria-haspopup="dialog" aria-label="Driving — open a map of routes I have driven"><span class="e">🚗</span><div class="n">Driving</div><div class="d">Long drives, open roads</div><div class="maphint">Tap for my routes →</div></div>
+      <div class="hobby big clickable" id="drive-card" role="button" tabindex="0" aria-haspopup="dialog" aria-label="Driving — open a map of routes I have driven">
+        <svg class="routes" viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <path d="M40 250 C 90 200, 120 230, 160 170 S 250 120, 300 140 S 360 70, 370 40"/>
+          <path d="M60 60 C 120 90, 140 60, 200 100 S 280 210, 350 230"/>
+          <circle cx="40" cy="250" r="4"/><circle cx="370" cy="40" r="4"/><circle cx="60" cy="60" r="4"/><circle cx="350" cy="230" r="4"/>
+        </svg>
+        <span class="e">🚗</span><div class="n">Driving</div><div class="d">Long drives, open roads, mostly across Kerala and the Nilgiris.</div><div class="maphint">Open my routes →</div></div>
       <div class="hobby"><span class="e">🏊</span><div class="n">Swimming</div><div class="d">Best reset button</div></div>
       <div class="hobby"><span class="e">🎮</span><div class="n">Gaming</div><div class="d">Wind-down mode</div></div>
-      <div class="hobby"><span class="e">🎧</span><div class="n">Music</div><div class="d">Always something playing</div></div>
+      <div class="hobby wide"><span class="e">🎧</span><div class="n">Music</div><div class="d">Always something playing</div></div>
     </div>
   </section>
 
   <section id="films">
-    <h2><span class="em">🎬</span> Recently watched</h2>
-    <p class="lead-line">My latest watches — straight from my <a href="https://letterboxd.com/vishnuexe/" target="_blank" rel="noopener">Letterboxd</a>.</p>
+    <div class="sec-head">
+      <div><div class="eyebrow">02 — Films</div><h2>Recently watched</h2></div>
+      <div class="rail-nav"><button class="rail-btn" type="button" data-rail="film-grid" data-dir="-1" aria-label="Scroll films left">←</button><button class="rail-btn" type="button" data-rail="film-grid" data-dir="1" aria-label="Scroll films right">→</button></div>
+    </div>
+    <p class="lead-line" style="margin-bottom:1rem">My latest watches, straight from my <a href="https://letterboxd.com/vishnuexe/" target="_blank" rel="noopener">Letterboxd</a>.</p>
     <div class="covers" id="film-grid"></div>
-    <a class="btn" href="https://letterboxd.com/vishnuexe/" target="_blank" rel="noopener">My Letterboxd →</a>
+    <a class="btn" href="https://letterboxd.com/vishnuexe/" target="_blank" rel="noopener">My Letterboxd <span class="arr">→</span></a>
   </section>
 
   <section id="games">
-    <h2><span class="em">🕹️</span> Recently played</h2>
-    <p class="lead-line">My latest games — logged on <a href="https://backloggd.com/u/v_shnuexe/" target="_blank" rel="noopener">Backloggd</a>.</p>
+    <div class="sec-head">
+      <div><div class="eyebrow">03 — Games</div><h2>Recently played</h2></div>
+      <div class="rail-nav"><button class="rail-btn" type="button" data-rail="game-grid" data-dir="-1" aria-label="Scroll games left">←</button><button class="rail-btn" type="button" data-rail="game-grid" data-dir="1" aria-label="Scroll games right">→</button></div>
+    </div>
+    <p class="lead-line" style="margin-bottom:1rem">My latest games, logged on <a href="https://backloggd.com/u/v_shnuexe/" target="_blank" rel="noopener">Backloggd</a>.</p>
     <div class="covers" id="game-grid"></div>
-    <a class="btn alt" href="https://backloggd.com/u/v_shnuexe/" target="_blank" rel="noopener" style="margin-top:1.4rem;">See my full Backloggd →</a>
+    <a class="btn alt" href="https://backloggd.com/u/v_shnuexe/" target="_blank" rel="noopener">See my full Backloggd <span class="arr">→</span></a>
   </section>
 
-  <footer>© <span id="year"></span> Vishnu B Raj · the fun page · <a href="index.html">research &amp; work →</a></footer>
+  <footer><a class="foot-big" href="index.html">Back to research &amp; work →</a><span>© <span id="year"></span> Vishnu B Raj</span></footer>
 </div>
 
 <div class="mapmodal" id="drive-modal" hidden role="dialog" aria-modal="true" aria-label="Routes I've driven">
@@ -288,6 +403,24 @@ footer{margin-top:4.5rem; padding-top:1.4rem; border-top:1px solid var(--border)
     function loop(t) { requestAnimationFrame(loop); if (document.hidden || t - last < 45) return; last = t; step(); }
     size(); window.addEventListener('resize', size);
     if (still) { for (let k = 0; k < 120; k++) step(); } else requestAnimationFrame(loop);
+  })();
+
+  // ---------- modern bits: card spotlight, rail arrows, nav scrollspy ----------
+  document.addEventListener('pointermove', (e) => {
+    const c = e.target.closest && e.target.closest('.hobby, .card'); if (!c) return;
+    const r = c.getBoundingClientRect();
+    c.style.setProperty('--mx', (e.clientX - r.left) + 'px'); c.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  }, { passive: true });
+  document.querySelectorAll('.rail-btn').forEach(b => b.addEventListener('click', () => {
+    const rail = document.getElementById(b.dataset.rail); if (!rail) return;
+    rail.scrollBy({ left: Number(b.dataset.dir) * rail.clientWidth * 0.8, behavior: 'smooth' });
+  }));
+  (function () {
+    const links = {}; document.querySelectorAll('.navlinks a').forEach(a => links[a.getAttribute('href').slice(1)] = a);
+    const spy = new IntersectionObserver(es => es.forEach(e => {
+      if (e.isIntersecting) { Object.values(links).forEach(a => a.classList.remove('active')); links[e.target.id] && links[e.target.id].classList.add('active'); }
+    }), { rootMargin: '-45% 0px -50% 0px' });
+    document.querySelectorAll('section[id]').forEach(s => spy.observe(s));
   })();
 
   // ---------- typing effect on the hero heading ----------
